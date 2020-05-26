@@ -182,6 +182,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsBal.cs" />
+    <Compile Include="BAL\AssetManagement\AM_AssetsTypeBal.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />
@@ -8155,6 +8156,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\Angular\AssetManagement\Services\ApplyAssetService.js" />
     <Content Include="Scripts\Angular\DAL\CommonJs.js" />
     <Content Include="Scripts\Angular\DAL\DAL.js" />
     <Content Include="Scripts\Angular\DAL\Navigation.js" />
@@ -9189,7 +9191,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="BAL\EmployeeManagement\" />
     <Folder Include="BAL\Timesheet\" />
-    <Folder Include="Scripts\Angular\AssetManagement\Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

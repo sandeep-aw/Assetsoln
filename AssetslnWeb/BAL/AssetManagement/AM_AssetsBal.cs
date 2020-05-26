@@ -24,10 +24,10 @@ namespace AssetslnWeb.BAL.AssetManagement
                 assetsModelsBal.Add(new AM_AssetsModel
                 {
                     ID = Convert.ToInt32(j["ID"]),
-                    Assets = Convert.ToString(j["Assets"])
+                    Assets = j["Assets"] == null ? "" : Convert.ToString(j["Assets"])
                 });
             }
-            System.Diagnostics.Debug.WriteLine(assetsModelsBal);
+            //System.Diagnostics.Debug.WriteLine(assetsModelsBal);
             return assetsModelsBal;
         }
 
