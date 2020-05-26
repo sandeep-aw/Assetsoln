@@ -1,0 +1,6 @@
+D:\Wizzr\Assetsln\Assetsln\bin\Debug\Assetsln.dll.config
+D:\Wizzr\Assetsln\Assetsln\bin\Debug\Assetsln.pdb
+D:\Wizzr\Assetsln\Assetsln\obj\Debug\Assetsln.csprojAssemblyReference.cache
+D:\Wizzr\Assetsln\Assetsln\obj\Debug\Assetsln.csproj.CoreCompileInputs.cache
+D:\Wizzr\Assetsln\Assetsln\obj\Debug\Assetsln.dll
+D:\Wizzr\Assetsln\Assetsln\obj\Debug\Assetsln.pdb
