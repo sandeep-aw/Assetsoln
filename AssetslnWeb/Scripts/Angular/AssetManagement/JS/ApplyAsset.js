@@ -17,7 +17,31 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $http, ApplyA
             console.log(response);
             $scope.AssetType = response.data;
         });
-
     });
+
+    $scope.SubmitData = function ()
+    {
+        var ApplyAssetObj = {
+            EmployeeCode: $scope.ngddlAllUser,
+            Asset: $("#ddlAsset").val(),
+            AssetType: $scope.ngddlAssetType,
+            AssetCount: $scope.ngtxtAssetCount,
+            Warranty: $scope.ngtxtWarranty,
+            AssetDetails: $scope.ngtxtAssetDetails,
+            ReasonToApply: $scope.ngtxtReasonToApply,
+            RequestDate: $scope.ngtxtRequestDate,
+            ReturnDate: $scope.ngtxtReturnDate
+        }
+        console.log(ApplyAssetObj);
+        ApplyAssetService.getDemo().then(function (response) {
+            
+           // $('#modaldemo4').modal('show');
+        });
+    }
+
+    $scope.PerformAction = function ()
+    {
+        alert('actionperfoem');
+    }
 
 });

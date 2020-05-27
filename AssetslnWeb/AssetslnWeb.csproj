@@ -183,6 +183,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsTypeBal.cs" />
+    <Compile Include="BAL\AssetManagement\AM_BasicInfoBal.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Models\AssetManagement\AM_AssetsTypeModel.cs" />
     <Compile Include="Models\AssetManagement\AM_StatusMasterModel.cs" />
     <Compile Include="Models\AssetManagement\AM_WorkFlowModel.cs" />
+    <Compile Include="Models\AssetManagement\AM_BasicInfoModels.cs" />
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Models\RESTOption.cs" />
     <Compile Include="Models\UserGroupModel.cs" />
@@ -9191,6 +9193,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="BAL\EmployeeManagement\" />
     <Folder Include="BAL\Timesheet\" />
+    <Folder Include="Models\EmployeeManagement\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
