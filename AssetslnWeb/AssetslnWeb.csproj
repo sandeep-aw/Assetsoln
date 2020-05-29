@@ -181,9 +181,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\AssetManagement\AM_AssetsApplyBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsBal.cs" />
+    <Compile Include="BAL\AssetManagement\AM_AssetsHistoryBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsTypeBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_BasicInfoBal.cs" />
+    <Compile Include="BAL\AssetManagement\AM_WorkFlowBal.cs" />
+    <Compile Include="BAL\AssetManagement\AM_ApproverHistoryBal.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />

@@ -32,7 +32,7 @@
 
             <!--Entry Code start-->
             @*@using(Html.BeginForm("SaveAssetData", "ApplyAsset"))
-            {*@
+                {*@
             <div class="card custom-card">
                 <div class="card-body">
                     <div class="card-body pt-0">
@@ -42,7 +42,7 @@
                                     <div class="form-group">
                                         <label for="First_Name">Employee Name</label>
                                         <select class="form-control select2" name="EmployeeName" ng-model="ngddlAllUser">
-                                            <option label="Choose one">
+                                            <option value="">Choose one
                                             </option>
                                             @foreach (var obj in ViewBag.EmpArr)
                                             {
@@ -57,8 +57,8 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Asset</label>
-                                        <select class="form-control select2" name="Assets" id="ddlAsset">
-                                            <option label="Choose one">
+                                        <select class="form-control select2" name="Assets" ng-model="ngddlAsset" id="ddlAsset" ng-change="getAsset()">
+                                            <option value="">Choose one
                                             </option>
                                             @foreach (var j in ViewBag.AssetArr)
                                             {
@@ -76,19 +76,8 @@
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Asset Type</label>
                                         <select class="form-control select2" ng-model="ngddlAssetType" ng-options="a.ID as a.AssetType for a in AssetType">
-                                            <option label="Choose one">
+                                            <option value="">Choose one
                                             </option>
-                                            <!--option label="Choose one">
-                                            </option>
-                                            <option value="Firefox">
-                                                ThinkPad X1 Carbon [6]
-                                            </option>
-                                            <option value="Chrome">
-                                                MacBook [7]
-                                            </option>
-                                            <option value="Safari">
-                                                HP C300 17'Touch screen [10]
-                                            </option-->
                                         </select>
                                     </div>
                                 </div>
@@ -194,24 +183,13 @@
     <script src="~/assets/plugins/select2/js/select2.min.js"></script>
     <script src="~/assets/js/select2.js"></script>
 
-    @*<script>
-        $('.selectemp').select2({
-            placeholder: 'Choose one',
-            searchInputPlaceholder: 'Search',
-            width: '100%'
-        });
-    </script>*@
-
     <!--Internal  jquery-simple-datetimepicker js -->
     <script src="~/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
     <script src="~/assets/js/datePicker.js"></script>
 
-    <script src="~/Scripts/angular.min.js"></script>
-    @*<script src="~/Scripts/angular-resource.min.js"></script>*@
-
     <!--Internal  Notify js -->
-    <script src="../assets/plugins/notify/js/notifIt.js"></script>
-    <script src="../assets/js/Notification.js"></script>
+    <script src="~/assets/plugins/notify/js/notifIt.js"></script>
+    <script src="~/assets/js/Notification.js"></script>
 
     <script src="~/Scripts/Angular/AssetManagement/Services/ApplyAssetService.js"></script>
     <script src="~/Scripts/Angular/AssetManagement/JS/ApplyAsset.js"></script>

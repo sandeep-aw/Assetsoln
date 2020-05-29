@@ -12,11 +12,35 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class AM_BasicInfoBal
     {
+        public List<AM_BasicInfoModels> GetCreatedUserData(ClientContext clientContext,string uid)
+        {
+            List<AM_BasicInfoModels> EmpBal = new List<AM_BasicInfoModels>();
+
+            string filter = "User_Name/Id eq '" + uid + "'";
+
+            JArray jArray = RestGetEmp(clientContext,filter);
+
+            foreach (JObject j in jArray)
+            {
+                EmpBal.Add(new AM_BasicInfoModels
+                {
+                    Id = Convert.ToInt32(j["ID"]),
+                    EmpCode = j["EmpCode"] == null ? "" : Convert.ToString(j["EmpCode"]),
+                    UserNameId = j["User_Name"]["Id"] == null ? "" : Convert.ToString(j["User_Name"]["Id"]),
+                    User_Name = j["User_Name"]["Title"] == null ? "" : Convert.ToString(j["User_Name"]["Title"]).Trim(),
+                });
+            }
+
+            return EmpBal;
+        }
+
         public List<AM_BasicInfoModels> GetEmpData(ClientContext clientContext)
         {
             List<AM_BasicInfoModels> EmpBal = new List<AM_BasicInfoModels>();
 
-            JArray jArray = RestGetEmp(clientContext);
+            string filter = null;
+
+            JArray jArray = RestGetEmp(clientContext,filter);
 
             foreach (JObject j in jArray)
             {
@@ -52,7 +76,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return EmpBal;
         }
 
-        private JArray RestGetEmp(ClientContext clientContext)
+        private JArray RestGetEmp(ClientContext clientContext,string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();
@@ -64,6 +88,11 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             rESTOption.select = selectqry;
             rESTOption.expand = "Designation,Department,Division,Region,Branch,Company,User_Name,Manager";
+
+            if(filter!=null)
+            {
+                rESTOption.filter = filter;
+            }
 
             jArray = restService.GetAllItemFromList(clientContext, "Emp_BasicInfo", rESTOption);
 

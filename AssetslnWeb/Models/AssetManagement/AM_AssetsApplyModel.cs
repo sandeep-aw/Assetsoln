@@ -38,5 +38,7 @@ namespace AssetslnWeb.Models.AssetManagement
         public string Status { get; set; }
 
         public string InternalStatus { get; set; }
+
+        public string CurrentDate { get; set; }
     }
 }

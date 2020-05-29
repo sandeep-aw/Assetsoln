@@ -15,6 +15,8 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string Status { get; set; }
 
+        public string CurrentDate { get; set; }
+
         public string Comments { get; set; }
     }
 }

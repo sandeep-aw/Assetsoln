@@ -10,12 +10,14 @@ ApplyAssetServiceModule.service('ApplyAssetService', function ($http, $q, Common
         return CommonAppUtilityService.CreateItem("/ApplyAsset/GetAssetType", option);
     }
 
-    this.getDemo = function () {
-        var deferred = $q.defer();
+    this.getDemo = function (option) {
+        /*var deferred = $q.defer();
         //alert("started");
         var obj = "get data";
         deferred.resolve(obj);
-        return deferred.promise;
+        return deferred.promise;*/
+
+        return CommonAppUtilityService.CreateItem("/ApplyAsset/SaveAssetData", option);
     }
 
 });
