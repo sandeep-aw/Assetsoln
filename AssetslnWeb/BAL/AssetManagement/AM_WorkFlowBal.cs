@@ -29,7 +29,7 @@ namespace AssetslnWeb.BAL.AssetManagement
                     ActionType = j["ActionType"] == null ? "" : Convert.ToString(j["ActionType"]),
                     InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
                     StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
-                    Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"])
+                    //Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"])
                 });
             }
 

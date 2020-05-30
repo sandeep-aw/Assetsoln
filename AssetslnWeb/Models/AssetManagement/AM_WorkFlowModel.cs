@@ -11,9 +11,13 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string ActionType { get; set; }
 
-        public string Status { get; set; }
+        public string FromStatus { get; set; }
+
+        public string ToStatus { get; set; }
 
         public string InternalStatus { get; set; }
+
+        public string ApproverRoleName { get; set; }
 
         public string StatusId { get; set; }
     }

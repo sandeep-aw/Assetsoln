@@ -181,6 +181,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\Emp_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApplyBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsHistoryBal.cs" />
@@ -188,9 +189,12 @@
     <Compile Include="BAL\AssetManagement\AM_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_WorkFlowBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_ApproverHistoryBal.cs" />
+    <Compile Include="BAL\GEN_ApproverMasterBal.cs" />
+    <Compile Include="BAL\GEN_ApproverRoleListBal.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />
+    <Compile Include="Controllers\AssetManagement\AssetDashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="DAL\AuthenticateUser.cs" />
@@ -200,15 +204,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AssetManagement\AM_ApproverHistoryModel.cs" />
+    <Compile Include="Models\Emp_BasicInfoModels.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetCountHistoryModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApplyModel.cs" />
+    <Compile Include="Models\AssetManagement\AM_AssetsApproverModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsHistoryModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsTypeModel.cs" />
     <Compile Include="Models\AssetManagement\AM_StatusMasterModel.cs" />
     <Compile Include="Models\AssetManagement\AM_WorkFlowModel.cs" />
     <Compile Include="Models\AssetManagement\AM_BasicInfoModels.cs" />
+    <Compile Include="Models\GEN_ApproverMasterModel.cs" />
+    <Compile Include="Models\GEN_ApproverRoleListModel.cs" />
+    <Compile Include="Models\GEN_ApproverRoleNameModel.cs" />
     <Compile Include="Models\NavigationModel.cs" />
     <Compile Include="Models\RESTOption.cs" />
     <Compile Include="Models\UserGroupModel.cs" />
@@ -9192,6 +9200,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\ApplyAsset\Index.cshtml" />
+    <Content Include="Views\AssetDashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

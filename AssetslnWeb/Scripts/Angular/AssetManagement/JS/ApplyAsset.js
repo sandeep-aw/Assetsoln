@@ -65,13 +65,17 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         console.log(ApplyAssetObj);
         ApplyAssetService.getDemo(ApplyAssetObj).then(function (response) {
             console.log(response);
-           // $('#modaldemo4').modal('show');
+            if (response.status == 200) {
+                //$('#modaldemo4').modal('show');
+            } else {
+                alert("Error");
+            }
         });
     }
 
     $scope.PerformAction = function ()
     {
-        alert('actionperfoem');
+        Pageredirect("/AssetDashboard/Index");
     }
 
 });
