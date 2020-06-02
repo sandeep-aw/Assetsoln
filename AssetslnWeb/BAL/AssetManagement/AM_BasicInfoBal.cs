@@ -12,7 +12,27 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class AM_BasicInfoBal
     {
-        public List<AM_BasicInfoModels> GetCreatedUserData(ClientContext clientContext,string uid)
+        public AM_BasicInfoModels GetDataByEmpcode(ClientContext clientContext, string EmpCode)
+        {
+            AM_BasicInfoModels EmpBal = new AM_BasicInfoModels();
+
+            string filter = "EmpCode eq '" + EmpCode + "'";
+
+            JArray jArray = RestGetEmp(clientContext, filter);
+
+            EmpBal = new AM_BasicInfoModels
+            {
+                Id = Convert.ToInt32(jArray[0]["ID"]),
+                EmpCode = jArray[0]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["EmpCode"]),
+                UserNameId = jArray[0]["User_Name"]["Id"] == null ? "" : Convert.ToString(jArray[0]["User_Name"]["Id"]),
+                User_Name = jArray[0]["User_Name"]["Title"] == null ? "" : Convert.ToString(jArray[0]["User_Name"]["Title"]).Trim(),
+            };
+            
+
+            return EmpBal;
+        }
+
+        public List<AM_BasicInfoModels> GetCurrentLoginUser(ClientContext clientContext,string uid)
         {
             List<AM_BasicInfoModels> EmpBal = new List<AM_BasicInfoModels>();
 

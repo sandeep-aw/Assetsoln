@@ -1,4 +1,5 @@
-﻿using AssetslnWeb.DAL;
+﻿using AssetslnWeb.BAL.AssetManagement;
+using AssetslnWeb.DAL;
 using AssetslnWeb.Models;
 using AssetslnWeb.Models.AssetManagement;
 using AssetslnWeb.Models.EmployeeManagement;
@@ -13,10 +14,12 @@ namespace AssetslnWeb.BAL
 {
     public class GEN_ApproverMasterBal
     {
-        public GEN_ApproverRoleNameModel getApproverData(ClientContext clientContext,string empcode,string module,string approvertype)
+        public List<GEN_ApproverRoleNameModel> getApproverData(ClientContext clientContext,string empcode,string module,string approvertype)
         {
-            GEN_ApproverRoleNameModel approverRoleNameModel = new GEN_ApproverRoleNameModel();
+            // approver details model
+            List<GEN_ApproverRoleNameModel> approverRoleNameModel = new List<GEN_ApproverRoleNameModel>();
 
+            // create object for gen_approver master
             GEN_ApproverMasterModel approverMasterModel = new GEN_ApproverMasterModel();
 
             string filter = "Module eq '" + module + "' and Approver_Type eq '" + approvertype +"'";
@@ -29,7 +32,7 @@ namespace AssetslnWeb.BAL
 
             //approverRoleListModels = approverRoleListBal.GetApproverRoleListBals(clientContext);
 
-            Emp_BasicInfoModels managerBasicInfo = new Emp_BasicInfoModels();            
+            Emp_BasicInfoBal basicInfoBal = new Emp_BasicInfoBal();            
 
             approverMasterModel = new GEN_ApproverMasterModel
             {
@@ -46,19 +49,54 @@ namespace AssetslnWeb.BAL
 
             rolenamearr = approverMasterModel.ApproverRoleInternalName.Split(',').ToList();
 
+            // call Emp-basicinfimodel class
+            Emp_BasicInfoBal emp_BasicInfo = new Emp_BasicInfoBal();
+
+            Emp_BasicInfoModels basicInfoManager = new Emp_BasicInfoModels();
+
+            basicInfoManager = emp_BasicInfo.GetEmpManager(clientContext, empcode);
+
             for (int i=0;i<rolenamearr.Count;i++)
             {
                 if(rolenamearr[i] == "Manager")
-                {
-
+                {                   
+                    if (basicInfoManager.ManagerCode != null)
+                    {
+                        approverRoleNameModel.Add(new GEN_ApproverRoleNameModel
+                        {
+                            Sequence = i,
+                            Role = rolenamearr[i],
+                            Empcode = basicInfoManager.ManagerCode
+                        });
+                     }
                 }
                 else if (rolenamearr[i] == "ManagersManager")
                 {
-
+                    if (basicInfoManager.Manager_Code != null)
+                    {
+                        approverRoleNameModel.Add(new GEN_ApproverRoleNameModel
+                        {
+                            Sequence = i,
+                            Role = rolenamearr[i],
+                            Empcode = basicInfoManager.Manager_Code
+                        });
+                    }
                 }
                 else if (rolenamearr[i] == "DepartmentHead")
                 {
+                    if(basicInfoManager.Department!=null)
+                    {
+                        Emp_DepartmentModel departmentModel = new Emp_DepartmentModel();
+                        Emp_DepartmentBal departmentBal = new Emp_DepartmentBal();
+                        departmentModel = departmentBal.GetDepartmentHead(clientContext,basicInfoManager.Department);
 
+                        approverRoleNameModel.Add(new GEN_ApproverRoleNameModel
+                        {
+                            Sequence = i,
+                            Role = rolenamearr[i],
+                            Empcode = departmentModel.HeadOfDepartment
+                        });
+                    }
                 }
             }
 

@@ -40,5 +40,21 @@ namespace AssetslnWeb.Models.AssetManagement
         public string InternalStatus { get; set; }
 
         public string CurrentDate { get; set; }
+
+        public string CurrentApprover { get; set; }
+
+        public string AssetId { get; set; }
+
+        public string AssetTypeId { get; set; }
+
+        public string StatusId { get; set; }
+
+        public string EmployeeNameId { get; set; }
+
+        public string CreatedNameId { get; set; }
+
+        public string fname { get; set; }
+
+        public string lname { get; set; }
     }
 }

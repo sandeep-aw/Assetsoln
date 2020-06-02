@@ -181,6 +181,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\AssetManagement\AM_AssetsApproverBal.cs" />
     <Compile Include="BAL\Emp_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApplyBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsBal.cs" />
@@ -188,7 +189,7 @@
     <Compile Include="BAL\AssetManagement\AM_AssetsTypeBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_WorkFlowBal.cs" />
-    <Compile Include="BAL\AssetManagement\AM_ApproverHistoryBal.cs" />
+    <Compile Include="BAL\Emp_DepartmentBal.cs" />
     <Compile Include="BAL\GEN_ApproverMasterBal.cs" />
     <Compile Include="BAL\GEN_ApproverRoleListBal.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Models\AssetManagement\AM_StatusMasterModel.cs" />
     <Compile Include="Models\AssetManagement\AM_WorkFlowModel.cs" />
     <Compile Include="Models\AssetManagement\AM_BasicInfoModels.cs" />
+    <Compile Include="Models\Emp_DepartmentModel.cs" />
     <Compile Include="Models\GEN_ApproverMasterModel.cs" />
     <Compile Include="Models\GEN_ApproverRoleListModel.cs" />
     <Compile Include="Models\GEN_ApproverRoleNameModel.cs" />
@@ -8170,6 +8172,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\Angular\AssetManagement\JS\AssetDashboard.js" />
     <Content Include="Scripts\Angular\AssetManagement\Services\ApplyAssetService.js" />
     <Content Include="Scripts\Angular\DAL\CommonJs.js" />
     <Content Include="Scripts\Angular\DAL\DAL.js" />

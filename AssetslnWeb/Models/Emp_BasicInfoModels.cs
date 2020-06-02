@@ -31,5 +31,7 @@ namespace AssetslnWeb.Models.EmployeeManagement
         public string User_Name { get; set; }
         public string Manger { get; set; }
         public string UserNameId { get; set; }
+        public string ManagerCode { get; set; }
+        public string ManagerId { get; set; }
     }
 }

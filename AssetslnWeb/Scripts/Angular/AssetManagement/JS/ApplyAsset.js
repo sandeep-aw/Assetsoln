@@ -7,7 +7,6 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
     console.log(d);
     $scope.historydate = $filter('date')(d, 'MM/dd/yyyy');
 
-
     // create request no
     function getRequestNo() {
         var tday = new Date();
@@ -66,7 +65,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         ApplyAssetService.getDemo(ApplyAssetObj).then(function (response) {
             console.log(response);
             if (response.status == 200) {
-                //$('#modaldemo4').modal('show');
+                $('#modaldemo4').modal('show');
             } else {
                 alert("Error");
             }
@@ -75,6 +74,10 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
     $scope.PerformAction = function ()
     {
+        Pageredirect("/AssetDashboard/Index");
+    }
+
+    $scope.Cancel = function () {
         Pageredirect("/AssetDashboard/Index");
     }
 

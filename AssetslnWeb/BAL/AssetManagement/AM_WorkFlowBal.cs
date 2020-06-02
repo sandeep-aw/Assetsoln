@@ -13,11 +13,20 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class AM_WorkFlowBal
     {
-        public List<AM_WorkFlowModel> getWorkFlowData(ClientContext clientContext, string actionType)
+        public List<AM_WorkFlowModel> getWorkFlowData(ClientContext clientContext, string actionType, string fromstatus, string title)
         {
             List<AM_WorkFlowModel> workFlowBal = new List<AM_WorkFlowModel>();
 
-            string filter = "ActionType eq '" + actionType + "'";
+            string filter = "";
+
+            if (title != "")
+            {
+                filter = "ActionType eq '" + actionType + "' and Title eq '" + title + "'";
+            }
+            else
+            {
+                filter = "ActionType eq '" + actionType + "' and FromStatus eq '" + fromstatus + "'";
+            }
 
             JArray jArray = RestGetWorkFlow(clientContext, filter);
 
@@ -27,9 +36,13 @@ namespace AssetslnWeb.BAL.AssetManagement
                 {
                     ID = Convert.ToInt32(j["ID"]),
                     ActionType = j["ActionType"] == null ? "" : Convert.ToString(j["ActionType"]),
-                    InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
-                    StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
-                    //Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"])
+                    FromStatus = j["FromStatus"]["StatusName"] == null ? "" : Convert.ToString(j["FromStatus"]["StatusName"]),
+                    ToStatus = j["ToStatus"]["StatusName"] == null ? "" : Convert.ToString(j["ToStatus"]["StatusName"]),
+                    InternalStatus = j["ToStatus"]["InternalStatus"] == null ? "" : Convert.ToString(j["ToStatus"]["InternalStatus"]),
+                    ApproverRoleName = j["ApproverRoleName"]["ApproverRoleName"] == null ? "" : Convert.ToString(j["ApproverRoleName"]["ApproverRoleName"]),
+                    ToStatusId = j["ToStatus"]["Id"] == null ? "" : Convert.ToString(j["ToStatus"]["Id"]),
+                    FromStatusId = j["FromStatus"]["Id"] == null ? "" : Convert.ToString(j["FromStatus"]["Id"]),
+                    ApproverRoleInternalName = j["ApproverRoleName"]["ApproverRoleInternalName"] == null ? "" : Convert.ToString(j["ApproverRoleName"]["ApproverRoleInternalName"])
                 });
             }
 
@@ -42,8 +55,8 @@ namespace AssetslnWeb.BAL.AssetManagement
             JArray jArray = new JArray();
             RESTOption rESTOption = new RESTOption();
 
-            rESTOption.select = "ID,ActionType,Status/Id,Status/StatusName,InternalStatus";
-            rESTOption.expand = "Status";
+            rESTOption.select = "ID,ActionType,FromStatus/StatusName,FromStatus/Id,ToStatus/StatusName,ToStatus/Id,ToStatus/InternalStatus,ApproverRoleName/ApproverRoleName,ApproverRoleName/ApproverRoleInternalName";
+            rESTOption.expand = "FromStatus,ToStatus,ApproverRoleName";
 
             if (filter != null)
             {

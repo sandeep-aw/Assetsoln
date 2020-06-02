@@ -12,6 +12,12 @@
     <!-- Internal Select2 css -->
     <link href="~/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
 
+    <!-- Internal Data table css -->
+    <link href="../assets/plugins/datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="../assets/plugins/datatable/css/buttons.bootstrap4.min.css" rel="stylesheet">
+    <link href="../assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <link href="../assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
 }
 
 <!-- container opened -->
@@ -26,12 +32,334 @@
     </div>
     <!-- breadcrumb -->
     <!-- row -->
-    <div class="row">
+    <div class="row" ng-app="AssetDashboardapp" ng-controller="AssetDashboardController">
         <div class="col-xl-12 col-lg-12">
 
+            <!-- Pending Dashboard Code start-->
 
-            
-           
+            <div class="card mg-b-20">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0">My Pending Request</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <!--div class="row-sm">
+                        <div class="col-sm-6 col-md-3 mg-t-10 float-right">
+                            <button class="btn btn-dark btn-block">Add</button>
+                        </div>
+                    </div-->
+
+                    <div class="row-sm text-center">
+                        <div class="col-sm-6 col-md-2 mg-b-20 float-right">
+                            <button class="btn btn-info btn-block" ng-click="addAsset()">Apply For Asset</button>
+                        </div>
+                    </div>
+
+
+                    <div class="table-responsive">
+                        <table id="pendingrequest" class="table key-buttons text-md-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-bottom-0">Serial No</th>
+                                    <th class="border-bottom-0">Request No</th>
+                                    <th class="border-bottom-0">Employee Name</th>
+                                    <th class="border-bottom-0">Asset</th>
+                                    <th class="border-bottom-0">Asset Type</th>
+                                    <th class="border-bottom-0">Status</th>
+                                    <th class="border-bottom-0">Request Date</th>
+                                    <th class="border-bottom-0">Return Date</th>
+                                    <th class="border-bottom-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int index = 1;}
+                                @foreach (var j in ViewBag.assetsDataArr)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@j.RequestNo</td>
+                                        <td>@j.fname @j.lname</td>
+                                        <td>@j.Asset</td>
+                                        <td>@j.AssetType</td>
+                                        <td><span class="badge badge-dark">@j.Status</span></td>
+                                        <td>@j.RequestDate</td>
+                                        <td>@j.ReturnDate</td>
+                                        <td>
+                                            <div class="btn-icon-list">
+                                                <button class="btn btn-primary btn-icon"><i class="far fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Dashboard Code End-->
+            <!-- My Request Dashboard Code start-->
+            <div class="card mg-b-20">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0">My Request</h4>
+                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+
+                    <div class="table-responsive">
+                        <table id="myrequest" class="table key-buttons text-md-nowrap">
+                            <thead>
+                                <tr>
+                                    <th class="border-bottom-0">Serial No</th>
+                                    <th class="border-bottom-0">Request No</th>
+                                    <th class="border-bottom-0">Employee Name</th>
+                                    <th class="border-bottom-0">Asset</th>
+                                    <th class="border-bottom-0">Asset Type</th>
+                                    <th class="border-bottom-0">Status</th>
+                                    <th class="border-bottom-0">Request Date</th>
+                                    <th class="border-bottom-0">Return Date</th>
+                                    <th class="border-bottom-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>AM-202005131734310</td>
+                                    <td>Sandeep Nandalaskar</td>
+                                    <td>Laptop</td>
+                                    <td>MacBook [7]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/30/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>AM-202005121216946</td>
+                                    <td>Nand Kumar</td>
+                                    <td>MacBook</td>
+                                    <td>Mac[2]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/29/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>AM-202005111639623</td>
+                                    <td>Varsha Gurav</td>
+                                    <td>Mobile</td>
+                                    <td>IPhone [6]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/28/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>AM-202005131734310</td>
+                                    <td>Sandeep Nandalaskar</td>
+                                    <td>Laptop</td>
+                                    <td>MacBook [7]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/30/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>AM-202005121216946</td>
+                                    <td>Nand Kumar</td>
+                                    <td>MacBook</td>
+                                    <td>Mac[2]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/29/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>AM-202005111639623</td>
+                                    <td>Varsha Gurav</td>
+                                    <td>Mobile</td>
+                                    <td>IPhone [6]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/28/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                <tr>
+                                    <td>7</td>
+                                    <td>AM-202005131734310</td>
+                                    <td>Sandeep Nandalaskar</td>
+                                    <td>Laptop</td>
+                                    <td>MacBook [7]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/30/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>AM-202005121216946</td>
+                                    <td>Nand Kumar</td>
+                                    <td>MacBook</td>
+                                    <td>Mac[2]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/29/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>AM-202005111639623</td>
+                                    <td>Varsha Gurav</td>
+                                    <td>Mobile</td>
+                                    <td>IPhone [6]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/28/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                <tr>
+                                    <td>10</td>
+                                    <td>AM-202005131734310</td>
+                                    <td>Sandeep Nandalaskar</td>
+                                    <td>Laptop</td>
+                                    <td>MacBook [7]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/30/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>AM-202005121216946</td>
+                                    <td>Nand Kumar</td>
+                                    <td>MacBook</td>
+                                    <td>Mac[2]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/29/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>AM-202005111639623</td>
+                                    <td>Varsha Gurav</td>
+                                    <td>Mobile</td>
+                                    <td>IPhone [6]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/28/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                <tr>
+                                    <td>13</td>
+                                    <td>AM-202005131734310</td>
+                                    <td>Sandeep Nandalaskar</td>
+                                    <td>Laptop</td>
+                                    <td>MacBook [7]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/30/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td>AM-202005121216946</td>
+                                    <td>Nand Kumar</td>
+                                    <td>MacBook</td>
+                                    <td>Mac[2]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/29/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td>AM-202005111639623</td>
+                                    <td>Varsha Gurav</td>
+                                    <td>Mobile</td>
+                                    <td>IPhone [6]</td>
+                                    <td><span class="badge badge-dark">Assets approval to TL</span></td>
+                                    <td>05/12/2020</td>
+                                    <td>05/28/2020</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- My Request Dashboard Code End-->
+
+
 
         </div>
     </div>
@@ -50,6 +378,49 @@
     <script src="~/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
     <script src="~/assets/js/datePicker.js"></script>
 
+    <!-- Internal Data tables -->
+    <script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/plugins/datatable/js/responsive.dataTables.min.js"></script>
+    <script src="../assets/plugins/datatable/js/jquery.dataTables.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.bootstrap4.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/plugins/datatable/js/jszip.min.js"></script>
+    <script src="../assets/plugins/datatable/js/pdfmake.min.js"></script>
+    <script src="../assets/plugins/datatable/js/vfs_fonts.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.html5.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.print.min.js"></script>
+    <script src="../assets/plugins/datatable/js/buttons.colVis.min.js"></script>
+    <script src="../assets/plugins/datatable/js/dataTables.responsive.min.js"></script>
+    <script src="../assets/plugins/datatable/js/responsive.bootstrap4.min.js"></script>
+
+    <!--Internal  Datatable js -->
+    <script src="../assets/js/table-data.js"></script>
+
+    <script src="~/Scripts/Angular/AssetManagement/JS/AssetDashboard.js"></script>
+
+    <!-- initialize tables  -->
+    <script>
+        $('#pendingrequest').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_',
+            }
+        });
+
+        $('#myrequest').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_',
+            }
+        });
+    </script>
 }
 
 

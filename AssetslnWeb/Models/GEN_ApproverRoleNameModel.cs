@@ -13,6 +13,6 @@ namespace AssetslnWeb.Models
 
         public string Empcode { get; set; }
 
-        
+        public string ApproverId { get; set; }
     }
 }

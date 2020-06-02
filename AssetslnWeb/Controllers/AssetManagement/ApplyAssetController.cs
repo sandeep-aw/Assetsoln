@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -93,8 +94,9 @@ namespace AssetslnWeb.Controllers.AssetManagement
         [HttpPost]
         public ActionResult SaveAssetData(AM_AssetsApplyModel assetsApplyModel)
         {
-            //string returnID = "0";
+            string returnID = "0";
 
+            // get all employee information stored in session
             List<AM_BasicInfoModels> EmployeeArr = (List<AM_BasicInfoModels>)Session["EmpData"];
 
             // get created name and created code
@@ -111,23 +113,29 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 assetsApplyModel.CreatedName = EmpModel[0].EmpCode;
             }*/
 
-            GEN_ApproverRoleNameModel masterModel = new GEN_ApproverRoleNameModel();
+            // declare ApproverRoleName list object to get approvers data
+            List<GEN_ApproverRoleNameModel> masterModel = new List<GEN_ApproverRoleNameModel>();
 
+            // declare object to call approvers bal class
             GEN_ApproverMasterBal approverMasterBal = new GEN_ApproverMasterBal();
 
+            // declare workflow list object to get workflow data
             List<AM_WorkFlowModel> workFlowModels = new List<AM_WorkFlowModel>();
-            
-            string actionType = "Applied";
 
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
+                // get workflow details by call workflowbal class method
 
-                //AM_WorkFlowBal workFlowBal = new AM_WorkFlowBal();
-                //workFlowModels = workFlowBal.getWorkFlowData(clientContext, actionType);
-                //assetsApplyModel.InternalStatus = workFlowModels[0].InternalStatus;
-                //assetsApplyModel.Status = workFlowModels[0].StatusId;
-            
+                string title = "Main";
+                string actionType = "Forward";
+                string fromstatus = "";               
+
+                AM_WorkFlowBal workFlowBal = new AM_WorkFlowBal();
+                workFlowModels = workFlowBal.getWorkFlowData(clientContext, actionType, fromstatus, title);
+                assetsApplyModel.InternalStatus = workFlowModels[0].InternalStatus;
+                assetsApplyModel.Status = workFlowModels[0].ToStatusId;
+
 
                 foreach (AM_BasicInfoModels emparr in EmployeeArr)
                 {
@@ -148,10 +156,27 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 string modulename = "Asset Management";
                 string approvertype = "Main";
 
-                masterModel = approverMasterBal.getApproverData(clientContext,assetsApplyModel.EmployeeCode,modulename,approvertype);
+                masterModel = approverMasterBal.getApproverData(clientContext, assetsApplyModel.EmployeeCode, modulename, approvertype);
+
+                for(var i=0;i<masterModel.Count;i++)
+                {
+                    AM_BasicInfoBal infoBalEmpCode = new AM_BasicInfoBal();
+
+                    AM_BasicInfoModels basicInfoModels = new AM_BasicInfoModels();
+
+                    basicInfoModels = infoBalEmpCode.GetDataByEmpcode(clientContext, masterModel[i].Empcode);
+
+                    if(masterModel[i].Sequence==0)
+                    {
+                        assetsApplyModel.CurrentApprover = masterModel[i].Empcode;
+                    }
+
+                    masterModel[i].ApproverId = (basicInfoModels.Id).ToString();
+                }
 
                 // get approver data end
 
+                // save assetsapply data
                 string itemdata = " 'RequestNo' : '" + assetsApplyModel.RequestNo + "',";
                 itemdata += "'EmployeeNameId': '" + Convert.ToInt32(assetsApplyModel.EmployeeName) + "',";
                 itemdata += "'EmployeeCode': '" + assetsApplyModel.EmployeeCode + "',";
@@ -166,43 +191,48 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 itemdata += "'RequestDate': '" + assetsApplyModel.RequestDate + "',";
                 itemdata += "'ReturnDate': '" + assetsApplyModel.ReturnDate + "',";
                 itemdata += "'StatusId': '" + Convert.ToInt32(assetsApplyModel.Status) + "',";
-                itemdata += "'InternalStatus': '" + assetsApplyModel.InternalStatus + "'";
+                itemdata += "'InternalStatus': '" + assetsApplyModel.InternalStatus + "',";
+                itemdata += "'CurrentApprover': '" + assetsApplyModel.CurrentApprover + "'";
 
-                //string itemdata = "'InternalStatus': '" + assetsApplyModel.InternalStatus + "'";
+                // call assetsapply bal class method
+                AM_AssetsApplyBal assetsApplyBal = new AM_AssetsApplyBal();
 
-                //AM_AssetsApplyBal assetsApplyBal = new AM_AssetsApplyBal();
+                returnID = assetsApplyBal.SaveAssetsApplyData(clientContext, itemdata);
 
-                //returnID = assetsApplyBal.SaveAssetsApplyData(clientContext, itemdata);
+                if (returnID != "0")
+                {
+                    // save history data
+                    AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
 
-                //if(returnID != "0")
-                //{
-                //    AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
+                    var itemapprover = " 'LIDId' : '" + returnID + "',";
+                    itemapprover += "'ActionTakenId': '" + assetsApplyModel.CreatedName + "',";
+                    itemapprover += "'Date': '" + assetsApplyModel.CurrentDate + "',";
+                    itemapprover += "'StatusId': '" + assetsApplyModel.Status + "',";
+                    itemapprover += "'Comments': '" + assetsApplyModel.ReasonToApply + "'";
 
-                //    var itemapprover = " 'LIDId' : '" + returnID + "',";
-                //    itemapprover += "'ActionTakenId': '" + assetsApplyModel.CreatedName + "',";
-                //    itemapprover += "'Date': '" + assetsApplyModel.CurrentDate + "',";
-                //    itemapprover += "'StatusId': '" + assetsApplyModel.Status + "',";
-                //    itemapprover += "'Comments': '" + assetsApplyModel.ReasonToApply + "'";
+                    AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
+                    assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);
 
-                //    AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
-                //    assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);
+                    // save approver data
+                    for (var i = 0; i < masterModel.Count; i++)
+                    {
+                        AM_AssetsApproverBal assetsApproverBal = new AM_AssetsApproverBal();
 
-                //    for(var i=0;i< ApproverArr.Count;i++)
-                //    {
-                //        AM_ApproverHistoryBal approverHistoryBal = new AM_ApproverHistoryBal();
+                        string status = "Pending";
 
-                //        var itemapproverdata = " 'LIDId' : '" + returnID + "',";
-                //        itemapproverdata += "'Status': '" + ApproverArr[i]. Status+ "',";
-                //        itemapproverdata += "'ApproverNameId': '" + ApproverArr[i].ApproverName + "',";
-                //        itemapproverdata += "'ApproverCode': '" + ApproverArr[i].ApproverCode + "'";
+                        var itemapproverdata = " 'LIDId' : '" + returnID + "',";
+                        itemapproverdata += "'ApproverIDId': '" + masterModel[i].ApproverId + "',";
+                        itemapproverdata += "'ApproverCode': '" + masterModel[i].Empcode + "',";
+                        itemapproverdata += "'ApproverRoleInternalName': '" + masterModel[i].Role + "',";
+                        itemapproverdata += "'Status': '" + status + "'";
 
-                //        approverHistoryBal.SaveApproverHistoryData(clientContext, itemapproverdata);
-                //    }
-                //}
+                        assetsApproverBal.SaveAssetsApproverData(clientContext, itemapproverdata);
+                    }
+                }
             }
 
-            //return Json(returnID, JsonRequestBehavior.AllowGet);
-            return View();
+            return Json(returnID, JsonRequestBehavior.AllowGet);
+            //return View();
         }
 
     }

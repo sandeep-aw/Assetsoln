@@ -7,9 +7,9 @@ using System.Web;
 
 namespace AssetslnWeb.BAL.AssetManagement
 {
-    public class AM_ApproverHistoryBal
+    public class AM_AssetsApproverBal
     {
-        public string SaveApproverHistoryData(ClientContext clientContext, string ItemData)
+        public string SaveAssetsApproverData(ClientContext clientContext, string ItemData)
         {
 
             string response = RESTSave(clientContext, ItemData);
@@ -21,7 +21,7 @@ namespace AssetslnWeb.BAL.AssetManagement
         {
             RestService restService = new RestService();
 
-            return restService.SaveItem(clientContext, "AM_ApproverHistory", ItemData);
+            return restService.SaveItem(clientContext, "AM_AssetsApprover", ItemData);
         }
     }
 }
