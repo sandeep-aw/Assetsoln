@@ -14,168 +14,184 @@
 
 }
 
-<!-- container opened -->
-<div class="container">
-    <!-- breadcrumb -->
-    <div class="breadcrumb-header justify-content-between">
-        <div class="my-auto">
-            <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Asset Management</h4><span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Apply For Asset</span>
+<form id="ApplyAssetForm" ng-app="ApplyAssetapp" ng-controller="ApplyAssetController">
+    <!-- container opened -->
+    <div class="container">
+        <!-- breadcrumb -->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="my-auto">
+                <div class="d-flex">
+                    <h4 class="content-title mb-0 my-auto">Asset Management</h4><span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Apply For Asset</span>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- breadcrumb -->
-    <!-- row -->
-    <div class="row" ng-app="ApplyAssetapp" ng-controller="ApplyAssetController">
-        <div class="col-xl-12 col-lg-12">
+        <!-- breadcrumb -->
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
 
 
-            <!--Entry Code start-->
-            @*@using(Html.BeginForm("SaveAssetData", "ApplyAsset"))
-                {*@
-            <div class="card custom-card">
-                <div class="card-body">
-                    <div class="card-body pt-0">
-                        <div class="">
-                            <div class="row row-sm">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="First_Name">Employee Name</label>
-                                        <select class="form-control select2" name="EmployeeName" ng-model="ngddlAllUser">
-                                            <option value="">Choose one
-                                            </option>
-                                            @foreach (var obj in ViewBag.EmpArr)
-                                            {
-                                                <option value="@obj.UserNameId">
-                                                    @obj.User_Name
-                                                </option>
-                                            }
-                                        </select>
+                <!--Entry Code start-->
+                @*@using(Html.BeginForm("SaveAssetData", "ApplyAsset"))
+                    {*@
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="card-body pt-0">
+                            <div class="">
+                                <div class="row row-sm">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="First_Name">Employee Name</label>
+                                            <div id="slWrapper" class="parsley-select">
+                                                <select required="" class="form-control select2" name="EmployeeName" ng-model="ngddlAllUser" data-parsley-class-handler="#slWrapper" data-parsley-errors-container="#slErrorContainer">
+                                                    <option value="">
+                                                        Choose one
+                                                    </option>
+                                                    @foreach (var obj in ViewBag.EmpArr)
+                                                    {
+                                                        <option value="@obj.UserNameId">
+                                                            @obj.User_Name
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div id="slErrorContainer"></div>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Asset</label>
-                                        <select class="form-control select2" name="Assets" ng-model="ngddlAsset" id="ddlAsset" ng-change="getAsset()">
-                                            <option value="">Choose one
-                                            </option>
-                                            @foreach (var j in ViewBag.AssetArr)
-                                            {
-                                                <option value="@j.ID">
-                                                    @j.Assets
-                                                </option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row row-sm">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Asset Type</label>
-                                        <select class="form-control select2" ng-model="ngddlAssetType" ng-options="a.ID as a.AssetType for a in AssetType">
-                                            <option value="">Choose one
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="First_Name">Asset Count</label>
-                                        <input type="text" class="form-control" ng-model="ngtxtAssetCount" id="First_Name" placeholder="Enter Employee Name">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row row-sm">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Request Date</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                                </div>
-                                            </div><input class="form-control" ng-model="ngtxtRequestDate" id="datetimepicker" type="text">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Asset</label>
+                                            <div id="slWrapper1" class="parsley-select">
+                                                <select required="" class="form-control select2" name="Assets" ng-model="ngddlAsset" id="ddlAsset" ng-change="getAsset()" data-parsley-class-handler="#slWrapper1" data-parsley-errors-container="#slErrorContainer1">
+                                                    <option value="">
+                                                        Choose one
+                                                    </option>
+                                                    @foreach (var j in ViewBag.AssetArr)
+                                                    {
+                                                        <option value="@j.ID">
+                                                            @j.Assets
+                                                        </option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div id="slErrorContainer1"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputPassword1">Return Date</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">
-                                                    <script src="~/assets/js/form-elements.js"></script>
-                                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                                </div>
-                                            </div><input class="form-control" ng-model="ngtxtReturnDate" id="datetimepicker1" type="text">
+
+                                <div class="row row-sm">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Asset Type</label>
+                                            <div id="slWrapper2" class="parsley-select">
+                                                <select required="" class="form-control select2" ng-model="ngddlAssetType" ng-options="a.ID as a.AssetType for a in AssetType" data-parsley-class-handler="#slWrapper2" data-parsley-errors-container="#slErrorContainer2">
+                                                    <option value="">
+                                                        Choose one
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div id="slErrorContainer2"></div>
+                                        </div>
+                                        </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="First_Name">Asset Count</label>
+                                            <input required="" type="text" class="form-control" ng-model="ngtxtAssetCount" id="First_Name" placeholder="Enter Employee Name">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row row-sm">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Request Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                                    </div>
+                                                </div><input required="" class="form-control" ng-model="ngtxtRequestDate" id="datetimepicker" type="text" data-parsley-class-handler="#slRequestDate" data-parsley-errors-container="#slRequestDateError">
+                                            </div>
+                                            <div id="slRequestDateError"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="exampleInputPassword1">Return Date</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">
+                                                        <script src="~/assets/js/form-elements.js"></script>
+                                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                                    </div>
+                                                </div><input required="" class="form-control" ng-model="ngtxtReturnDate" id="datetimepicker1" type="text" data-parsley-class-handler="#slReturnDate" data-parsley-errors-container="#slReturnDateError">
+                                            </div>
+                                            <div id="slReturnDateError"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row row-sm">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="txtDescription">Reason To Apply</label>
+                                            <textarea required="" class="form-control" ng-model="ngtxtReasonToApply" id="txtDescription" placeholder="Enter Description" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="txtDescription">Asset Details</label>
+                                            <textarea required="" class="form-control" ng-model="ngtxtAssetDetails" id="txtDescription" placeholder="Enter Description" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row row-sm">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="First_Name">Warranty</label>
+                                            <input type="text" required="" ng-model="ngtxtWarranty" class="form-control" id="First_Name" placeholder="Enter warranty in months">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row row-sm">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="txtDescription">Reason To Apply</label>
-                                        <textarea class="form-control" ng-model="ngtxtReasonToApply" id="txtDescription" placeholder="Enter Description" rows="3"></textarea>
-                                    </div>
+                            <div class="row row-sm text-center">
+                                <div class="col-sm-3">
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="txtDescription">Asset Details</label>
-                                        <textarea class="form-control" ng-model="ngtxtAssetDetails" id="txtDescription" placeholder="Enter Description" rows="3"></textarea>
-                                    </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    @*<button class="btn btn-primary btn-block" ng-click="SubmitData()">Submit</button>
+                                        <button class="btn btn-primary btn-block">Submit</button>*@
                                 </div>
-                            </div>
-
-                            <div class="row row-sm">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label for="First_Name">Warranty</label>
-                                        <input type="text" ng-model="ngtxtWarranty" class="form-control" id="First_Name" placeholder="Enter warranty in months">
-                                    </div>
+                                <div class="col-lg-3">
+                                    <button class="btn btn-light btn-block" ng-click="Cancel()">Cancel</button>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row row-sm text-center">
-                            <div class="col-sm-3">
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-primary btn-block" ng-click="SubmitData()">Submit</button>
-                                @*<button class="btn btn-primary btn-block">Submit</button>*@
-                            </div>
-                            <div class="col-lg-3">
-                                <button class="btn btn-light btn-block" ng-click="Cancel()">Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @*}*@
-            <!--Entry Code End-->
-            <!-- Modal alert message Success -->
-            <div class="modal" id="modaldemo4" data-backdrop="static" data-keyboard="false">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content tx-size-sm">
-                        <div class="modal-body tx-center pd-y-20 pd-x-20">
-                            <i class="icon ion-ios-checkmark-circle-outline tx-100 tx-success lh-1 mg-t-20 d-inline-block"></i>
-                            <h4 class="tx-success tx-semibold mg-b-20">Congratulations!</h4>
-                            <p class="mg-b-20 mg-x-20">Your request have been successfully submitted.</p><button aria-label="Close" class="btn ripple btn-success pd-x-25" data-dismiss="modal" type="button" ng-click="PerformAction()">Continue</button>
+                @*}*@
+                <!--Entry Code End-->
+                <!-- Modal alert message Success -->
+                <div class="modal" id="modaldemo4" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content tx-size-sm">
+                            <div class="modal-body tx-center pd-y-20 pd-x-20">
+                                <i class="icon ion-ios-checkmark-circle-outline tx-100 tx-success lh-1 mg-t-20 d-inline-block"></i>
+                                <h4 class="tx-success tx-semibold mg-b-20">Congratulations!</h4>
+                                <p class="mg-b-20 mg-x-20">Your request have been successfully submitted.</p><button aria-label="Close" class="btn ripple btn-success pd-x-25" data-dismiss="modal" type="button" ng-click="PerformAction()">Continue</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
+        <!-- row closed -->
     </div>
-    <!-- row closed -->
-</div>
-<!-- Container closed -->
-
+    <!-- Container closed -->
+</form>
 
 @section scripts{
 
@@ -183,13 +199,16 @@
     <script src="~/assets/plugins/select2/js/select2.min.js"></script>
     <script src="~/assets/js/select2.js"></script>
 
+    <!--Internal  Parsley.min js -->
+    <script src="../assets/plugins/parsleyjs/parsley.min.js"></script>
+
     <!--Internal  jquery-simple-datetimepicker js -->
     <script src="~/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
     <script src="~/assets/js/datePicker.js"></script>
 
     <!--Internal  Notify js -->
     @*<script src="~/assets/plugins/notify/js/notifIt.js"></script>
-    <script src="~/assets/js/Notification.js"></script>*@
+        <script src="~/assets/js/Notification.js"></script>*@
 
     <script src="~/Scripts/Angular/AssetManagement/Services/ApplyAssetService.js"></script>
     <script src="~/Scripts/Angular/AssetManagement/JS/ApplyAsset.js"></script>

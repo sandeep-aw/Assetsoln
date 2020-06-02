@@ -86,7 +86,7 @@ namespace AssetslnWeb.BAL.AssetManagement
                     Region = j["Region"]["Region"] == null ? "" : Convert.ToString(j["Region"]["Region"]),
                     Branch = j["Branch"]["Branch"] == null ? "" : Convert.ToString(j["Branch"]["Branch"]),
                     Company = j["Company"]["CompanyName"] == null ? "" : Convert.ToString(j["Company"]["CompanyName"]),
-                    Manager_Code = j["Manager_Code"]== null ? "" : Convert.ToString(j["Manager_Code"]),
+                    Manager_Code = j["ManagerCode"] == null ? "" : Convert.ToString(j["ManagerCode"]),
                     UserNameId = j["User_Name"]["Id"] == null ? "" : Convert.ToString(j["User_Name"]["Id"]),
                     User_Name = j["User_Name"]["Title"] == null ? "" : Convert.ToString(j["User_Name"]["Title"]).Trim(),
                     Manger = j["Manager"]["FirstName"] == null ? "" : Convert.ToString(j["Manager"]["FirstName"])
@@ -104,7 +104,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string selectqry = "ID,FirstName,MiddleName,LastName,EmpCode,Gender,MaritalStatus,DOB,JoiningDate,OnProbationTill,ProbationStatus,OfficeEmail,";
             selectqry += "ContactNumber,EmpStatus,Designation/Designation,Department/DepartmentName,Division/Division,Region/Region,Branch/Branch,";
-            selectqry += "Company/CompanyName,Manager_Code,User_Name/Id,User_Name/Title,Manager/FirstName";
+            selectqry += "Company/CompanyName,ManagerCode,User_Name/Id,User_Name/Title,Manager/FirstName";
 
             rESTOption.select = selectqry;
             rESTOption.expand = "Designation,Department,Division,Region,Branch,Company,User_Name,Manager";

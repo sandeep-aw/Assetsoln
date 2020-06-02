@@ -29,6 +29,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
     // load function
     getRequestNo();
 
+
     $scope.getAsset = function()
     {
         /*var selectedText = ($(this).find("option:selected").text()).trim();
@@ -46,6 +47,24 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         });
     }
 
+
+    // validate data and call submit data function
+    $(function () {
+        'use strict'
+        //validation
+        $('#ApplyAssetForm').parsley().on('field:validated', function () {
+            var ok = $('.parsley-error').length === 0;
+            $('.bs-callout-info').toggleClass('hidden', !ok);
+            $('.bs-callout-warning').toggleClass('hidden', ok);
+        })
+            .on('form:submit', function () {
+                $scope.SubmitData();
+                return false;
+            });
+    });
+
+
+    // submit data
     $scope.SubmitData = function ()
     {
         var ApplyAssetObj = {

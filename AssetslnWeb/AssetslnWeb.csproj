@@ -196,6 +196,7 @@
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />
     <Compile Include="Controllers\AssetManagement\AssetDashboardController.cs" />
+    <Compile Include="Controllers\AssetManagement\AssetViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="DAL\AuthenticateUser.cs" />
@@ -9204,6 +9205,7 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\ApplyAsset\Index.cshtml" />
     <Content Include="Views\AssetDashboard\Index.cshtml" />
+    <Content Include="Views\AssetView\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
