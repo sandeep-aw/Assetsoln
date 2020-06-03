@@ -195,6 +195,7 @@
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
     <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />
+    <Compile Include="Controllers\AssetManagement\ApproveAssetController.cs" />
     <Compile Include="Controllers\AssetManagement\AssetDashboardController.cs" />
     <Compile Include="Controllers\AssetManagement\AssetViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -8173,6 +8174,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\Angular\AssetManagement\JS\ApproveAsset.js" />
     <Content Include="Scripts\Angular\AssetManagement\JS\AssetDashboard.js" />
     <Content Include="Scripts\Angular\AssetManagement\Services\ApplyAssetService.js" />
     <Content Include="Scripts\Angular\DAL\CommonJs.js" />
@@ -9206,6 +9208,9 @@
     <Content Include="Views\ApplyAsset\Index.cshtml" />
     <Content Include="Views\AssetDashboard\Index.cshtml" />
     <Content Include="Views\AssetView\Index.cshtml" />
+    <Content Include="Views\Shared\ViewAssetData.cshtml" />
+    <Content Include="Views\Shared\ViewHistoryData.cshtml" />
+    <Content Include="Views\ApproveAsset\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

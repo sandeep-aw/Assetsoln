@@ -1,18 +1,18 @@
-﻿using System;
+﻿using AssetslnWeb.BAL.AssetManagement;
+using AssetslnWeb.Models.AssetManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AssetslnWeb.BAL.AssetManagement;
-using AssetslnWeb.Models.AssetManagement;
 
 namespace AssetslnWeb.Controllers.AssetManagement
 {
-    public class AssetViewController : Controller
+    public class ApproveAssetController : Controller
     {
+        // GET: ApproveAsset
         [SharePointContextFilter]
         [HttpGet]
-        // GET: AssetView
         public ActionResult Index()
         {
             int id = Convert.ToInt32(TempData["MyTempData"]);
@@ -44,6 +44,12 @@ namespace AssetslnWeb.Controllers.AssetManagement
             return Json(ID, JsonRequestBehavior.AllowGet);
         }
 
-        
+        [SharePointContextFilter]
+        [HttpPost]
+        public ActionResult ApproveFunc(string comment)
+        {
+
+            return Json(comment, JsonRequestBehavior.AllowGet);
+        }
     }
 }

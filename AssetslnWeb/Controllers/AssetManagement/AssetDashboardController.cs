@@ -23,8 +23,10 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
             // declare object to get pending request data
             List<AM_AssetsApplyModel> assetsApplyModels = new List<AM_AssetsApplyModel>();
+            List<AM_AssetsApplyModel> MyRequestModels = new List<AM_AssetsApplyModel>();
 
             AM_AssetsApplyBal assetsApplyBals = new AM_AssetsApplyBal();
+            AM_AssetsApplyBal MyRequestBal = new AM_AssetsApplyBal();
 
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
@@ -34,7 +36,11 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 
                 assetsApplyModels = assetsApplyBals.GetDataByEmpcode(clientContext,EmpModel[0].EmpCode);
 
+                MyRequestModels = MyRequestBal.GetMyRequest(clientContext, EmpModel[0].EmpCode);
+
                 ViewBag.assetsDataArr = assetsApplyModels;
+
+                ViewBag.assetsMyRequest = MyRequestModels;
             }
 
             return View();

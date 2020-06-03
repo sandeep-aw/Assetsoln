@@ -12,7 +12,7 @@ AssetDashboardapp.controller('AssetDashboardController', function ($scope, $filt
         Pageredirect("/ApplyAsset/Index");
     }
 
-    // call apply asset page
+    // call view page
     $scope.getViewData = function (id) {
         //sessionStorage.setItem("Lid", id);
         //Pageredirect("/AssetView/Index");
@@ -26,6 +26,23 @@ AssetDashboardapp.controller('AssetDashboardController', function ($scope, $filt
         });
         
     }
+
+    // call view page
+    $scope.getEditData = function (id, internalstatus) {
+        console.log(id);
+        console.log(internalstatus);
+
+        var data = {
+            'ID': id,
+        }
+
+        if (internalstatus == "pendingatmanager") {
+            CommonAppUtilityService.CreateItem("/ApproveAsset/getAssetId", data).then(function (response) {
+                Pageredirect("/ApproveAsset/Index");
+            });
+        }
+    }
+
 
 });
 

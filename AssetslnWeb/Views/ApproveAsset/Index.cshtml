@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="ApproveAssetForm" ng-app="ApproveAssetapp" ng-controller="ApproveAssetController">
+    <!-- container opened -->
+    <div class="container">
+
+        <!-- breadcrumb -->
+        <div class="breadcrumb-header justify-content-between">
+            <div class="my-auto">
+                <div class="d-flex">
+                    <h4 class="content-title mb-0 my-auto">Asset Management</h4><span class="text-muted mt-1 tx-13 ml-2 mb-0">/ Asset Approval</span>
+                </div>
+            </div>
+        </div>
+        <!-- breadcrumb -->
+        <!-- row -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+
+
+                <!--Entry Code start-->
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="card-body pt-0">
+                            <div class="mg-b-50">
+                                @*show asset data*@
+                                @Html.Partial("ViewAssetData")
+                                <div class="row row-sm">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label for="txtComment"><span class="tx-bold">Comment</span></label>
+                                            <textarea required="" class="form-control" ng-model="ngtxtComment" id="txtComment" placeholder="Enter Comment" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*show history data*@
+                            @Html.Partial("ViewHistoryData")
+
+
+                            <div class="row row-sm text-center">
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-6 col-md-3 mg-t-10">
+                                    <button class="btn btn-success btn-block">Approve</button>
+                                </div>
+                                <div class="col-sm-6 col-md-3 mg-t-10">
+                                    <button class="btn btn-danger btn-block">Reject</button>
+                                </div>
+                                <div class="col-sm-6 col-md-3 mg-t-10">
+                                    <button type="button" class="btn btn-light btn-block" ng-click="Cancel()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Entry Code End-->
+
+            </div>
+        </div>
+        <!-- row closed -->
+    </div>
+    <!-- Container closed -->
+</form>
+
+@section scripts{
+    <!--Internal  Parsley.min js -->
+    <script src="../assets/plugins/parsleyjs/parsley.min.js"></script>
+
+    <script src="~/Scripts/Angular/AssetManagement/JS/ApproveAsset.js"></script>
+}

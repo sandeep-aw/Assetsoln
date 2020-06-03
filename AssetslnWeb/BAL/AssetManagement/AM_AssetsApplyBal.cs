@@ -52,6 +52,49 @@ namespace AssetslnWeb.BAL.AssetManagement
             return assetsApplyModels;
         }
 
+        public List<AM_AssetsApplyModel> GetMyRequest(ClientContext clientContext, string EmpCode)
+        {
+            List<AM_AssetsApplyModel> assetsApplyModels = new List<AM_AssetsApplyModel>();
+
+            string filter = "CreatedCode eq '" + EmpCode + "'";
+
+            JArray jArray = RestGetAssetsApply(clientContext, filter);
+
+            foreach (JObject j in jArray)
+            {
+                assetsApplyModels.Add(new AM_AssetsApplyModel
+                {
+                    ID = Convert.ToInt32(j["ID"]),
+                    AssetCount = j["AssetCount"] == null ? "" : Convert.ToString(j["AssetCount"]),
+                    Warranty = j["Warranty"] == null ? "" : Convert.ToString(j["Warranty"]),
+                    AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
+                    ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
+                    RequestDate = j["RequestDate"] == null ? "" : Convert.ToString(j["RequestDate"]),
+                    ReturnDate = j["ReturnDate"] == null ? "" : Convert.ToString(j["ReturnDate"]),
+                    InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
+                    RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
+                    AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
+                    Asset = j["Asset"]["Assets"] == null ? "" : Convert.ToString(j["Asset"]["Assets"]),
+                    AssetTypeId = j["AssetType"]["Id"] == null ? "" : Convert.ToString(j["AssetType"]["Id"]),
+                    AssetType = j["AssetType"]["AssetType"] == null ? "" : Convert.ToString(j["AssetType"]["AssetType"]),
+                    StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
+                    Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"]),
+                    EmployeeNameId = j["EmployeeName"]["Id"] == null ? "" : Convert.ToString(j["EmployeeName"]["Id"]),
+                    EmployeeName = j["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(j["EmployeeName"]["EmpCode"]),
+                    EmployeeCode = j["EmployeeCode"] == null ? "" : Convert.ToString(j["EmployeeCode"]),
+                    fname = j["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(j["EmployeeName"]["FirstName"]),
+                    lname = j["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(j["EmployeeName"]["LastName"]),
+                    CreatedNameId = j["CreatedName"]["Id"] == null ? "" : Convert.ToString(j["CreatedName"]["Id"]),
+                    CreatedName = j["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(j["CreatedName"]["EmpCode"]),
+                    CreatedCode = j["CreatedCode"] == null ? "" : Convert.ToString(j["CreatedCode"]),
+                    CurrentApprover = j["CurrentApprover"] == null ? "" : Convert.ToString(j["CurrentApprover"]),
+                });
+            }
+
+
+            return assetsApplyModels;
+        }
+
         public List<AM_AssetsApplyModel> GetDataByEmpcode(ClientContext clientContext, string EmpCode)
         {
             List<AM_AssetsApplyModel> assetsApplyModels = new List<AM_AssetsApplyModel>();

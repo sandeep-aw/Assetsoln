@@ -80,7 +80,7 @@
                                 {
                                     <tr>
                                         <td>@index</td>
-                                        <td>@j.RequestNo</td>
+                                        <td ng-model="reqno">@j.RequestNo</td>
                                         <td>@j.fname @j.lname</td>
                                         <td>@j.Asset</td>
                                         <td>@j.AssetType</td>
@@ -89,7 +89,7 @@
                                         <td>@j.ReturnDate</td>
                                         <td>
                                             <div class="btn-icon-list">
-                                                <button class="btn btn-primary btn-icon"><i class="far fa-edit"></i></button>
+                                                <button class="btn btn-primary btn-icon" ng-click="getEditData(@j.ID,'@j.InternalStatus')"><i class="far fa-edit"></i></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -131,7 +131,7 @@
                             </thead>
                             <tbody>
                                 @{int indexview = 1;}
-                                @foreach (var j in ViewBag.assetsDataArr)
+                                @foreach (var j in ViewBag.assetsMyRequest)
                                 {
                                     <tr>
                                         <td>@indexview</td>
