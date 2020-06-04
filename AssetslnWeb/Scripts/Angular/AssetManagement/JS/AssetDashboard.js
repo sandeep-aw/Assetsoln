@@ -36,7 +36,7 @@ AssetDashboardapp.controller('AssetDashboardController', function ($scope, $filt
             'ID': id,
         }
 
-        if (internalstatus == "pendingatmanager") {
+        if (internalstatus == "pendingatmanager" || internalstatus == "pendingatmanagerhead" || internalstatus == "pendingatdepartmenthead") {
             CommonAppUtilityService.CreateItem("/ApproveAsset/getAssetId", data).then(function (response) {
                 Pageredirect("/ApproveAsset/Index");
             });

@@ -170,11 +170,27 @@ namespace AssetslnWeb.BAL.AssetManagement
             return jArray;
         }
 
+        //RESTUpdate
+        public string UpdateAssets(ClientContext clientContext, string ItemData, string ID)
+        {
+
+            string response = RESTUpdate(clientContext, ItemData, ID);
+
+            return response;
+        }
+
         private string RESTSave(ClientContext clientContext, string ItemData)
         {
             RestService restService = new RestService();
 
             return restService.SaveItem(clientContext, "AM_AssetsApply", ItemData);
+        }
+
+        private string RESTUpdate(ClientContext clientContext, string ItemData, string ID)
+        {
+            RestService restService = new RestService();
+
+            return restService.UpdateItem(clientContext, "AM_AssetsApply", ItemData, ID);
         }
     }
 }

@@ -13,6 +13,33 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class AM_WorkFlowBal
     {
+        public List<AM_WorkFlowModel> getPreviousWorkflow(ClientContext clientContext, string status)
+        {
+            List<AM_WorkFlowModel> workFlowBal = new List<AM_WorkFlowModel>();
+
+            string filter = "ToStatusId eq " + status + "'";
+
+            JArray jArray = RestGetWorkFlow(clientContext, filter);
+
+            foreach (JObject j in jArray)
+            {
+                workFlowBal.Add(new AM_WorkFlowModel
+                {
+                    ID = Convert.ToInt32(j["ID"]),
+                    ActionType = j["ActionType"] == null ? "" : Convert.ToString(j["ActionType"]),
+                    FromStatus = j["FromStatus"]["StatusName"] == null ? "" : Convert.ToString(j["FromStatus"]["StatusName"]),
+                    ToStatus = j["ToStatus"]["StatusName"] == null ? "" : Convert.ToString(j["ToStatus"]["StatusName"]),
+                    InternalStatus = j["ToStatus"]["InternalStatus"] == null ? "" : Convert.ToString(j["ToStatus"]["InternalStatus"]),
+                    ApproverRoleName = j["ApproverRoleName"]["ApproverRoleName"] == null ? "" : Convert.ToString(j["ApproverRoleName"]["ApproverRoleName"]),
+                    ToStatusId = j["ToStatus"]["Id"] == null ? "" : Convert.ToString(j["ToStatus"]["Id"]),
+                    FromStatusId = j["FromStatus"]["Id"] == null ? "" : Convert.ToString(j["FromStatus"]["Id"]),
+                    ApproverRoleInternalName = j["ApproverRoleName"]["ApproverRoleInternalName"] == null ? "" : Convert.ToString(j["ApproverRoleName"]["ApproverRoleInternalName"])
+                });
+            }
+
+            return workFlowBal;
+        }
+
         public List<AM_WorkFlowModel> getWorkFlowData(ClientContext clientContext, string actionType, string fromstatus, string title)
         {
             List<AM_WorkFlowModel> workFlowBal = new List<AM_WorkFlowModel>();
@@ -25,7 +52,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             }
             else
             {
-                filter = "ActionType eq '" + actionType + "' and FromStatus eq '" + fromstatus + "'";
+                filter = "ActionType eq '" + actionType + "' and FromStatus/Id eq '" + fromstatus + "'";
             }
 
             JArray jArray = RestGetWorkFlow(clientContext, filter);
