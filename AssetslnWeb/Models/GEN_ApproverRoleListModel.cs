@@ -12,5 +12,7 @@ namespace AssetslnWeb.Models
         public string ApproverRoleName { get; set; }
 
         public string ApproverRoleInternalName { get; set; }
+
+        public string Empcode { get; set; }
     }
 }

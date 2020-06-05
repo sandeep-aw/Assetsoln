@@ -123,5 +123,70 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
             //return Json(Comment, JsonRequestBehavior.AllowGet);
         }
+
+        [SharePointContextFilter]
+        [HttpPost]
+        public ActionResult RejectFunc(string Comment, string CurrentDate)
+        {
+            string returnID = "0";
+
+            // get assets data by session
+            AM_AssetsApplyModel approveapplymodel = new AM_AssetsApplyModel();
+
+            approveapplymodel = (AM_AssetsApplyModel)Session["ApproveData"];
+
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            using (var clientContext = spContext.CreateUserClientContextForSPHost())
+            {
+
+                // call workflow data
+                List<AM_WorkFlowModel> workFlowModel = new List<AM_WorkFlowModel>();
+
+                AM_WorkFlowBal workFlowBal = new AM_WorkFlowBal();
+
+
+                string actiontype = "Backward";
+                string fromstatus = approveapplymodel.StatusId;
+                string title = "";
+
+
+                workFlowModel = workFlowBal.getWorkFlowData(clientContext, actiontype, fromstatus, title);
+
+
+                // get current user empcode
+                string UserId = Session["UserID"].ToString();
+
+                List<AM_BasicInfoModels> basicInfoModels = new List<AM_BasicInfoModels>();
+                AM_BasicInfoBal basicInfoBal = new AM_BasicInfoBal();
+
+                basicInfoModels = basicInfoBal.GetCurrentLoginUser(clientContext, UserId);
+
+                // update asset data
+                AM_AssetsApplyBal updateassets = new AM_AssetsApplyBal();
+
+                string itemdata = " 'CurrentApprover' : '',";
+                itemdata += "'StatusId': '" + Convert.ToInt32(workFlowModel[0].ToStatusId) + "',";
+                itemdata += "'InternalStatus': '" + workFlowModel[0].InternalStatus + "'";
+
+                returnID = updateassets.UpdateAssets(clientContext, itemdata, (approveapplymodel.ID).ToString());
+
+                // save history data
+                AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
+
+                var itemhistory = " 'LIDId' : '" + approveapplymodel.ID + "',";
+                itemhistory += "'ActionTakenId': '" + basicInfoModels[0].Id + "',";
+                itemhistory += "'Date': '" + CurrentDate + "',";
+                itemhistory += "'StatusId': '" + workFlowModel[0].ToStatusId + "',";
+                itemhistory += "'Comments': '" + Comment + "'";
+
+                AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
+                assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemhistory);
+            }
+
+            return Json(returnID, JsonRequestBehavior.AllowGet);
+
+            //return Json(Comment, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

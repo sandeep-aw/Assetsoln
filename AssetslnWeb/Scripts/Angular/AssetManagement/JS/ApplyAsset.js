@@ -67,6 +67,8 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
     // submit data
     $scope.SubmitData = function ()
     {
+        $("#global-loader").show();
+
         var ApplyAssetObj = {
             RequestNo: $scope.RequestNo,
             EmployeeCode: $scope.ngddlAllUser,
@@ -84,6 +86,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         ApplyAssetService.getDemo(ApplyAssetObj).then(function (response) {
             console.log(response);
             if (response.status == 200) {
+                $("#global-loader").hide();
                 $('#modaldemo4').modal('show');
             } else {
                 alert("Error");

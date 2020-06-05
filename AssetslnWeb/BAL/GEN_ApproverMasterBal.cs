@@ -98,6 +98,19 @@ namespace AssetslnWeb.BAL
                         });
                     }
                 }
+                else if (rolenamearr[i] == "AssetAllocateDepartment")
+                {
+                    GEN_ApproverRoleListModel _ApproverRoleListModel = new GEN_ApproverRoleListModel();
+                    GEN_ApproverRoleListBal _ApproverRoleListBal = new GEN_ApproverRoleListBal();
+                    _ApproverRoleListModel = _ApproverRoleListBal.GetEmpByRole(clientContext, rolenamearr[i]);
+
+                    approverRoleNameModel.Add(new GEN_ApproverRoleNameModel
+                    {
+                        Sequence = i,
+                        Role = rolenamearr[i],
+                        Empcode = _ApproverRoleListModel.Empcode
+                    });
+                }
             }
 
 

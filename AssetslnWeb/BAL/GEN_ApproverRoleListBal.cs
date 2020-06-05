@@ -11,6 +11,24 @@ namespace AssetslnWeb.BAL
 {
     public class GEN_ApproverRoleListBal
     {
+        public GEN_ApproverRoleListModel GetEmpByRole(ClientContext clientContext,string internalname)
+        {
+            GEN_ApproverRoleListModel approverRoleListBals = new GEN_ApproverRoleListModel();
+
+            string filter = "ApproverRoleInternalName eq '" + internalname + "'";
+
+            JArray jArray = RestGetApproverRole(clientContext, filter);
+
+            approverRoleListBals = new GEN_ApproverRoleListModel
+            {
+                ID = Convert.ToInt32(jArray[0]["ID"]),
+                ApproverRoleName = jArray[0]["ApproverRoleName"] == null ? "" : Convert.ToString(jArray[0]["ApproverRoleName"]),
+                ApproverRoleInternalName = jArray[0]["ApproverRoleInternalName"] == null ? "" : Convert.ToString(jArray[0]["ApproverRoleInternalName"]),
+                Empcode = jArray[0]["EMP_Code"] == null ? "" : Convert.ToString(jArray[0]["EMP_Code"])
+            };
+            return approverRoleListBals;
+        }
+
         public List<GEN_ApproverRoleListModel> GetApproverRoleListBals(ClientContext clientContext)
         {
             List<GEN_ApproverRoleListModel> approverRoleListBals = new List<GEN_ApproverRoleListModel>();
