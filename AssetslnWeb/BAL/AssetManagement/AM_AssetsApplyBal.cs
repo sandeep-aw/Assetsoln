@@ -35,6 +35,7 @@ namespace AssetslnWeb.BAL.AssetManagement
                 Asset = jArray[0]["Asset"]["Assets"] == null ? "" : Convert.ToString(jArray[0]["Asset"]["Assets"]),
                 AssetTypeId = jArray[0]["AssetType"]["Id"] == null ? "" : Convert.ToString(jArray[0]["AssetType"]["Id"]),
                 AssetType = jArray[0]["AssetType"]["AssetType"] == null ? "" : Convert.ToString(jArray[0]["AssetType"]["AssetType"]),
+                AssetTypeStock = jArray[0]["AssetType"]["Stock"] == null ? "" : Convert.ToString(jArray[0]["AssetType"]["Stock"]),
                 StatusId = jArray[0]["Status"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Status"]["Id"]),
                 Status = jArray[0]["Status"]["StatusName"] == null ? "" : Convert.ToString(jArray[0]["Status"]["StatusName"]),
                 EmployeeNameId = jArray[0]["EmployeeName"]["Id"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["Id"]),
@@ -154,7 +155,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             RESTOption rESTOption = new RESTOption();
 
             string selectqry = "ID,AssetCount,Warranty,AssetDetails,ReasonToApply,RequestDate,ReturnDate,InternalStatus,RequestNo,Asset/Id,Asset/Assets,AssetType/Id,";
-            selectqry += "AssetType/AssetType,Status/Id,Status/StatusName,EmployeeName/Id,EmployeeName/EmpCode,EmployeeCode,CreatedName/Id,CreatedName/EmpCode,";
+            selectqry += "AssetType/AssetType,AssetType/Stock,Status/Id,Status/StatusName,EmployeeName/Id,EmployeeName/EmpCode,EmployeeCode,CreatedName/Id,CreatedName/EmpCode,";
             selectqry += "CreatedCode,CurrentApprover,EmployeeName/FirstName,EmployeeName/LastName";
 
             rESTOption.select = selectqry;

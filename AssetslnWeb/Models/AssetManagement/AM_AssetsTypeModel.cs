@@ -12,5 +12,9 @@ namespace AssetslnWeb.Models.AssetManagement
         public string AssetType { get; set; }
 
         public string Assets { get; set; }
+
+        public string Stock { get; set; }
+
+        public string MinStock { get; set; }
     }
 }

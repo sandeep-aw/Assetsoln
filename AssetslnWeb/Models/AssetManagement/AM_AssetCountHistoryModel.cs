@@ -14,5 +14,7 @@ namespace AssetslnWeb.Models.AssetManagement
         public string ActionType { get; set; }
 
         public string AssetCount { get; set; }
+
+        public string AssetCountID { get; set; }
     }
 }

@@ -173,7 +173,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 // save history data
                 AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
 
-                var itemhistory = " 'LIDId' : '" + approveapplymodel.ID + "',";
+                string itemhistory = " 'LIDId' : '" + approveapplymodel.ID + "',";
                 itemhistory += "'ActionTakenId': '" + basicInfoModels[0].Id + "',";
                 itemhistory += "'Date': '" + CurrentDate + "',";
                 itemhistory += "'StatusId': '" + workFlowModel[0].ToStatusId + "',";

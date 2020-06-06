@@ -56,5 +56,7 @@ namespace AssetslnWeb.Models.AssetManagement
         public string fname { get; set; }
 
         public string lname { get; set; }
+
+        public string AssetTypeStock { get; set; }
     }
 }

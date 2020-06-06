@@ -38,9 +38,9 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
                 MyRequestModels = MyRequestBal.GetMyRequest(clientContext, EmpModel[0].EmpCode);
 
-                ViewBag.assetsDataArr = assetsApplyModels;
+                ViewBag.assetsDataArr = assetsApplyModels.OrderByDescending(i => i.ID);
 
-                ViewBag.assetsMyRequest = MyRequestModels;
+                ViewBag.assetsMyRequest = MyRequestModels.OrderByDescending(i => i.ID);
             }
 
             return View();

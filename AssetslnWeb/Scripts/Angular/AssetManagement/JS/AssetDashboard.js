@@ -41,6 +41,11 @@ AssetDashboardapp.controller('AssetDashboardController', function ($scope, $filt
                 Pageredirect("/ApproveAsset/Index");
             });
         }
+        else if (internalstatus == "pendingallocated") {
+            CommonAppUtilityService.CreateItem("/AllocateAsset/getAssetId", data).then(function (response) {
+                Pageredirect("/AllocateAsset/Index");
+            });
+        }
     }
 
 
