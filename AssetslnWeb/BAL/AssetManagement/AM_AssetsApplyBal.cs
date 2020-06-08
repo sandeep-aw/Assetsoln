@@ -18,7 +18,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "ID eq '" + id + "'";
 
-            JArray jArray = RestGetAssetsApply(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             assetsApplyModels = new AM_AssetsApplyModel
             {
@@ -27,8 +27,8 @@ namespace AssetslnWeb.BAL.AssetManagement
                 Warranty = jArray[0]["Warranty"] == null ? "" : Convert.ToString(jArray[0]["Warranty"]),
                 AssetDetails = jArray[0]["AssetDetails"] == null ? "" : Convert.ToString(jArray[0]["AssetDetails"]),
                 ReasonToApply = jArray[0]["ReasonToApply"] == null ? "" : Convert.ToString(jArray[0]["ReasonToApply"]),
-                RequestDate = jArray[0]["RequestDate"] == null ? "" : Convert.ToString(jArray[0]["RequestDate"]),
-                ReturnDate = jArray[0]["ReturnDate"] == null ? "" : Convert.ToString(jArray[0]["ReturnDate"]),
+                //RequestDate = jArray[0]["RequestDate"] == null ? "" : Convert.ToString(jArray[0]["RequestDate"]),
+                //ReturnDate = jArray[0]["ReturnDate"] == null ? "" : Convert.ToString(jArray[0]["ReturnDate"]),
                 InternalStatus = jArray[0]["InternalStatus"] == null ? "" : Convert.ToString(jArray[0]["InternalStatus"]),
                 RequestNo = jArray[0]["RequestNo"] == null ? "" : Convert.ToString(jArray[0]["RequestNo"]),
                 AssetId = jArray[0]["Asset"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Asset"]["Id"]),
@@ -59,7 +59,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "CreatedCode eq '" + EmpCode + "'";
 
-            JArray jArray = RestGetAssetsApply(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -70,8 +70,8 @@ namespace AssetslnWeb.BAL.AssetManagement
                     Warranty = j["Warranty"] == null ? "" : Convert.ToString(j["Warranty"]),
                     AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
                     ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
-                    RequestDate = j["RequestDate"] == null ? "" : Convert.ToString(j["RequestDate"]),
-                    ReturnDate = j["ReturnDate"] == null ? "" : Convert.ToString(j["ReturnDate"]),
+                    //RequestDate = j["RequestDate"] == null ? "" : Convert.ToString(j["RequestDate"]),
+                    //ReturnDate = j["ReturnDate"] == null ? "" : Convert.ToString(j["ReturnDate"]),
                     InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
                     RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
                     AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
@@ -102,7 +102,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "CurrentApprover eq '" + EmpCode + "'";
 
-            JArray jArray = RestGetAssetsApply(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -113,8 +113,8 @@ namespace AssetslnWeb.BAL.AssetManagement
                     Warranty = j["Warranty"] == null ? "" : Convert.ToString(j["Warranty"]),
                     AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
                     ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
-                    RequestDate = j["RequestDate"] == null ? "" : Convert.ToString(j["RequestDate"]),
-                    ReturnDate = j["ReturnDate"] == null ? "" : Convert.ToString(j["ReturnDate"]),
+                    RequestDate = Convert.ToDateTime(j["RequestDate"]),
+                    ReturnDate = Convert.ToDateTime(j["ReturnDate"]),
                     InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
                     RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
                     AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
@@ -148,7 +148,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return response;
         }
 
-        private JArray RestGetAssetsApply(ClientContext clientContext, string filter)
+        private JArray RESTGet(ClientContext clientContext, string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

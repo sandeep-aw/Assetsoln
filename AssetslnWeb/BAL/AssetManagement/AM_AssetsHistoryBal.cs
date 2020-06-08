@@ -19,7 +19,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "LID eq '" + id + "'";
 
-            JArray jArray = RestGetHistory(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -40,7 +40,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return assetsHistoryModels;
         }
 
-        private JArray RestGetHistory(ClientContext clientContext, string filter)
+        private JArray RESTGet(ClientContext clientContext, string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

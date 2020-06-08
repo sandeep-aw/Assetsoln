@@ -18,7 +18,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "EmpCode eq '" + EmpCode + "'";
 
-            JArray jArray = RestGetEmp(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             EmpBal = new AM_BasicInfoModels
             {
@@ -38,7 +38,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "User_Name/Id eq '" + uid + "'";
 
-            JArray jArray = RestGetEmp(clientContext,filter);
+            JArray jArray = RESTGet(clientContext,filter);
 
             foreach (JObject j in jArray)
             {
@@ -60,7 +60,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = null;
 
-            JArray jArray = RestGetEmp(clientContext,filter);
+            JArray jArray = RESTGet(clientContext,filter);
 
             foreach (JObject j in jArray)
             {
@@ -96,7 +96,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return EmpBal;
         }
 
-        private JArray RestGetEmp(ClientContext clientContext,string filter)
+        private JArray RESTGet(ClientContext clientContext,string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

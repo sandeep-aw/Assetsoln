@@ -17,7 +17,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             AM_AssetsTypeModel assetsModelsTypeBal = new AM_AssetsTypeModel();
             string filter = "ID eq '" + id + "'";
 
-            JArray jArray = RestGetAssetsType(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             assetsModelsTypeBal = new AM_AssetsTypeModel()
             {
@@ -36,7 +36,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             List<AM_AssetsTypeModel> assetsModelsTypeBal = new List<AM_AssetsTypeModel>();
             string filter = "Assets/ID eq '" + assetType + "'";
 
-            JArray jArray = RestGetAssetsType(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -62,7 +62,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return response;
         }
 
-        private JArray RestGetAssetsType(ClientContext clientContext,string filter)
+        private JArray RESTGet(ClientContext clientContext,string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

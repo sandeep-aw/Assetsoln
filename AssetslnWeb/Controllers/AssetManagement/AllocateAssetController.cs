@@ -24,6 +24,13 @@ namespace AssetslnWeb.Controllers.AssetManagement
             List<AM_AssetsHistoryModel> assetsHistoryModel = new List<AM_AssetsHistoryModel>();
             AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
 
+            List<AM_AssetCountHistoryModel> assetCountHistoryModel = new List<AM_AssetCountHistoryModel>();
+            AM_AssetCountHistoryBal assetCountHistoryBal = new AM_AssetCountHistoryBal();
+
+            // previously assign quantity
+
+            int prevAssignQty = 0;
+
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
@@ -34,6 +41,28 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 ViewBag.assetsHistory = assetsHistoryModel;               
 
                 ViewBag.ReqQuantity = Convert.ToInt32(assetsApplyModel.AssetCount);
+
+                assetCountHistoryModel = assetCountHistoryBal.GetAssetCountHistory(clientContext, (assetsApplyModel.ID).ToString());
+
+                //if(assetCountHistoryModel.Count>0)
+                //{
+                //    foreach(var j in assetCountHistoryModel)
+                //    {
+                //        int cnt = Convert.ToInt32((j.AssetCount).ToString());
+                //        prevAssignQty += cnt;
+                //    }
+                //}
+
+                //if(prevAssignQty!=0)
+                //{
+                //    ViewBag.prevQty = prevAssignQty;
+                //}
+                //else
+                //{
+                //    ViewBag.prevQty = "";
+                //}
+
+                ViewBag.prevQty = "";
 
                 Session["assetsData"] = assetsApplyModel;
             }

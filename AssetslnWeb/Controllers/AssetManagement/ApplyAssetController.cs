@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -176,6 +177,15 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
                 // get approver data end
 
+
+                var reqdatetime = (assetsApplyModel.RequestDate).ToString();
+                DateTime reqdt = DateTime.ParseExact(reqdatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                var reqdate = reqdt.ToString("MM/dd/yyyy");
+
+                var returndatetime = (assetsApplyModel.ReturnDate).ToString();
+                DateTime returndt = DateTime.ParseExact(returndatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                var returndate = returndt.ToString("MM/dd/yyyy");
+
                 // save assetsapply data
                 string itemdata = " 'RequestNo' : '" + assetsApplyModel.RequestNo + "',";
                 itemdata += "'EmployeeNameId': '" + Convert.ToInt32(assetsApplyModel.EmployeeName) + "',";
@@ -188,8 +198,8 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 itemdata += "'Warranty': '" + assetsApplyModel.Warranty + "',";
                 itemdata += "'AssetDetails': '" + assetsApplyModel.AssetDetails + "',";
                 itemdata += "'ReasonToApply': '" + assetsApplyModel.ReasonToApply + "',";
-                itemdata += "'RequestDate': '" + assetsApplyModel.RequestDate + "',";
-                itemdata += "'ReturnDate': '" + assetsApplyModel.ReturnDate + "',";
+                itemdata += "'RequestDate': '" + reqdate + "',";
+                itemdata += "'ReturnDate': '" + returndate + "',";
                 itemdata += "'StatusId': '" + Convert.ToInt32(assetsApplyModel.Status) + "',";
                 itemdata += "'InternalStatus': '" + assetsApplyModel.InternalStatus + "',";
                 itemdata += "'CurrentApprover': '" + assetsApplyModel.CurrentApprover + "'";

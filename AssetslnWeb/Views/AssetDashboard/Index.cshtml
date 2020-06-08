@@ -41,7 +41,6 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">My Pending Request</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
 
@@ -63,7 +62,7 @@
                         <table id="pendingrequest" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="border-bottom-0">Serial No</th>
+                                    <th class="border-bottom-0">Sr. No.</th>
                                     <th class="border-bottom-0">Request No</th>
                                     <th class="border-bottom-0">Employee Name</th>
                                     <th class="border-bottom-0">Asset</th>
@@ -85,8 +84,8 @@
                                         <td>@j.Asset</td>
                                         <td>@j.AssetType</td>
                                         <td><span class="badge badge-dark">@j.Status</span></td>
-                                        <td>@j.RequestDate</td>
-                                        <td>@j.ReturnDate</td>
+                                        <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
+                                        <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
                                         <td>
                                             <div class="btn-icon-list">
                                                 <button class="btn btn-primary btn-icon" ng-click="getEditData(@j.ID,'@j.InternalStatus')"><i class="far fa-edit"></i></button>
@@ -107,7 +106,6 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title mg-b-0">My Request</h4>
-                        <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                 </div>
 
@@ -118,7 +116,7 @@
                         <table id="myrequest" class="table key-buttons text-md-nowrap">
                             <thead>
                                 <tr>
-                                    <th class="border-bottom-0">Serial No</th>
+                                    <th class="border-bottom-0">Sr. No.</th>
                                     <th class="border-bottom-0">Request No</th>
                                     <th class="border-bottom-0">Employee Name</th>
                                     <th class="border-bottom-0">Asset</th>
@@ -140,11 +138,12 @@
                                         <td>@j.Asset</td>
                                         <td>@j.AssetType</td>
                                         <td><span class="badge badge-dark">@j.Status</span></td>
-                                        <td>@j.RequestDate</td>
-                                        <td>@j.ReturnDate</td>
+                                        <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
+                                        <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
                                         <td>
                                             <div class="btn-icon-list">
                                                 <button class="btn btn-info  btn-icon" ng-click="getViewData(@j.ID)"><i class="far fa-eye"></i></button>
+                                                @*<button class="btn btn-info  btn-icon" onclick="getViewData(@j.ID)"><i class="far fa-eye"></i></button>*@
                                             </div>
                                         </td>
                                     </tr>
@@ -219,6 +218,15 @@
                 lengthMenu: '_MENU_',
             }
         });
+
+        /*function getViewData(id) {
+
+            document.cookie = "AssetID=" + id;
+
+            Pageredirect("/AssetDashboard/getId");
+
+        }*/
+
     </script>
 }
 

@@ -10,6 +10,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
 {
     public class AssetViewController : Controller
     {
+
         [SharePointContextFilter]
         [HttpGet]
         // GET: AssetView
@@ -43,7 +44,5 @@ namespace AssetslnWeb.Controllers.AssetManagement
             TempData.Add("MyTempData", ID);
             return Json(ID, JsonRequestBehavior.AllowGet);
         }
-
-        
     }
 }

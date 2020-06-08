@@ -5,9 +5,9 @@ using System.Web;
 
 namespace AssetslnWeb.Models.EmployeeManagement
 {
-    public class Emp_BasicInfoModels
+    public class Emp_BasicInfoModel
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
@@ -32,6 +32,6 @@ namespace AssetslnWeb.Models.EmployeeManagement
         public string Manger { get; set; }
         public string UserNameId { get; set; }
         public string ManagerCode { get; set; }
-        public string ManagerId { get; set; }
+        public int ManagerId { get; set; }
     }
 }

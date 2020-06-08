@@ -52,7 +52,7 @@ namespace AssetslnWeb.BAL
             // call Emp-basicinfimodel class
             Emp_BasicInfoBal emp_BasicInfo = new Emp_BasicInfoBal();
 
-            Emp_BasicInfoModels basicInfoManager = new Emp_BasicInfoModels();
+            Emp_BasicInfoModel basicInfoManager = new Emp_BasicInfoModel();
 
             basicInfoManager = emp_BasicInfo.GetEmpManager(clientContext, empcode);
 

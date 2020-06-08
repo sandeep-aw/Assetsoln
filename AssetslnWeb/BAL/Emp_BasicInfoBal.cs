@@ -12,17 +12,44 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class Emp_BasicInfoBal
     {
-        public Emp_BasicInfoModels GetEmpManager(ClientContext clientContext,string Empcode)
+        //public Emp_BasicInfoModels GetEmpManager(ClientContext clientContext,string Empcode)
+        //{
+        //    Emp_BasicInfoModels EmpBal = new Emp_BasicInfoModels();
+
+        //    string filter = "EmpCode eq '" + Empcode + "'";
+
+        //    JArray jArray = RestGetEmp(clientContext,filter);
+
+        //    EmpBal = new Emp_BasicInfoModels
+        //    {
+        //        Id = Convert.ToInt32(jArray[0]["ID"]),
+        //        EmpCode = jArray[0]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["EmpCode"]),
+        //        UserNameId = jArray[0]["User_Name"]["Id"] == null ? "" : Convert.ToString(jArray[0]["User_Name"]["Id"]),
+        //        User_Name = jArray[0]["User_Name"]["Title"] == null ? "" : Convert.ToString(jArray[0]["User_Name"]["Title"]).Trim(),
+        //        Manger = jArray[0]["Manager"]["FirstName"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["FirstName"]),
+        //        ManagerCode = jArray[0]["Manager"]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["EmpCode"]),
+        //        Manager_Code = jArray[0]["Manager"]["ManagerCode"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["ManagerCode"]),
+        //        Department = jArray[0]["Department"]["DepartmentName"] == null ? "" : Convert.ToString(jArray[0]["Department"]["DepartmentName"]),
+        //        ManagerId = jArray[0]["Manager"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["Id"]),
+        //    };
+
+        //    return EmpBal;
+        //}
+
+        public Emp_BasicInfoModel GetEmpManager(ClientContext clientContext, string Empcode)
         {
-            Emp_BasicInfoModels EmpBal = new Emp_BasicInfoModels();
+            Emp_BasicInfoModel EmpBal = new Emp_BasicInfoModel();
+
 
             string filter = "EmpCode eq '" + Empcode + "'";
 
-            JArray jArray = RestGetEmp(clientContext,filter);
 
-            EmpBal = new Emp_BasicInfoModels
+            JArray jArray = RESTGet(clientContext, filter);
+
+
+            EmpBal = new Emp_BasicInfoModel
             {
-                Id = Convert.ToInt32(jArray[0]["ID"]),
+                ID = Convert.ToInt32(jArray[0]["ID"]),
                 EmpCode = jArray[0]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["EmpCode"]),
                 UserNameId = jArray[0]["User_Name"]["Id"] == null ? "" : Convert.ToString(jArray[0]["User_Name"]["Id"]),
                 User_Name = jArray[0]["User_Name"]["Title"] == null ? "" : Convert.ToString(jArray[0]["User_Name"]["Title"]).Trim(),
@@ -30,13 +57,14 @@ namespace AssetslnWeb.BAL.AssetManagement
                 ManagerCode = jArray[0]["Manager"]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["EmpCode"]),
                 Manager_Code = jArray[0]["Manager"]["ManagerCode"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["ManagerCode"]),
                 Department = jArray[0]["Department"]["DepartmentName"] == null ? "" : Convert.ToString(jArray[0]["Department"]["DepartmentName"]),
-                ManagerId = jArray[0]["Manager"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Manager"]["Id"]),
+                ManagerId = jArray[0]["Manager"]["Id"] == null ? 0 : Convert.ToInt32(jArray[0]["Manager"]["Id"].ToString())
             };
-           
+
+
             return EmpBal;
         }
 
-        private JArray RestGetEmp(ClientContext clientContext,string filter)
+        private JArray RESTGet(ClientContext clientContext,string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

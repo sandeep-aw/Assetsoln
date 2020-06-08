@@ -31,9 +31,9 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string ReasonToApply { get; set; }
 
-        public string RequestDate { get; set; }
+        public DateTime RequestDate { get; set; }
 
-        public string ReturnDate { get; set; }
+        public DateTime ReturnDate { get; set; }
 
         public string Status { get; set; }
 

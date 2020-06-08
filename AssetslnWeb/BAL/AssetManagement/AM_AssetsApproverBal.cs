@@ -18,7 +18,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "LID/ID eq '" + id + "' and ApproverRoleInternalName eq '" + rolename + "'";
 
-            JArray jArray = RestGetApprover(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             assetsApproverModel = new AM_AssetsApproverModel
             {
@@ -34,7 +34,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return assetsApproverModel;
         }
 
-        private JArray RestGetApprover(ClientContext clientContext,string filter)
+        private JArray RESTGet(ClientContext clientContext,string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

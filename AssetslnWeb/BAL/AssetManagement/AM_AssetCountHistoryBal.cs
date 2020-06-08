@@ -18,7 +18,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "LID/ID eq '" + id + "'";
 
-            JArray jArray = RestGetCount(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -43,7 +43,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return response;
         }
 
-        private JArray RestGetCount(ClientContext clientContext, string filter)
+        private JArray RESTGet(ClientContext clientContext, string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

@@ -17,7 +17,7 @@ namespace AssetslnWeb.BAL.AssetManagement
         {
             List<AM_AssetsModel> assetsModelsBal = new List<AM_AssetsModel>();
 
-            JArray jArray = RestGetAssets(clientContext);
+            JArray jArray = RESTGet(clientContext);
 
             foreach(JObject j in jArray)
             {
@@ -31,7 +31,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return assetsModelsBal;
         }
 
-        private JArray RestGetAssets(ClientContext clientContext)
+        private JArray RESTGet(ClientContext clientContext)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

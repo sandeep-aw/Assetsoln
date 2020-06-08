@@ -209,7 +209,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Emp_BasicInfoModels.cs" />
+    <Compile Include="Models\Emp_BasicInfoModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetCountHistoryModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApplyModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApproverModel.cs" />

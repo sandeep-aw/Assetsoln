@@ -17,7 +17,7 @@ namespace AssetslnWeb.BAL
 
             string filter = "DepartmentName eq '" + department + "'";
 
-            JArray jArray = RestGetDepart(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             departmentModel = new Emp_DepartmentModel
             {
@@ -30,7 +30,7 @@ namespace AssetslnWeb.BAL
             return departmentModel;
         }
 
-        private JArray RestGetDepart(ClientContext clientContext, string filter)
+        private JArray RESTGet(ClientContext clientContext, string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();

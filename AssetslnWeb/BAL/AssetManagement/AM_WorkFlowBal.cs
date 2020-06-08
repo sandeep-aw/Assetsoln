@@ -19,7 +19,7 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             string filter = "ToStatusId eq " + status + "'";
 
-            JArray jArray = RestGetWorkFlow(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -55,7 +55,7 @@ namespace AssetslnWeb.BAL.AssetManagement
                 filter = "ActionType eq '" + actionType + "' and FromStatus/Id eq '" + fromstatus + "'";
             }
 
-            JArray jArray = RestGetWorkFlow(clientContext, filter);
+            JArray jArray = RESTGet(clientContext, filter);
 
             foreach (JObject j in jArray)
             {
@@ -76,7 +76,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             return workFlowBal;
         }
 
-        private JArray RestGetWorkFlow(ClientContext clientContext, string filter)
+        private JArray RESTGet(ClientContext clientContext, string filter)
         {
             RestService restService = new RestService();
             JArray jArray = new JArray();
