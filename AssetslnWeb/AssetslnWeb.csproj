@@ -181,7 +181,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="BAL\AssetManagement\AM_AssetCountHistoryBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApproverBal.cs" />
     <Compile Include="BAL\Emp_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApplyBal.cs" />
@@ -209,8 +208,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssetManagement\AM_AssetAllotmentHistoryModel.cs" />
+    <Compile Include="Models\AssetManagement\AM_AssetsApplyDetailsModel.cs" />
     <Compile Include="Models\Emp_BasicInfoModel.cs" />
-    <Compile Include="Models\AssetManagement\AM_AssetCountHistoryModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApplyModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApproverModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsHistoryModel.cs" />

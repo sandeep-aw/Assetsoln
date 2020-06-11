@@ -192,12 +192,12 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 itemdata += "'EmployeeCode': '" + assetsApplyModel.EmployeeCode + "',";
                 itemdata += "'CreatedNameId': '" + Convert.ToInt32(assetsApplyModel.CreatedName) + "',";
                 itemdata += "'CreatedCode': '" + assetsApplyModel.CreatedCode + "',";
-                itemdata += "'AssetId': '" + Convert.ToInt32(assetsApplyModel.Asset) + "',";
-                itemdata += "'AssetTypeId': '" + Convert.ToInt32(assetsApplyModel.AssetType) + "',";
-                itemdata += "'AssetCount': '" + assetsApplyModel.AssetCount + "',";
-                itemdata += "'Warranty': '" + assetsApplyModel.Warranty + "',";
-                itemdata += "'AssetDetails': '" + assetsApplyModel.AssetDetails + "',";
-                itemdata += "'ReasonToApply': '" + assetsApplyModel.ReasonToApply + "',";
+                //itemdata += "'AssetId': '" + Convert.ToInt32(assetsApplyModel.Asset) + "',";
+               // itemdata += "'AssetTypeId': '" + Convert.ToInt32(assetsApplyModel.AssetType) + "',";
+               // itemdata += "'AssetCount': '" + assetsApplyModel.AssetCount + "',";
+               // itemdata += "'Warranty': '" + assetsApplyModel.Warranty + "',";
+                //itemdata += "'AssetDetails': '" + assetsApplyModel.AssetDetails + "',";
+                //itemdata += "'ReasonToApply': '" + assetsApplyModel.ReasonToApply + "',";
                 itemdata += "'RequestDate': '" + reqdate + "',";
                 itemdata += "'ReturnDate': '" + returndate + "',";
                 itemdata += "'StatusId': '" + Convert.ToInt32(assetsApplyModel.Status) + "',";
@@ -218,7 +218,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                     itemapprover += "'ActionTakenId': '" + assetsApplyModel.CreatedName + "',";
                     itemapprover += "'Date': '" + assetsApplyModel.CurrentDate + "',";
                     itemapprover += "'StatusId': '" + assetsApplyModel.Status + "',";
-                    itemapprover += "'Comments': '" + assetsApplyModel.ReasonToApply + "'";
+                    //itemapprover += "'Comments': '" + assetsApplyModel.ReasonToApply + "'";
 
                     AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
                     assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);

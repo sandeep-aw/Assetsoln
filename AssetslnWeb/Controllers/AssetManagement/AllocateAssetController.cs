@@ -24,8 +24,8 @@ namespace AssetslnWeb.Controllers.AssetManagement
             List<AM_AssetsHistoryModel> assetsHistoryModel = new List<AM_AssetsHistoryModel>();
             AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
 
-            List<AM_AssetCountHistoryModel> assetCountHistoryModel = new List<AM_AssetCountHistoryModel>();
-            AM_AssetCountHistoryBal assetCountHistoryBal = new AM_AssetCountHistoryBal();
+            //List<AM_AssetCountHistoryModel> assetCountHistoryModel = new List<AM_AssetCountHistoryModel>();
+            //AM_AssetCountHistoryBal assetCountHistoryBal = new AM_AssetCountHistoryBal();
 
             // previously assign quantity
 
@@ -40,9 +40,9 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 ViewBag.assetsView = assetsApplyModel;
                 ViewBag.assetsHistory = assetsHistoryModel;               
 
-                ViewBag.ReqQuantity = Convert.ToInt32(assetsApplyModel.AssetCount);
+                //ViewBag.ReqQuantity = Convert.ToInt32(assetsApplyModel.AssetCount);
 
-                assetCountHistoryModel = assetCountHistoryBal.GetAssetCountHistory(clientContext, (assetsApplyModel.ID).ToString());
+                //assetCountHistoryModel = assetCountHistoryBal.GetAssetCountHistory(clientContext, (assetsApplyModel.ID).ToString());
 
                 //if(assetCountHistoryModel.Count>0)
                 //{
@@ -89,34 +89,34 @@ namespace AssetslnWeb.Controllers.AssetManagement
             assetsApplyModel = (AM_AssetsApplyModel)Session["assetsData"];
 
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
-            using (var clientContext = spContext.CreateUserClientContextForSPHost())
-            {
-                if (assetsApplyModel.AssetCount == Quantity)
-                {
+            //using (var clientContext = spContext.CreateUserClientContextForSPHost())
+            //{
+            //    if (assetsApplyModel.AssetCount == Quantity)
+            //    {
 
-                }
-                else
-                {
-                    AM_AssetsTypeModel assetsTypeModel = new AM_AssetsTypeModel();
-                    AM_AssetsTypeBal assetsTypeBal = new AM_AssetsTypeBal();
+            //    }
+            //    else
+            //    {
+            //        AM_AssetsTypeModel assetsTypeModel = new AM_AssetsTypeModel();
+            //        AM_AssetsTypeBal assetsTypeBal = new AM_AssetsTypeBal();
 
-                    int count = Convert.ToInt32(assetsApplyModel.AssetTypeStock) - Convert.ToInt32(Quantity);
+            //        int count = Convert.ToInt32(assetsApplyModel.AssetTypeStock) - Convert.ToInt32(Quantity);
 
-                    string itemdata = " 'Stock' : '" + count + "'";
+            //        string itemdata = " 'Stock' : '" + count + "'";
 
-                    returnID = assetsTypeBal.UpdateAssetType(clientContext, itemdata, assetsApplyModel.AssetTypeId);
+            //        returnID = assetsTypeBal.UpdateAssetType(clientContext, itemdata, assetsApplyModel.AssetTypeId);
 
-                    AM_AssetCountHistoryBal assetCountHistoryBal = new AM_AssetCountHistoryBal();
+            //        AM_AssetCountHistoryBal assetCountHistoryBal = new AM_AssetCountHistoryBal();
 
-                    string actionType = "Allocate";
+            //        string actionType = "Allocate";
 
-                    string itemcount = " 'ActionType' : '" + actionType + "',";
-                    itemcount += "'AssetCount': '" + Quantity + "',";
-                    itemcount += "'LIDId': '" + assetsApplyModel.ID + "'";
+            //        string itemcount = " 'ActionType' : '" + actionType + "',";
+            //        itemcount += "'AssetCount': '" + Quantity + "',";
+            //        itemcount += "'LIDId': '" + assetsApplyModel.ID + "'";
 
-                    assetCountHistoryBal.SaveAssetCountHistory(clientContext, itemcount);
-                }
-            }
+            //        assetCountHistoryBal.SaveAssetCountHistory(clientContext, itemcount);
+            //    }
+            //}
 
             return Json(returnID, JsonRequestBehavior.AllowGet);
         }

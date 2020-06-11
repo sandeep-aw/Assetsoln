@@ -14,6 +14,144 @@
 
 }
 
+@section InlineStyle{
+
+    <style>
+        button.btn-approve:hover, button.btn-approve:focus {
+            background: #286090 !important;
+            color: #fff !important;
+        }
+
+        .btn.focus, .btn:focus, .btn:hover {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .btn-approve, .btn-approve:hover {
+            border: 1px solid !important;
+        }
+
+            .btn-approve, .btn-approve:hover, .btn-primary.badge i {
+                border-color: #286090 !important;
+                color: #286090 !important;
+                /* border: 1px solid!important; */
+            }
+
+        .btnCustom:hover {
+            background: #fff;
+        }
+
+        input[type=button]:hover, input[type=reset]:hover, input[type=submit]:hover, button:hover {
+            border-color: #92c0e0;
+            background-color: #e6f2fa;
+            background-color: #e6f2fa;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .btnCustom {
+            border: 2px solid;
+            min-width: 90px !important;
+            margin: 2px;
+            outline: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .breadcrumb {
+            list-style: none;
+            overflow: hidden;
+            padding: 0;
+            background-color: transparent;
+            margin: 0;
+        }
+
+            .breadcrumb li:first-child a {
+                padding-left: 10px;
+            }
+
+            .breadcrumb li a {
+                color: #000;
+                text-decoration: none;
+                padding: 10px 0 10px 40px;
+                background: #d9edf7;
+                background: #d9edf7;
+                position: relative;
+                display: block;
+                float: left;
+            }
+
+            .breadcrumb > li {
+                display: inline-block;
+                *display: inline;
+                text-shadow: 0 1px 0 #fff;
+                *zoom: 1;
+            }
+
+        li {
+            line-height: 20px;
+        }
+
+        user agent stylesheet
+        li {
+            text-align: -webkit-match-parent;
+        }
+
+        .breadcrumb li a:before {
+            content: " ";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-left: 30px solid white;
+            position: absolute;
+            top: 50%;
+            margin-top: -50px;
+            margin-left: 1px;
+            left: 100%;
+            z-index: 1;
+        }
+
+        .breadcrumb li a:after {
+            content: " ";
+            display: block;
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-left: 30px solid #d9edf7;
+            position: absolute;
+            top: 50%;
+            margin-top: -50px;
+            left: 100%;
+            z-index: 2;
+        }
+    </style>
+
+}
+
 <form id="ApplyAssetForm" ng-app="ApplyAssetapp" ng-controller="ApplyAssetController">
     <!-- container opened -->
     <div class="container">
@@ -37,125 +175,145 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="card-body pt-0">
-                            <div class="">
-                                <div class="row row-sm">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="First_Name">Employee Name</label>
-                                            <div id="slWrapper" class="parsley-select">
-                                                <select required="" class="form-control select2" name="EmployeeName" ng-model="ngddlAllUser" data-parsley-class-handler="#slWrapper" data-parsley-errors-container="#slErrorContainer">
-                                                    <option value="">
-                                                        Choose one
+
+                            <div class="row row-sm mg-b-20">
+                                <div class="col-lg-6">
+                                    <h5 class="card-title mb-3">Approver</h5>
+                                    <div class="row-fluid" id="approval-diagram" style="margin-bottom: 20px">
+                                        <ul class="breadcrumb">
+                                            <li><a href="#">You</a></li>
+                                            <li><a href="#">Vishal Pise</a></li>
+                                            <li><a href="#">Shripal Shah</a></li>
+                                            <!--<li><a href="#"><i class="fa fa-check"></i> Completed</a></li>-->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 mg-b-20"></div>
+                            </div>
+
+                            <div class="row row-sm">
+                                <div class="col-lg-6"><h5 class="card-title mb-3">Create a new request for Asset</h5></div><div class="col-lg-6"></div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="First_Name">Employee Name</label>
+                                        <div id="slWrapper" class="parsley-select">
+                                            <select required="" class="form-control EmpSelect" name="EmployeeName" ng-model="ngddlAllUser" data-parsley-class-handler="#slWrapper" data-parsley-errors-container="#slErrorContainer">
+                                                <option value=""> </option>
+                                                @foreach (var obj in ViewBag.EmpArr)
+                                                {
+                                                    <option value="@obj.UserNameId">
+                                                        @obj.User_Name
                                                     </option>
-                                                    @foreach (var obj in ViewBag.EmpArr)
-                                                    {
-                                                        <option value="@obj.UserNameId">
-                                                            @obj.User_Name
-                                                        </option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div id="slErrorContainer"></div>
+                                                }
+                                            </select>
                                         </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Asset</label>
-                                            <div id="slWrapper1" class="parsley-select">
-                                                <select required="" class="form-control select2" name="Assets" ng-model="ngddlAsset" id="ddlAsset" ng-change="getAsset()" data-parsley-class-handler="#slWrapper1" data-parsley-errors-container="#slErrorContainer1">
-                                                    <option value="">
-                                                        Choose one
-                                                    </option>
-                                                    @foreach (var j in ViewBag.AssetArr)
-                                                    {
-                                                        <option value="@j.ID">
-                                                            @j.Assets
-                                                        </option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div id="slErrorContainer1"></div>
-                                        </div>
+                                        <div id="slErrorContainer"></div>
                                     </div>
                                 </div>
 
-                                <div class="row row-sm">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Asset Type</label>
-                                            <div id="slWrapper2" class="parsley-select">
-                                                <select required="" class="form-control select2" ng-model="ngddlAssetType" ng-options="a.ID as a.AssetType for a in AssetType" data-parsley-class-handler="#slWrapper2" data-parsley-errors-container="#slErrorContainer2">
-                                                    <option value="">
-                                                        Choose one
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div id="slErrorContainer2"></div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Request Date</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                                </div>
+                                            </div><input required="" class="form-control" ng-model="ngtxtRequestDate" id="datetimepicker" type="text" data-parsley-class-handler="#slRequestDate" data-parsley-errors-container="#slRequestDateError">
                                         </div>
-                                        </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="First_Name">Asset Required Quantity</label>
-                                            <input required="" type="text" class="form-control" ng-model="ngtxtAssetCount" id="First_Name" placeholder="Enter Asset Required Quantity">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row row-sm">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Request Date</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                                    </div>
-                                                </div><input required="" class="form-control" ng-model="ngtxtRequestDate" id="datetimepicker" type="text" data-parsley-class-handler="#slRequestDate" data-parsley-errors-container="#slRequestDateError">
-                                            </div>
-                                            <div id="slRequestDateError"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Return Date</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        <script src="~/assets/js/form-elements.js"></script>
-                                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
-                                                    </div>
-                                                </div><input required="" class="form-control" ng-model="ngtxtReturnDate" id="datetimepicker1" type="text" data-parsley-class-handler="#slReturnDate" data-parsley-errors-container="#slReturnDateError">
-                                            </div>
-                                            <div id="slReturnDateError"></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row row-sm">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="txtDescription">Reason To Apply</label>
-                                            <textarea required="" class="form-control" ng-model="ngtxtReasonToApply" id="txtDescription" placeholder="Enter Reason To Apply" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="txtDescription">Asset Details</label>
-                                            <textarea required="" class="form-control" ng-model="ngtxtAssetDetails" id="txtDescription" placeholder="Enter Asset Details" rows="3"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row row-sm">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="First_Name">Warranty</label>
-                                            <input type="text" required="" ng-model="ngtxtWarranty" class="form-control" id="First_Name" placeholder="Enter warranty in months">
-                                        </div>
+                                        <div id="slRequestDateError"></div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row row-sm mg-b-30">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Return Date</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <script src="~/assets/js/form-elements.js"></script>
+                                                    <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                                </div>
+                                            </div><input required="" class="form-control" ng-model="ngtxtReturnDate" id="returndate" type="text" data-parsley-class-handler="#slReturnDate" data-parsley-errors-container="#slReturnDateError">
+                                        </div>
+                                        <div id="slReturnDateError"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="First_Name">Comments</label>
+                                        <textarea class="form-control" ng-model="ngtxtComment" id="txtComment" placeholder="Enter Comment" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row row-sm">
+                                <div class="col-lg-6"><h5 class="card-title mb-3">Add Assets</h5></div><div class="col-lg-6"></div>
+
+                                <div class="table-responsive mg-b-30 text-center">
+                                    <table class="table table-bordered mg-b-0 text-md-nowrap bordertable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Asset</th>
+                                                <th scope="col">Asset Type</th>
+                                                <th scope="col">Required Quantity</th>
+                                                <th scope="col">Reason To Apply</th>
+                                                <th scope="col">Asset Details</th>
+                                                <th scope="col">Replacement</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div id="slWrapper1" class="parsley-select">
+                                                        <select required="" class="form-control SelAsset" ng-model="ngddlAsset" id="ddlAsset" ng-change="getAsset()" data-parsley-class-handler="#slWrapper1" data-parsley-errors-container="#slErrorContainer1">
+                                                            <option value=""> </option>
+                                                            @foreach (var j in ViewBag.AssetArr)
+                                                            {
+                                                                <option value="@j.ID">
+                                                                    @j.Assets
+                                                                </option>
+                                                            }
+                                                        </select>                            
+                                                    </div>
+                                                    <div id="slErrorContainer1"></div>
+                                                </td>
+                                                <td>
+                                                    <div id="slWrapper2" class="parsley-select">
+                                                        <select required="" class="form-control SelAssetType" ng-model="ngddlAssetType" ng-options="a.ID as a.AssetType for a in AssetType" data-parsley-class-handler="#slWrapper2" data-parsley-errors-container="#slErrorContainer2">
+                                                            <option value=""> </option>
+                                                        </select>
+                                                    </div>
+                                                    <div id="slErrorContainer2"></div>
+                                                </td>
+                                                <td><input type="text" class="form-control" id="First_Name" placeholder="Enter Required Quantity"></td>
+                                                <td><textarea class="form-control" ng-model="ngtxtDescription" id="txtDescription" placeholder="Enter Reason To Apply" rows="3"></textarea></td>
+                                                <td><textarea class="form-control" ng-model="ngtxtDescription" id="txtDescription" placeholder="Enter Asset Details" rows="3"></textarea></td>
+                                                <td>
+                                                    <select class="form-control SelReplacement">
+                                                        <option value=""> </option>
+                                                        <option value="Yes">Yes</option>
+                                                        <option value="No">No</option>
+                                                    </select>
+                                                </td>
+                                                <th scope="col">
+                                                    <button class="btn btn-primary btn-icon wd-40 ht-30"><i class="fas fa-plus-circle" aria-hidden="true"></i></button>
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
                             <div class="row row-sm text-center">
                                 <div class="col-sm-3">
                                 </div>
@@ -197,7 +355,6 @@
 
     <!-- Internal Select2.min js -->
     <script src="~/assets/plugins/select2/js/select2.min.js"></script>
-    <script src="~/assets/js/select2.js"></script>
 
     <!--Internal  Parsley.min js -->
     <script src="../assets/plugins/parsleyjs/parsley.min.js"></script>
@@ -212,6 +369,39 @@
 
     <script src="~/Scripts/Angular/AssetManagement/Services/ApplyAssetService.js"></script>
     <script src="~/Scripts/Angular/AssetManagement/JS/ApplyAsset.js"></script>
+
+    <script>
+        $('#returndate').datetimepicker({
+            minView: 2,
+            format: 'dd-mm-yyyy',
+            autoclose: true
+        });
+
+        $('.EmpSelect').select2({
+            placeholder: 'Select Employee Name',
+            searchInputPlaceholder: 'Search',
+            width: '100%'
+        });
+
+        $('.SelAsset').select2({
+            placeholder: 'Select Asset',
+            searchInputPlaceholder: 'Search',
+            width: '100%'
+        });
+
+        $('.SelAssetType').select2({
+            placeholder: 'Select Asset Type',
+            searchInputPlaceholder: 'Search',
+            width: '100%'
+        });
+
+        $('.SelReplacement').select2({
+            placeholder: 'Select Replacement',
+            searchInputPlaceholder: 'Search',
+            width: '100%'
+        });
+
+    </script>
 }
 
 

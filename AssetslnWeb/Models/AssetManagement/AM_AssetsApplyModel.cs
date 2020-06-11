@@ -19,18 +19,6 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string CreatedCode { get; set; }
 
-        public string Asset { get; set; }
-
-        public string AssetType { get; set; }
-
-        public string AssetCount { get; set; }
-
-        public string Warranty { get; set; }
-
-        public string AssetDetails { get; set; }
-
-        public string ReasonToApply { get; set; }
-
         public DateTime RequestDate { get; set; }
 
         public DateTime ReturnDate { get; set; }
@@ -42,11 +30,7 @@ namespace AssetslnWeb.Models.AssetManagement
         public string CurrentDate { get; set; }
 
         public string CurrentApprover { get; set; }
-
-        public string AssetId { get; set; }
-
-        public string AssetTypeId { get; set; }
-
+        
         public string StatusId { get; set; }
 
         public string EmployeeNameId { get; set; }

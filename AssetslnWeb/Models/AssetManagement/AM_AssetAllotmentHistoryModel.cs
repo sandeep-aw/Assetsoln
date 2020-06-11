@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AssetslnWeb.Models.AssetManagement
 {
-    public class AM_AssetCountHistoryModel
+    public class AM_AssetAllotmentHistoryModel
     {
         public int ID { get; set; }
 
@@ -13,8 +13,8 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string ActionType { get; set; }
 
-        public string AssetCount { get; set; }
+        public string AssetQuantity { get; set; }
 
-        public string AssetCountID { get; set; }
+        public string PendingQuantity { get; set; }
     }
 }
