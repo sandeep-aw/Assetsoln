@@ -19,7 +19,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
             string UserId = Session["UserID"].ToString();
 
             // declare object to get current login user data
-            List<AM_BasicInfoModels> EmpModel = new List<AM_BasicInfoModels>();
+            List<AM_BasicInfoModel> EmpModel = new List<AM_BasicInfoModel>();
 
             // declare object to get pending request data
             List<AM_AssetsApplyModel> assetsApplyModels = new List<AM_AssetsApplyModel>();

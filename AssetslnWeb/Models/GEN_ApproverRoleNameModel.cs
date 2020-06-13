@@ -14,5 +14,7 @@ namespace AssetslnWeb.Models
         public string Empcode { get; set; }
 
         public string ApproverId { get; set; }
+
+        public string Title { get; set; }
     }
 }

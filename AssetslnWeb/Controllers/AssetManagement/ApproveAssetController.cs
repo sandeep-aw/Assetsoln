@@ -87,7 +87,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 //get current user empcode
                 string UserId = Session["UserID"].ToString();
 
-                List<AM_BasicInfoModels> basicInfoModels = new List<AM_BasicInfoModels>();
+                List<AM_BasicInfoModel> basicInfoModels = new List<AM_BasicInfoModel>();
                 AM_BasicInfoBal basicInfoBal = new AM_BasicInfoBal();
 
                 basicInfoModels = basicInfoBal.GetCurrentLoginUser(clientContext, UserId);
@@ -110,7 +110,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
 
                 var itemhistory = " 'LIDId' : '" + approveapplymodel.ID + "',";
-                itemhistory += "'ActionTakenId': '" + basicInfoModels[0].Id + "',";
+                itemhistory += "'ActionTakenId': '" + basicInfoModels[0].ID + "',";
                 itemhistory += "'Date': '" + CurrentDate + "',";
                 itemhistory += "'StatusId': '" + workFlowModel[0].ToStatusId + "',";
                 itemhistory += "'Comments': '" + Comment + "'";
@@ -156,7 +156,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 // get current user empcode
                 string UserId = Session["UserID"].ToString();
 
-                List<AM_BasicInfoModels> basicInfoModels = new List<AM_BasicInfoModels>();
+                List<AM_BasicInfoModel> basicInfoModels = new List<AM_BasicInfoModel>();
                 AM_BasicInfoBal basicInfoBal = new AM_BasicInfoBal();
 
                 basicInfoModels = basicInfoBal.GetCurrentLoginUser(clientContext, UserId);
@@ -174,7 +174,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
 
                 string itemhistory = " 'LIDId' : '" + approveapplymodel.ID + "',";
-                itemhistory += "'ActionTakenId': '" + basicInfoModels[0].Id + "',";
+                itemhistory += "'ActionTakenId': '" + basicInfoModels[0].ID + "',";
                 itemhistory += "'Date': '" + CurrentDate + "',";
                 itemhistory += "'StatusId': '" + workFlowModel[0].ToStatusId + "',";
                 itemhistory += "'Comments': '" + Comment + "'";

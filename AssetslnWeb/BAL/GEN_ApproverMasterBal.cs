@@ -32,7 +32,7 @@ namespace AssetslnWeb.BAL
 
             //approverRoleListModels = approverRoleListBal.GetApproverRoleListBals(clientContext);
 
-            Emp_BasicInfoBal basicInfoBal = new Emp_BasicInfoBal();            
+            AM_BasicInfoModel basicInfoBal = new AM_BasicInfoModel();            
 
             approverMasterModel = new GEN_ApproverMasterModel
             {
@@ -50,9 +50,9 @@ namespace AssetslnWeb.BAL
             rolenamearr = approverMasterModel.ApproverRoleInternalName.Split(',').ToList();
 
             // call Emp-basicinfimodel class
-            Emp_BasicInfoBal emp_BasicInfo = new Emp_BasicInfoBal();
+            AM_BasicInfoBal emp_BasicInfo = new AM_BasicInfoBal();
 
-            Emp_BasicInfoModel basicInfoManager = new Emp_BasicInfoModel();
+            AM_BasicInfoModel basicInfoManager = new AM_BasicInfoModel();
 
             basicInfoManager = emp_BasicInfo.GetEmpManager(clientContext, empcode);
 

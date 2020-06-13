@@ -218,7 +218,7 @@
     <Compile Include="Models\AssetManagement\AM_AssetsTypeModel.cs" />
     <Compile Include="Models\AssetManagement\AM_StatusMasterModel.cs" />
     <Compile Include="Models\AssetManagement\AM_WorkFlowModel.cs" />
-    <Compile Include="Models\AssetManagement\AM_BasicInfoModels.cs" />
+    <Compile Include="Models\AssetManagement\AM_BasicInfoModel.cs" />
     <Compile Include="Models\Emp_DepartmentModel.cs" />
     <Compile Include="Models\GEN_ApproverMasterModel.cs" />
     <Compile Include="Models\GEN_ApproverRoleListModel.cs" />
