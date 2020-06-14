@@ -39,10 +39,12 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
             var item = {
                 Asset: $("#ddlAsset :selected").text().trim(),
+                AssetId: $scope.ngddlAsset,
                 AssetType: $("#ddlAssetType :selected").text().trim(),
-                Quantity: $scope.ngtxtQty,
-                Reason: $scope.ngtxtReason,
-                Details: $scope.ngtxtDesc,
+                AssetTypeId: $scope.ngddlAssetType,
+                UserApplyQuantity: $scope.ngtxtQty,
+                ReasonToApply: $scope.ngtxtReason,
+                AssetDetails: $scope.ngtxtDesc,
                 Replacement: $scope.ngddlReplacement
             }
             console.log(item);
@@ -145,16 +147,11 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         var ApplyAssetObj = {
             RequestNo: $scope.RequestNo,
             EmployeeCode: $scope.ngddlAllUser,
-            applyDetailsModel: $scope.AssetsArr
-            //Asset: $scope.ngddlAsset,
-            //AssetType: $scope.ngddlAssetType,
-            //AssetCount: $scope.ngtxtAssetCount,
-            //Warranty: $scope.ngtxtWarranty,
-            //AssetDetails: $scope.ngtxtAssetDetails,
-            //ReasonToApply: $scope.ngtxtReasonToApply,
-            //RequestDate: moment($scope.ngtxtRequestDate, 'DD-MM-YYYY').format("MM/DD/YYYY"),
-            //ReturnDate: moment($scope.ngtxtReturnDate, 'DD-MM-YYYY').format("MM/DD/YYYY"),
-            //CurrentDate : $scope.historydate
+            RequestDate: moment($scope.ngtxtRequestDate, 'DD-MM-YYYY').format("MM/DD/YYYY"),
+            ReturnDate: moment($scope.ngtxtReturnDate, 'DD-MM-YYYY').format("MM/DD/YYYY"),
+            CurrentDate: $scope.historydate,
+            applyDetailsModel: $scope.AssetsArr,
+            Comments: $scope.ngtxtComment
         }
 
 

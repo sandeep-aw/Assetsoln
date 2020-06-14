@@ -154,12 +154,11 @@ namespace AssetslnWeb.BAL.AssetManagement
             JArray jArray = new JArray();
             RESTOption rESTOption = new RESTOption();
 
-            string selectqry = "ID,AssetCount,Warranty,AssetDetails,ReasonToApply,RequestDate,ReturnDate,InternalStatus,RequestNo,Asset/Id,Asset/Assets,AssetType/Id,";
-            selectqry += "AssetType/AssetType,AssetType/Stock,Status/Id,Status/StatusName,EmployeeName/Id,EmployeeName/EmpCode,EmployeeCode,CreatedName/Id,CreatedName/EmpCode,";
-            selectqry += "CreatedCode,CurrentApprover,EmployeeName/FirstName,EmployeeName/LastName";
+            string selectqry = "ID,RequestDate,ReturnDate,InternalStatus,RequestNo,Status/Id,Status/StatusName,EmployeeName/Id,EmployeeName/EmpCode,EmployeeCode,";
+            selectqry += "CreatedName/Id,CreatedName/EmpCode,CreatedCode,CurrentApprover,EmployeeName/FirstName,EmployeeName/LastName,Comments";
 
             rESTOption.select = selectqry;
-            rESTOption.expand = "Asset,AssetType,Status,EmployeeName,CreatedName";
+            rESTOption.expand = "Status,EmployeeName,CreatedName";
 
             if (filter != null)
             {

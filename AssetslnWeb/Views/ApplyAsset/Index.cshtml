@@ -309,9 +309,9 @@
                                             <tr ng-repeat="i in AssetsArr track by $index">
                                                 <td scope="row" data-label="Asset">{{i.Asset}}</td>
                                                 <td data-label="AssetType">{{i.AssetType}}</td>
-                                                <td data-label="Qty">{{i.Quantity}}</td>
-                                                <td data-label="Reason">{{i.Reason}}</td>
-                                                <td data-label="Details">{{i.Details}}</td>
+                                                <td data-label="Qty">{{i.UserApplyQuantity}}</td>
+                                                <td data-label="Reason">{{i.ReasonToApply}}</td>
+                                                <td data-label="Details">{{i.AssetDetails}}</td>
                                                 <td data-label="Replacement">{{i.Replacement}}</td>
                                                 <td scope="col"><button type="button" class="btn btn-primary btn-icon wd-40 ht-30" ng-click="RemoveAssets($index)"><i class="fa fa-trash"></i></button></td>
                                             </tr>

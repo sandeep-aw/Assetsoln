@@ -43,6 +43,8 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string AssetTypeStock { get; set; }
 
+        public string Comments { get; set; }
+
         public List<AM_AssetsApplyDetailsModel> applyDetailsModel { get; set; }
     }
 }

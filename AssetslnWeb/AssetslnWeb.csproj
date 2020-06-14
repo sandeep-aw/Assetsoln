@@ -181,6 +181,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BAL\AssetManagement\AM_AssetsApplyDetailsBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApproverBal.cs" />
     <Compile Include="BAL\Emp_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApplyBal.cs" />

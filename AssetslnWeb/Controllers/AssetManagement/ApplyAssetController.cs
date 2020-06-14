@@ -134,23 +134,6 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
                 masterModel = approverMasterBal.getApproverData(clientContext, ecode, modulename, approvertype);
 
-
-                //for (var i = 0; i < masterModel.Count; i++)
-                //{
-                //    AM_BasicInfoBal infoBalEmpCode = new AM_BasicInfoBal();
-
-                //    AM_BasicInfoModel basicInfoModels = new AM_BasicInfoModel();
-
-                //    basicInfoModels = infoBalEmpCode.GetDataByEmpcode(clientContext, masterModel[i].Empcode);
-
-                //    if (masterModel[i].Sequence == 0)
-                //    {
-                //        assetsApplyModel.CurrentApprover = masterModel[i].Empcode;
-                //    }
-
-                //    masterModel[i].ApproverId = (basicInfoModels.ID).ToString();
-                //}
-
                 for (var i = 0; i < masterModel.Count; i++)
                 {
                     for (int j = 0; j < EmployeeArr.Count; j++)
@@ -162,7 +145,11 @@ namespace AssetslnWeb.Controllers.AssetManagement
                     }
                 }                
             }
+
             // get approver data end
+
+            // set session for approver data
+            Session["masterModel"] = masterModel;
 
             return Json(masterModel, JsonRequestBehavior.AllowGet);
         }
@@ -189,123 +176,151 @@ namespace AssetslnWeb.Controllers.AssetManagement
         {
             string returnID = "0";
 
-            HttpCookie cookie = Request.Cookies["AssetsArr"];
+            // get all employee information stored in session
+            List<AM_BasicInfoModel> EmployeeArr = (List<AM_BasicInfoModel>)Session["EmpData"];
 
-            //// get all employee information stored in session
-            //List<AM_BasicInfoModel> EmployeeArr = (List<AM_BasicInfoModel>)Session["EmpData"];
+            // get created name and created code
+            string UserId = Session["UserID"].ToString();
 
-            //// get created name and created code
-            //string UserId = Session["UserID"].ToString();
+            // declare ApproverRoleName list object to get approvers data
+            List<GEN_ApproverRoleNameModel> masterModel = new List<GEN_ApproverRoleNameModel>();
 
-            ///*List<AM_BasicInfoModel> EmpModel = new List<AM_BasicInfoModel>();
+            // get session of approver data
+            masterModel = (List<GEN_ApproverRoleNameModel>)Session["masterModel"];
+            
+            // declare workflow list object to get workflow data
+            List<AM_WorkFlowModel> workFlowModels = new List<AM_WorkFlowModel>();
 
-            //var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
-            //using (var clientContext = spContext.CreateUserClientContextForSPHost())
-            //{
-            //    AM_BasicInfoBal basicInfoBal = new AM_BasicInfoBal();
-            //    EmpModel = basicInfoBal.GetCreatedUserData(clientContext, UserId);
-            //    assetsApplyModel.CreatedCode = EmpModel[0].EmpCode;
-            //    assetsApplyModel.CreatedName = EmpModel[0].EmpCode;
-            //}*/
+            // store data in the applydetails array
+            List<AM_AssetsApplyDetailsModel> assetsApplyDetailsModels = assetsApplyModel.applyDetailsModel;
 
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            using (var clientContext = spContext.CreateUserClientContextForSPHost())
+            {
 
+                for (var i = 0; i < masterModel.Count; i++)
+                {
+                    AM_BasicInfoBal infoBalEmpCode = new AM_BasicInfoBal();
 
-            //// declare workflow list object to get workflow data
-            //List<AM_WorkFlowModel> workFlowModels = new List<AM_WorkFlowModel>();
+                    AM_BasicInfoModel basicInfoModels = new AM_BasicInfoModel();
 
-            //var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
-            //using (var clientContext = spContext.CreateUserClientContextForSPHost())
-            //{
-            //    // get workflow details by call workflowbal class method
+                    basicInfoModels = infoBalEmpCode.GetDataByEmpcode(clientContext, masterModel[i].Empcode);
 
-            //    string title = "Main";
-            //    string actionType = "Forward";
-            //    string fromstatus = "";               
+                    if (masterModel[i].Sequence == 0)
+                    {
+                        assetsApplyModel.CurrentApprover = masterModel[i].Empcode;
+                    }
 
-            //    AM_WorkFlowBal workFlowBal = new AM_WorkFlowBal();
-            //    workFlowModels = workFlowBal.getWorkFlowData(clientContext, actionType, fromstatus, title);
-            //    assetsApplyModel.InternalStatus = workFlowModels[0].InternalStatus;
-            //    assetsApplyModel.Status = workFlowModels[0].ToStatusId;
-
-
-            //    foreach (AM_BasicInfoModel emparr in EmployeeArr)
-            //    {
-            //        if (emparr.UserNameId == assetsApplyModel.EmployeeCode)
-            //        {
-            //            assetsApplyModel.EmployeeCode = emparr.EmpCode;
-            //            assetsApplyModel.EmployeeName = (emparr.ID).ToString();
-            //        }
-            //        else if (emparr.UserNameId == UserId)
-            //        {
-            //            assetsApplyModel.CreatedCode = emparr.EmpCode;
-            //            assetsApplyModel.CreatedName = (emparr.ID).ToString();
-            //        }
-            //    }
+                    masterModel[i].ApproverId = (basicInfoModels.ID).ToString();
+                }
 
 
+                // get workflow details by call workflowbal class method
 
-            //    var reqdatetime = (assetsApplyModel.RequestDate).ToString();
-            //    DateTime reqdt = DateTime.ParseExact(reqdatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-            //    var reqdate = reqdt.ToString("MM/dd/yyyy");
+                string title = "Main";
+                string actionType = "Forward";
+                string fromstatus = "";
 
-            //    var returndatetime = (assetsApplyModel.ReturnDate).ToString();
-            //    DateTime returndt = DateTime.ParseExact(returndatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-            //    var returndate = returndt.ToString("MM/dd/yyyy");
+                AM_WorkFlowBal workFlowBal = new AM_WorkFlowBal();
+                workFlowModels = workFlowBal.getWorkFlowData(clientContext, actionType, fromstatus, title);
+                assetsApplyModel.InternalStatus = workFlowModels[0].InternalStatus;
+                assetsApplyModel.Status = workFlowModels[0].ToStatusId;
 
-            //    // save assetsapply data
-            //    string itemdata = " 'RequestNo' : '" + assetsApplyModel.RequestNo + "',";
-            //    itemdata += "'EmployeeNameId': '" + Convert.ToInt32(assetsApplyModel.EmployeeName) + "',";
-            //    itemdata += "'EmployeeCode': '" + assetsApplyModel.EmployeeCode + "',";
-            //    itemdata += "'CreatedNameId': '" + Convert.ToInt32(assetsApplyModel.CreatedName) + "',";
-            //    itemdata += "'CreatedCode': '" + assetsApplyModel.CreatedCode + "',";
-            //    //itemdata += "'AssetId': '" + Convert.ToInt32(assetsApplyModel.Asset) + "',";
-            //   // itemdata += "'AssetTypeId': '" + Convert.ToInt32(assetsApplyModel.AssetType) + "',";
-            //   // itemdata += "'AssetCount': '" + assetsApplyModel.AssetCount + "',";
-            //   // itemdata += "'Warranty': '" + assetsApplyModel.Warranty + "',";
-            //    //itemdata += "'AssetDetails': '" + assetsApplyModel.AssetDetails + "',";
-            //    //itemdata += "'ReasonToApply': '" + assetsApplyModel.ReasonToApply + "',";
-            //    itemdata += "'RequestDate': '" + reqdate + "',";
-            //    itemdata += "'ReturnDate': '" + returndate + "',";
-            //    itemdata += "'StatusId': '" + Convert.ToInt32(assetsApplyModel.Status) + "',";
-            //    itemdata += "'InternalStatus': '" + assetsApplyModel.InternalStatus + "',";
-            //    itemdata += "'CurrentApprover': '" + assetsApplyModel.CurrentApprover + "'";
 
-            //    // call assetsapply bal class method
-            //    AM_AssetsApplyBal assetsApplyBal = new AM_AssetsApplyBal();
+                foreach (AM_BasicInfoModel emparr in EmployeeArr)
+                {
+                    if (emparr.UserNameId == assetsApplyModel.EmployeeCode)
+                    {
+                        assetsApplyModel.EmployeeCode = emparr.EmpCode;
+                        assetsApplyModel.EmployeeName = (emparr.ID).ToString();
+                    }
+                    else if (emparr.UserNameId == UserId)
+                    {
+                        assetsApplyModel.CreatedCode = emparr.EmpCode;
+                        assetsApplyModel.CreatedName = (emparr.ID).ToString();
+                    }
+                }
 
-            //    returnID = assetsApplyBal.SaveAssetsApplyData(clientContext, itemdata);
 
-            //    if (returnID != "0")
-            //    {
-            //        // save history data
-            //        AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
 
-            //        var itemapprover = " 'LIDId' : '" + returnID + "',";
-            //        itemapprover += "'ActionTakenId': '" + assetsApplyModel.CreatedName + "',";
-            //        itemapprover += "'Date': '" + assetsApplyModel.CurrentDate + "',";
-            //        itemapprover += "'StatusId': '" + assetsApplyModel.Status + "',";
-            //        //itemapprover += "'Comments': '" + assetsApplyModel.ReasonToApply + "'";
+                var reqdatetime = (assetsApplyModel.RequestDate).ToString();
+                DateTime reqdt = DateTime.ParseExact(reqdatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                var reqdate = reqdt.ToString("MM/dd/yyyy");
 
-            //        AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
-            //        assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);
+                var returndatetime = (assetsApplyModel.ReturnDate).ToString();
+                DateTime returndt = DateTime.ParseExact(returndatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                var returndate = returndt.ToString("MM/dd/yyyy");
 
-            //        // save approver data
-            //        //for (var i = 0; i < masterModel.Count; i++)
-            //        //{
-            //        //    AM_AssetsApproverBal assetsApproverBal = new AM_AssetsApproverBal();
+                // save assetsapply data
+                string itemdata = " 'RequestNo' : '" + assetsApplyModel.RequestNo + "',";
+                itemdata += "'EmployeeNameId': '" + Convert.ToInt32(assetsApplyModel.EmployeeName) + "',";
+                itemdata += "'EmployeeCode': '" + assetsApplyModel.EmployeeCode + "',";
+                itemdata += "'CreatedNameId': '" + Convert.ToInt32(assetsApplyModel.CreatedName) + "',";
+                itemdata += "'CreatedCode': '" + assetsApplyModel.CreatedCode + "',";
+                itemdata += "'RequestDate': '" + reqdate + "',";
+                itemdata += "'ReturnDate': '" + returndate + "',";
+                itemdata += "'StatusId': '" + Convert.ToInt32(assetsApplyModel.Status) + "',";
+                itemdata += "'InternalStatus': '" + assetsApplyModel.InternalStatus + "',";
+                itemdata += "'CurrentApprover': '" + assetsApplyModel.CurrentApprover + "'";
+                itemdata += "'Comments': '" + assetsApplyModel.Comments + "'";
 
-            //        //    string status = "Pending";
+                // call assetsapply bal class method
+                AM_AssetsApplyBal assetsApplyBal = new AM_AssetsApplyBal();
 
-            //        //    var itemapproverdata = " 'LIDId' : '" + returnID + "',";
-            //        //    itemapproverdata += "'ApproverIDId': '" + masterModel[i].ApproverId + "',";
-            //        //    itemapproverdata += "'ApproverCode': '" + masterModel[i].Empcode + "',";
-            //        //    itemapproverdata += "'ApproverRoleInternalName': '" + masterModel[i].Role + "',";
-            //        //    itemapproverdata += "'Status': '" + status + "'";
+               // returnID = assetsApplyBal.SaveAssetsApplyData(clientContext, itemdata);
 
-            //        //    assetsApproverBal.SaveAssetsApproverData(clientContext, itemapproverdata);
-            //        //}
-            //    }
-            //}
+                if (returnID != "0")
+                {
+
+                    for (int i = 0; i < assetsApplyDetailsModels.Count; i++)
+                    {
+                        // save assetsapplydetails data
+
+                        string itemdetails = " 'LIDId' : '" + returnID + "',";
+                        itemdetails += "'AssetId': '" + Convert.ToInt32(assetsApplyDetailsModels[i].Asset) + "',";
+                        itemdetails += "'AssetTypeId': '" + Convert.ToInt32(assetsApplyDetailsModels[i].AssetType) + "',";
+                        itemdetails += "'AssetCount': '" + assetsApplyDetailsModels[i].UserApplyQuantity + "',";
+                        itemdetails += "'AssetDetails': '" + assetsApplyDetailsModels[i].AssetDetails + "',";
+                        itemdetails += "'ReasonToApply': '" + assetsApplyDetailsModels[i].ReasonToApply + "',";
+                        itemdetails += "'Replacement': '" + assetsApplyDetailsModels[i].Replacement + "'";
+
+                        AM_AssetsApplyDetailsBal assetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
+                        //assetsApplyDetailsBal.SaveAssetsApplyDetails(clientContext, itemdetails);
+                    }
+
+                    var currentdatetime = (assetsApplyModel.CurrentDate).ToString();
+                    DateTime currentdt = DateTime.ParseExact(returndatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                    var currentdate = currentdt.ToString("MM/dd/yyyy");
+
+                    // save history data
+                    AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
+
+                    string itemapprover = " 'LIDId' : '" + returnID + "',";
+                    itemapprover += "'ActionTakenId': '" + assetsApplyModel.CreatedName + "',";
+                    itemapprover += "'Date': '" + currentdate + "',";
+                    itemapprover += "'StatusId': '" + assetsApplyModel.Status + "',";
+                    itemapprover += "'Comments': '" + assetsApplyModel.Comments + "'";
+
+                    AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
+                    //assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);
+
+                    // save approver data
+                    for (var i = 0; i < masterModel.Count; i++)
+                    {
+                        AM_AssetsApproverBal assetsApproverBal = new AM_AssetsApproverBal();
+
+                        string status = "Pending";
+
+                        var itemapproverdata = " 'LIDId' : '" + returnID + "',";
+                        itemapproverdata += "'ApproverIDId': '" + masterModel[i].ApproverId + "',";
+                        itemapproverdata += "'ApproverCode': '" + masterModel[i].Empcode + "',";
+                        itemapproverdata += "'ApproverRoleInternalName': '" + masterModel[i].Role + "',";
+                        itemapproverdata += "'Status': '" + status + "'";
+
+                        //assetsApproverBal.SaveAssetsApproverData(clientContext, itemapproverdata);
+                    }
+                }
+            }
 
             //return Json(returnID, JsonRequestBehavior.AllowGet);
             return View();

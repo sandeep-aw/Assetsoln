@@ -26,7 +26,7 @@ namespace AssetslnWeb.BAL.AssetManagement
                 assetsHistoryModels.Add(new AM_AssetsHistoryModel
                 {
                     ID = Convert.ToInt32(j["ID"]),
-                    CurrentDate = j["Date"] == null ? "" : Convert.ToString(j["Date"]),
+                    //CurrentDate = j["Date"] == null ? "" : Convert.ToString(j["Date"]),
                     Comments = j["Comments"] == null ? "" : Convert.ToString(j["Comments"]),
                     ActionTakenId = j["ActionTaken"]["Id"] == null ? "" : Convert.ToString(j["ActionTaken"]["Id"]),
                     ActionTaken = j["ActionTaken"]["EmpCode"] == null ? "" : Convert.ToString(j["ActionTaken"]["EmpCode"]),
