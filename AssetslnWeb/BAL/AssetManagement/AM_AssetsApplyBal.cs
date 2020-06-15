@@ -20,35 +20,29 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             JArray jArray = RESTGet(clientContext, filter);
 
-            assetsApplyModels = new AM_AssetsApplyModel
+            if (jArray.Count > 0)
             {
-                ID = Convert.ToInt32(jArray[0]["ID"]),
-                //AssetCount = jArray[0]["AssetCount"] == null ? "" : Convert.ToString(jArray[0]["AssetCount"]),
-                //Warranty = jArray[0]["Warranty"] == null ? "" : Convert.ToString(jArray[0]["Warranty"]),
-                //AssetDetails = jArray[0]["AssetDetails"] == null ? "" : Convert.ToString(jArray[0]["AssetDetails"]),
-                //ReasonToApply = jArray[0]["ReasonToApply"] == null ? "" : Convert.ToString(jArray[0]["ReasonToApply"]),
-                //RequestDate = jArray[0]["RequestDate"] == null ? "" : Convert.ToString(jArray[0]["RequestDate"]),
-                //ReturnDate = jArray[0]["ReturnDate"] == null ? "" : Convert.ToString(jArray[0]["ReturnDate"]),
-                InternalStatus = jArray[0]["InternalStatus"] == null ? "" : Convert.ToString(jArray[0]["InternalStatus"]),
-                RequestNo = jArray[0]["RequestNo"] == null ? "" : Convert.ToString(jArray[0]["RequestNo"]),
-                //AssetId = jArray[0]["Asset"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Asset"]["Id"]),
-                //Asset = jArray[0]["Asset"]["Assets"] == null ? "" : Convert.ToString(jArray[0]["Asset"]["Assets"]),
-                //AssetTypeId = jArray[0]["AssetType"]["Id"] == null ? "" : Convert.ToString(jArray[0]["AssetType"]["Id"]),
-                //AssetType = jArray[0]["AssetType"]["AssetType"] == null ? "" : Convert.ToString(jArray[0]["AssetType"]["AssetType"]),
-                //AssetTypeStock = jArray[0]["AssetType"]["Stock"] == null ? "" : Convert.ToString(jArray[0]["AssetType"]["Stock"]),
-                StatusId = jArray[0]["Status"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Status"]["Id"]),
-                Status = jArray[0]["Status"]["StatusName"] == null ? "" : Convert.ToString(jArray[0]["Status"]["StatusName"]),
-                EmployeeNameId = jArray[0]["EmployeeName"]["Id"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["Id"]),
-                EmployeeName = jArray[0]["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["EmpCode"]),
-                EmployeeCode = jArray[0]["EmployeeCode"] == null ? "" : Convert.ToString(jArray[0]["EmployeeCode"]),
-                fname = jArray[0]["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["FirstName"]),
-                lname = jArray[0]["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["LastName"]),
-                CreatedNameId = jArray[0]["CreatedName"]["Id"] == null ? "" : Convert.ToString(jArray[0]["CreatedName"]["Id"]),
-                CreatedName = jArray[0]["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["CreatedName"]["EmpCode"]),
-                CreatedCode = jArray[0]["CreatedCode"] == null ? "" : Convert.ToString(jArray[0]["CreatedCode"]),
-                CurrentApprover = jArray[0]["CurrentApprover"] == null ? "" : Convert.ToString(jArray[0]["CurrentApprover"])
-            };
-
+                assetsApplyModels = new AM_AssetsApplyModel
+                {
+                    ID = Convert.ToInt32(jArray[0]["ID"]),
+                    RequestDate = Convert.ToDateTime(jArray[0]["RequestDate"]),
+                    ReturnDate = Convert.ToDateTime(jArray[0]["ReturnDate"]),
+                    InternalStatus = jArray[0]["InternalStatus"] == null ? "" : Convert.ToString(jArray[0]["InternalStatus"]),
+                    RequestNo = jArray[0]["RequestNo"] == null ? "" : Convert.ToString(jArray[0]["RequestNo"]),
+                    StatusId = jArray[0]["Status"]["Id"] == null ? "" : Convert.ToString(jArray[0]["Status"]["Id"]),
+                    Status = jArray[0]["Status"]["StatusName"] == null ? "" : Convert.ToString(jArray[0]["Status"]["StatusName"]),
+                    EmployeeNameId = jArray[0]["EmployeeName"]["Id"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["Id"]),
+                    EmployeeName = jArray[0]["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["EmpCode"]),
+                    EmployeeCode = jArray[0]["EmployeeCode"] == null ? "" : Convert.ToString(jArray[0]["EmployeeCode"]),
+                    fname = jArray[0]["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["FirstName"]),
+                    lname = jArray[0]["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(jArray[0]["EmployeeName"]["LastName"]),
+                    CreatedNameId = jArray[0]["CreatedName"]["Id"] == null ? "" : Convert.ToString(jArray[0]["CreatedName"]["Id"]),
+                    CreatedName = jArray[0]["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(jArray[0]["CreatedName"]["EmpCode"]),
+                    CreatedCode = jArray[0]["CreatedCode"] == null ? "" : Convert.ToString(jArray[0]["CreatedCode"]),
+                    CurrentApprover = jArray[0]["CurrentApprover"] == null ? "" : Convert.ToString(jArray[0]["CurrentApprover"]),
+                    Comments = jArray[0]["Comments"] == null ? "" : Convert.ToString(jArray[0]["Comments"])
+                };
+            }
 
             return assetsApplyModels;
         }
@@ -61,37 +55,32 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             JArray jArray = RESTGet(clientContext, filter);
 
-            foreach (JObject j in jArray)
+            if (jArray.Count > 0)
             {
-                assetsApplyModels.Add(new AM_AssetsApplyModel
+                foreach (JObject j in jArray)
                 {
-                    ID = Convert.ToInt32(j["ID"]),
-                    //AssetCount = j["AssetCount"] == null ? "" : Convert.ToString(j["AssetCount"]),
-                    //Warranty = j["Warranty"] == null ? "" : Convert.ToString(j["Warranty"]),
-                    //AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
-                    //ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
-                    //RequestDate = j["RequestDate"] == null ? "" : Convert.ToString(j["RequestDate"]),
-                    //ReturnDate = j["ReturnDate"] == null ? "" : Convert.ToString(j["ReturnDate"]),
-                    InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
-                    RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
-                    //AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
-                    //Asset = j["Asset"]["Assets"] == null ? "" : Convert.ToString(j["Asset"]["Assets"]),
-                    //AssetTypeId = j["AssetType"]["Id"] == null ? "" : Convert.ToString(j["AssetType"]["Id"]),
-                    //AssetType = j["AssetType"]["AssetType"] == null ? "" : Convert.ToString(j["AssetType"]["AssetType"]),
-                    StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
-                    Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"]),
-                    EmployeeNameId = j["EmployeeName"]["Id"] == null ? "" : Convert.ToString(j["EmployeeName"]["Id"]),
-                    EmployeeName = j["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(j["EmployeeName"]["EmpCode"]),
-                    EmployeeCode = j["EmployeeCode"] == null ? "" : Convert.ToString(j["EmployeeCode"]),
-                    fname = j["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(j["EmployeeName"]["FirstName"]),
-                    lname = j["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(j["EmployeeName"]["LastName"]),
-                    CreatedNameId = j["CreatedName"]["Id"] == null ? "" : Convert.ToString(j["CreatedName"]["Id"]),
-                    CreatedName = j["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(j["CreatedName"]["EmpCode"]),
-                    CreatedCode = j["CreatedCode"] == null ? "" : Convert.ToString(j["CreatedCode"]),
-                    CurrentApprover = j["CurrentApprover"] == null ? "" : Convert.ToString(j["CurrentApprover"]),
-                });
+                    assetsApplyModels.Add(new AM_AssetsApplyModel
+                    {
+                        ID = Convert.ToInt32(j["ID"]),
+                        RequestDate = Convert.ToDateTime(j["RequestDate"]),
+                        ReturnDate = Convert.ToDateTime(j["ReturnDate"]),
+                        InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
+                        RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
+                        StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
+                        Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"]),
+                        EmployeeNameId = j["EmployeeName"]["Id"] == null ? "" : Convert.ToString(j["EmployeeName"]["Id"]),
+                        EmployeeName = j["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(j["EmployeeName"]["EmpCode"]),
+                        EmployeeCode = j["EmployeeCode"] == null ? "" : Convert.ToString(j["EmployeeCode"]),
+                        fname = j["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(j["EmployeeName"]["FirstName"]),
+                        lname = j["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(j["EmployeeName"]["LastName"]),
+                        CreatedNameId = j["CreatedName"]["Id"] == null ? "" : Convert.ToString(j["CreatedName"]["Id"]),
+                        CreatedName = j["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(j["CreatedName"]["EmpCode"]),
+                        CreatedCode = j["CreatedCode"] == null ? "" : Convert.ToString(j["CreatedCode"]),
+                        CurrentApprover = j["CurrentApprover"] == null ? "" : Convert.ToString(j["CurrentApprover"]),
+                        Comments = j["Comments"] == null ? "" : Convert.ToString(j["Comments"])
+                    });
+                }
             }
-
 
             return assetsApplyModels;
         }
@@ -104,37 +93,32 @@ namespace AssetslnWeb.BAL.AssetManagement
 
             JArray jArray = RESTGet(clientContext, filter);
 
-            foreach (JObject j in jArray)
+            if (jArray.Count > 0)
             {
-                assetsApplyModels.Add(new AM_AssetsApplyModel
+                foreach (JObject j in jArray)
                 {
-                    ID = Convert.ToInt32(j["ID"]),
-                    //AssetCount = j["AssetCount"] == null ? "" : Convert.ToString(j["AssetCount"]),
-                    //Warranty = j["Warranty"] == null ? "" : Convert.ToString(j["Warranty"]),
-                    //AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
-                    //ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
-                    RequestDate = Convert.ToDateTime(j["RequestDate"]),
-                    ReturnDate = Convert.ToDateTime(j["ReturnDate"]),
-                    InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
-                    RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
-                    //AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
-                    //Asset = j["Asset"]["Assets"] == null ? "" : Convert.ToString(j["Asset"]["Assets"]),
-                    //AssetTypeId = j["AssetType"]["Id"] == null ? "" : Convert.ToString(j["AssetType"]["Id"]),
-                    //AssetType = j["AssetType"]["AssetType"] == null ? "" : Convert.ToString(j["AssetType"]["AssetType"]),
-                    StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
-                    Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"]),
-                    EmployeeNameId = j["EmployeeName"]["Id"] == null ? "" : Convert.ToString(j["EmployeeName"]["Id"]),
-                    EmployeeName = j["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(j["EmployeeName"]["EmpCode"]),
-                    EmployeeCode = j["EmployeeCode"] == null ? "" : Convert.ToString(j["EmployeeCode"]),
-                    fname = j["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(j["EmployeeName"]["FirstName"]),
-                    lname = j["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(j["EmployeeName"]["LastName"]),
-                    CreatedNameId = j["CreatedName"]["Id"] == null ? "" : Convert.ToString(j["CreatedName"]["Id"]),
-                    CreatedName = j["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(j["CreatedName"]["EmpCode"]),
-                    CreatedCode = j["CreatedCode"] == null ? "" : Convert.ToString(j["CreatedCode"]),
-                    CurrentApprover = j["CurrentApprover"] == null ? "" : Convert.ToString(j["CurrentApprover"]),
-                });
+                    assetsApplyModels.Add(new AM_AssetsApplyModel
+                    {
+                        ID = Convert.ToInt32(j["ID"]),
+                        RequestDate = Convert.ToDateTime(j["RequestDate"]),
+                        ReturnDate = Convert.ToDateTime(j["ReturnDate"]),
+                        InternalStatus = j["InternalStatus"] == null ? "" : Convert.ToString(j["InternalStatus"]),
+                        RequestNo = j["RequestNo"] == null ? "" : Convert.ToString(j["RequestNo"]),
+                        StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
+                        Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"]),
+                        EmployeeNameId = j["EmployeeName"]["Id"] == null ? "" : Convert.ToString(j["EmployeeName"]["Id"]),
+                        EmployeeName = j["EmployeeName"]["EmpCode"] == null ? "" : Convert.ToString(j["EmployeeName"]["EmpCode"]),
+                        EmployeeCode = j["EmployeeCode"] == null ? "" : Convert.ToString(j["EmployeeCode"]),
+                        fname = j["EmployeeName"]["FirstName"] == null ? "" : Convert.ToString(j["EmployeeName"]["FirstName"]),
+                        lname = j["EmployeeName"]["LastName"] == null ? "" : Convert.ToString(j["EmployeeName"]["LastName"]),
+                        CreatedNameId = j["CreatedName"]["Id"] == null ? "" : Convert.ToString(j["CreatedName"]["Id"]),
+                        CreatedName = j["CreatedName"]["EmpCode"] == null ? "" : Convert.ToString(j["CreatedName"]["EmpCode"]),
+                        CreatedCode = j["CreatedCode"] == null ? "" : Convert.ToString(j["CreatedCode"]),
+                        CurrentApprover = j["CurrentApprover"] == null ? "" : Convert.ToString(j["CurrentApprover"]),
+                        Comments = j["Comments"] == null ? "" : Convert.ToString(j["Comments"])
+                    });
+                }
             }
-
 
             return assetsApplyModels;
         }

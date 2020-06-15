@@ -243,13 +243,17 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
 
 
-                var reqdatetime = (assetsApplyModel.RequestDate).ToString();
-                DateTime reqdt = DateTime.ParseExact(reqdatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-                var reqdate = reqdt.ToString("MM/dd/yyyy");
+                //var reqdatetime = (assetsApplyModel.RequestDate).ToString();
+                //DateTime reqdt = DateTime.ParseExact(reqdatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                //var reqdate = reqdt.ToString("MM/dd/yyyy");
 
-                var returndatetime = (assetsApplyModel.ReturnDate).ToString();
-                DateTime returndt = DateTime.ParseExact(returndatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-                var returndate = returndt.ToString("MM/dd/yyyy");
+                var reqdate = (assetsApplyModel.RequestDate).ToString("MM/dd/yyyy");
+
+                //var returndatetime = (assetsApplyModel.ReturnDate).ToString();
+                //DateTime returndt = DateTime.ParseExact(returndatetime, "dd/MM/yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                //var returndate = returndt.ToString("MM/dd/yyyy");
+
+                var returndate = (assetsApplyModel.ReturnDate).ToString("MM/dd/yyyy");
 
                 // save assetsapply data
                 string itemdata = " 'RequestNo' : '" + assetsApplyModel.RequestNo + "',";
@@ -261,36 +265,39 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 itemdata += "'ReturnDate': '" + returndate + "',";
                 itemdata += "'StatusId': '" + Convert.ToInt32(assetsApplyModel.Status) + "',";
                 itemdata += "'InternalStatus': '" + assetsApplyModel.InternalStatus + "',";
-                itemdata += "'CurrentApprover': '" + assetsApplyModel.CurrentApprover + "'";
+                itemdata += "'CurrentApprover': '" + assetsApplyModel.CurrentApprover + "',";
                 itemdata += "'Comments': '" + assetsApplyModel.Comments + "'";
 
                 // call assetsapply bal class method
                 AM_AssetsApplyBal assetsApplyBal = new AM_AssetsApplyBal();
 
-               // returnID = assetsApplyBal.SaveAssetsApplyData(clientContext, itemdata);
+                returnID = assetsApplyBal.SaveAssetsApplyData(clientContext, itemdata);
 
                 if (returnID != "0")
                 {
-
-                    for (int i = 0; i < assetsApplyDetailsModels.Count; i++)
+                    if (assetsApplyDetailsModels != null)
                     {
-                        // save assetsapplydetails data
+                        for (int i = 0; i < assetsApplyDetailsModels.Count; i++)
+                        {
+                            // save assetsapplydetails data
 
-                        string itemdetails = " 'LIDId' : '" + returnID + "',";
-                        itemdetails += "'AssetId': '" + Convert.ToInt32(assetsApplyDetailsModels[i].Asset) + "',";
-                        itemdetails += "'AssetTypeId': '" + Convert.ToInt32(assetsApplyDetailsModels[i].AssetType) + "',";
-                        itemdetails += "'AssetCount': '" + assetsApplyDetailsModels[i].UserApplyQuantity + "',";
-                        itemdetails += "'AssetDetails': '" + assetsApplyDetailsModels[i].AssetDetails + "',";
-                        itemdetails += "'ReasonToApply': '" + assetsApplyDetailsModels[i].ReasonToApply + "',";
-                        itemdetails += "'Replacement': '" + assetsApplyDetailsModels[i].Replacement + "'";
+                            string itemdetails = " 'LIDId' : '" + returnID + "',";
+                            itemdetails += "'AssetId': '" + Convert.ToInt32(assetsApplyDetailsModels[i].AssetId) + "',";
+                            itemdetails += "'AssetTypeId': '" + Convert.ToInt32(assetsApplyDetailsModels[i].AssetTypeId) + "',";
+                            itemdetails += "'UserApplyQuantity': '" + assetsApplyDetailsModels[i].UserApplyQuantity + "',";
+                            itemdetails += "'AssetDetails': '" + assetsApplyDetailsModels[i].AssetDetails + "',";
+                            itemdetails += "'ReasonToApply': '" + assetsApplyDetailsModels[i].ReasonToApply + "',";
+                            itemdetails += "'Replacement': '" + assetsApplyDetailsModels[i].Replacement + "'";
 
-                        AM_AssetsApplyDetailsBal assetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
-                        //assetsApplyDetailsBal.SaveAssetsApplyDetails(clientContext, itemdetails);
+                            AM_AssetsApplyDetailsBal assetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
+                            assetsApplyDetailsBal.SaveAssetsApplyDetails(clientContext, itemdetails);
+                        }
                     }
+                    //var currentdatetime = (assetsApplyModel.CurrentDate).ToString();
+                    //DateTime currentdt = DateTime.ParseExact(currentdatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
+                    //var currentdate = currentdt.ToString("MM/dd/yyyy");
 
-                    var currentdatetime = (assetsApplyModel.CurrentDate).ToString();
-                    DateTime currentdt = DateTime.ParseExact(returndatetime, "dd-MM-yyyy hh:mm:ss", CultureInfo.InvariantCulture);
-                    var currentdate = currentdt.ToString("MM/dd/yyyy");
+                    var currentdate = (assetsApplyModel.CurrentDate).ToString("MM/dd/yyyy");
 
                     // save history data
                     AM_AssetsHistoryModel historyModel = new AM_AssetsHistoryModel();
@@ -302,7 +309,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                     itemapprover += "'Comments': '" + assetsApplyModel.Comments + "'";
 
                     AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
-                    //assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);
+                    assetsHistoryBal.SaveAssetsHistoryData(clientContext, itemapprover);
 
                     // save approver data
                     for (var i = 0; i < masterModel.Count; i++)
@@ -317,13 +324,13 @@ namespace AssetslnWeb.Controllers.AssetManagement
                         itemapproverdata += "'ApproverRoleInternalName': '" + masterModel[i].Role + "',";
                         itemapproverdata += "'Status': '" + status + "'";
 
-                        //assetsApproverBal.SaveAssetsApproverData(clientContext, itemapproverdata);
+                        assetsApproverBal.SaveAssetsApproverData(clientContext, itemapproverdata);
                     }
                 }
             }
 
-            //return Json(returnID, JsonRequestBehavior.AllowGet);
-            return View();
+            return Json(returnID, JsonRequestBehavior.AllowGet);
+            //return View();
         }
 
     }

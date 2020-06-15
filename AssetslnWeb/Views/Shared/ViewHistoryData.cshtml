@@ -15,17 +15,19 @@
         </thead>
         <tbody>
             @{int indexview = 1;}
-            @foreach (var obj in ViewBag.assetsHistory)
-            {
-                <tr>
-                    <th scope="row">@indexview</th>
-                    <td>Sandeep Nandalaskar</td>
-                    <td>@obj.Status</td>
-                    <td>@obj.CurrentDate</td>
-                    <td>@obj.Comments</td>
-                </tr>
-                indexview++;
-            }
+            
+                @foreach (var obj in ViewBag.assetsHistory)
+                {
+                    <tr>
+                        <th scope="row">@indexview</th>
+                        <td>Sandeep Nandalaskar</td>
+                        <td>@obj.Status</td>
+                        <td>@(obj.CurrentDate.ToString("dd/MM/yyyy"))</td>
+                        <td>@obj.Comments</td>
+                    </tr>
+                    indexview++;
+                }
+            
         </tbody>
     </table>
 </div><!-- bd -->

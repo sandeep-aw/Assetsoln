@@ -27,7 +27,7 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string InternalStatus { get; set; }
 
-        public string CurrentDate { get; set; }
+        public DateTime CurrentDate { get; set; }
 
         public string CurrentApprover { get; set; }
         

@@ -1,5 +1,6 @@
 ﻿using AssetslnWeb.DAL;
 using AssetslnWeb.Models;
+using AssetslnWeb.Models.AssetManagement;
 using Microsoft.SharePoint.Client;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,6 +12,34 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class AM_AssetsApplyDetailsBal
     {
+        public List<AM_AssetsApplyDetailsModel> GetDetailsById(ClientContext clientContext, int id)
+        {
+            List<AM_AssetsApplyDetailsModel> assetsApplyDetailsBals = new List<AM_AssetsApplyDetailsModel>();
+
+            string filter = "LID eq '" + id + "'";
+
+            JArray jArray = RESTGet(clientContext, filter);
+
+            foreach (JObject j in jArray)
+            {
+                assetsApplyDetailsBals.Add(new AM_AssetsApplyDetailsModel
+                {
+                    ID = Convert.ToInt32(j["ID"]),
+                    UserApplyQuantity = j["UserApplyQuantity"] == null ? "" : Convert.ToString(j["UserApplyQuantity"]),
+                    AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
+                    ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
+                    AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
+                    Asset = j["Asset"]["Assets"] == null ? "" : Convert.ToString(j["Asset"]["Assets"]),
+                    AssetTypeId = j["AssetType"]["Id"] == null ? "" : Convert.ToString(j["AssetType"]["Id"]),
+                    AssetType = j["AssetType"]["AssetType"] == null ? "" : Convert.ToString(j["AssetType"]["AssetType"]),
+                    Replacement = j["Replacement"] == null ? "" : Convert.ToString(j["Replacement"])
+                });
+            }
+
+
+            return assetsApplyDetailsBals;
+        }
+
         public string SaveAssetsApplyDetails(ClientContext clientContext, string ItemData)
         {
 

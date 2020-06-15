@@ -5,7 +5,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
     var d = new Date();
     console.log(d);
-    $scope.historydate = $filter('date')(d, 'MM/dd/yyyy');
+    $scope.historydate = $filter('date')(d, 'dd/MM/yyyy');
     $scope.ngtxtRequestDate = $filter('date')(d, 'dd/MM/yyyy');
 
     // create request no
@@ -50,17 +50,21 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
             console.log(item);
 
             //$('#ddlAsset option:selected').removeAttr('selected'); 
-            $("#ddlAsset")[0].selectedIndex = 0;
-            $("#ddlAssetType").empty();
-            $scope.ngtxtQty = "";
-            $scope.ngtxtReason = "";
-            $scope.ngtxtDesc = "";
+            //$("#slWrapper1").find('#ddlAsset option:selected').removeAttr('selected');
+            //$("#ddlAsset")[0].selectedIndex = 0;
+            //$("#ddlAssetType").empty();
+            //$scope.ngtxtQty = "";
+            //$scope.ngtxtReason = "";
+            //$scope.ngtxtDesc = "";
 
-            $('#ddlAsset > option').prop("selected", false);
-            $("li.select2-selection__choice").remove();
+            //$('#ddlAsset > option').prop("selected", false);
+            //$("li.select2-selection__choice").remove();
 
             //$('#ddlAsset option').attr('selected', false);
-
+           
+            $('#AssetDrop').load('Index?SPHostUrl=' + getUrlVars()["SPHostUrl"] + ' #AssetDrop');
+            //$('#AssetDropMain').load('#AssetDrop');
+            
             //$('#ddlReplacement').val('')
             //$('#ddlReplacement').val(0);
 
@@ -144,11 +148,17 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
     {
         $("#global-loader").show();
 
+        //$scope.RequestDate = $filter('date')($scope.ngtxtRequestDate, 'mm/dd/yyyy');
+        //$scope.RequestDate = moment($scope.ngtxtRequestDate, 'DD/MM/YYYY').format("MM/DD/YYYY");
+
+        //$scope.ReturnDate = $filter('date')($scope.ngtxtReturnDate, 'mm/dd/yyyy');
+        //$scope.ReturnDate = moment($scope.ngtxtReturnDate, 'DD/MM/YYYY').format("MM/DD/YYYY");
+
         var ApplyAssetObj = {
             RequestNo: $scope.RequestNo,
             EmployeeCode: $scope.ngddlAllUser,
-            RequestDate: moment($scope.ngtxtRequestDate, 'DD-MM-YYYY').format("MM/DD/YYYY"),
-            ReturnDate: moment($scope.ngtxtReturnDate, 'DD-MM-YYYY').format("MM/DD/YYYY"),
+            RequestDate: $scope.ngtxtRequestDate,
+            ReturnDate: $scope.ngtxtReturnDate,
             CurrentDate: $scope.historydate,
             applyDetailsModel: $scope.AssetsArr,
             Comments: $scope.ngtxtComment
@@ -169,6 +179,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
     $scope.PerformAction = function ()
     {
+        $("#global-loader").show();
         Pageredirect("/AssetDashboard/Index");
     }
 
@@ -176,9 +187,16 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         Pageredirect("/AssetDashboard/Index");
     }
 
+    // date format set
+    $('#requestdate').datetimepicker({
+        minView: 2,
+        format: 'dd/mm/yyyy',
+        autoclose: true
+    });
+
     $('#returndate').datetimepicker({
         minView: 2,
-        format: 'dd-mm-yyyy',
+        format: 'dd/mm/yyyy',
         autoclose: true
     });
 

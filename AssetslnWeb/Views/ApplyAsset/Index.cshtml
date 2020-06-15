@@ -11,7 +11,7 @@
 
     <!-- Internal Select2 css -->
     <link href="~/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
-
+ 
 }
 
 @section InlineStyle{
@@ -220,7 +220,7 @@
                                                 <div class="input-group-text">
                                                     <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
                                                 </div>
-                                            </div><input required="" class="form-control" ng-model="ngtxtRequestDate" id="datetimepicker" type="text" readonly>
+                                            </div><input required="" class="form-control" ng-model="ngtxtRequestDate" id="requestdate" type="text" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +270,7 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td id="AssetDrop">
                                                     <div id="slWrapper1" class="parsley-select">
                                                         <select class="form-control SelAsset validate" ng-model="ngddlAsset" id="ddlAsset" ng-change="getAsset()" data-parsley-class-handler="#slWrapper1" data-parsley-errors-container="#slErrorContainer1">
                                                             <option value=""></option>

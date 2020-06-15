@@ -24,15 +24,20 @@ namespace AssetslnWeb.Controllers.AssetManagement
             List<AM_AssetsHistoryModel> assetsHistoryModel = new List<AM_AssetsHistoryModel>();
             AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
 
+            List<AM_AssetsApplyDetailsModel> assetsApplyDetailsModels = new List<AM_AssetsApplyDetailsModel>();
+            AM_AssetsApplyDetailsBal assetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
+
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
                 assetsApplyModel = assetsApplyBal.GetDataByID(clientContext, id);
                 assetsHistoryModel = assetsHistoryBal.GetHistoryById(clientContext, id);
+                assetsApplyDetailsModels = assetsApplyDetailsBal.GetDetailsById(clientContext, id);
             }
 
             ViewBag.assetsView = assetsApplyModel;
             ViewBag.assetsHistory = assetsHistoryModel;
+            ViewBag.assetsDetails = assetsApplyDetailsModels;
 
             return View();
         }

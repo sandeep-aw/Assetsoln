@@ -11,6 +11,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
 {
     public class AssetDashboardController : Controller
     {
+
         // GET: AssetDashboard
         public ActionResult Index()
         {

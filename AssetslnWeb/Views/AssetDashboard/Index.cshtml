@@ -65,11 +65,10 @@
                                     <th class="border-bottom-0">Sr. No.</th>
                                     <th class="border-bottom-0">Request No</th>
                                     <th class="border-bottom-0">Employee Name</th>
-                                    <th class="border-bottom-0">Asset</th>
-                                    <th class="border-bottom-0">Asset Type</th>
                                     <th class="border-bottom-0">Status</th>
                                     <th class="border-bottom-0">Request Date</th>
                                     <th class="border-bottom-0">Return Date</th>
+                                    <th class="border-bottom-0">Comments</th>
                                     <th class="border-bottom-0">Action</th>
                                 </tr>
                             </thead>
@@ -77,21 +76,20 @@
                                 @{int index = 1;}
                                 @foreach (var j in ViewBag.assetsDataArr)
                                 {
-                                    <tr>
-                                        <td>@index</td>
-                                        <td ng-model="reqno">@j.RequestNo</td>
-                                        <td>@j.fname @j.lname</td>
-                                        <td>@j.Asset</td>
-                                        <td>@j.AssetType</td>
-                                        <td><span class="badge badge-dark">@j.Status</span></td>
-                                        <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
-                                        <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
-                                        <td>
-                                            <div class="btn-icon-list">
-                                                <button class="btn btn-primary btn-icon" ng-click="getEditData(@j.ID,'@j.InternalStatus')"><i class="far fa-edit"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@j.RequestNo</td>
+                                    <td>@j.fname @j.lname</td>
+                                    <td><span class="badge badge-dark">@j.Status</span></td>
+                                    <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
+                                    <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
+                                    <td>@j.Comments</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-primary btn-icon" ng-click="getEditData(@j.ID,'@j.InternalStatus')"><i class="far fa-edit"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
                                     index++;
                                 }
                             </tbody>
@@ -119,11 +117,10 @@
                                     <th class="border-bottom-0">Sr. No.</th>
                                     <th class="border-bottom-0">Request No</th>
                                     <th class="border-bottom-0">Employee Name</th>
-                                    <th class="border-bottom-0">Asset</th>
-                                    <th class="border-bottom-0">Asset Type</th>
                                     <th class="border-bottom-0">Status</th>
                                     <th class="border-bottom-0">Request Date</th>
                                     <th class="border-bottom-0">Return Date</th>
+                                    <th class="border-bottom-0">Comments</th>
                                     <th class="border-bottom-0">Action</th>
                                 </tr>
                             </thead>
@@ -131,22 +128,21 @@
                                 @{int indexview = 1;}
                                 @foreach (var j in ViewBag.assetsMyRequest)
                                 {
-                                    <tr>
-                                        <td>@indexview</td>
-                                        <td>@j.RequestNo</td>
-                                        <td>@j.fname @j.lname</td>
-                                        <td>@j.Asset</td>
-                                        <td>@j.AssetType</td>
-                                        <td><span class="badge badge-dark">@j.Status</span></td>
-                                        <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
-                                        <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
-                                        <td>
-                                            <div class="btn-icon-list">
-                                                <button class="btn btn-info  btn-icon" ng-click="getViewData(@j.ID)"><i class="far fa-eye"></i></button>
-                                                @*<button class="btn btn-info  btn-icon" onclick="getViewData(@j.ID)"><i class="far fa-eye"></i></button>*@
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@indexview</td>
+                                    <td>@j.RequestNo</td>
+                                    <td>@j.fname @j.lname</td>
+                                    <td><span class="badge badge-dark">@j.Status</span></td>
+                                    <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
+                                    <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
+                                    <td>@j.Comments</td>
+                                    <td>
+                                        <div class="btn-icon-list">
+                                            <button class="btn btn-info  btn-icon" ng-click="getViewData(@j.ID)"><i class="far fa-eye"></i></button>
+                                            @*<button class="btn btn-info  btn-icon" onclick="getViewData(@j.ID)"><i class="far fa-eye"></i></button>*@
+                                        </div>
+                                    </td>
+                                </tr>
                                     indexview++;
                                 }
                             </tbody>
