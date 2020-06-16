@@ -53,16 +53,16 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
             //$("#slWrapper1").find('#ddlAsset option:selected').removeAttr('selected');
             //$("#ddlAsset")[0].selectedIndex = 0;
             //$("#ddlAssetType").empty();
-            //$scope.ngtxtQty = "";
-            //$scope.ngtxtReason = "";
-            //$scope.ngtxtDesc = "";
+            $scope.ngtxtQty = "";
+            $scope.ngtxtReason = "";
+            $scope.ngtxtDesc = "";
 
             //$('#ddlAsset > option').prop("selected", false);
             //$("li.select2-selection__choice").remove();
 
             //$('#ddlAsset option').attr('selected', false);
            
-            $('#AssetDrop').load('Index?SPHostUrl=' + getUrlVars()["SPHostUrl"] + ' #AssetDrop');
+            //$('#AssetDrop').load('Index?SPHostUrl=' + getUrlVars()["SPHostUrl"] + ' #AssetDrop');
             //$('#AssetDropMain').load('#AssetDrop');
             
             //$('#ddlReplacement').val('')
@@ -137,11 +137,19 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
             $('.bs-callout-warning').toggleClass('hidden', ok);
         })
             .on('form:submit', function () {
-                $scope.SubmitData();
+                if ($scope.AssetsArr.length > 0) {
+                    $scope.SubmitData();
+                }
+                else {
+                    alert('Please add asset details');
+                }
                 return false;
             });
     });
 
+
+    // reuest no after adding data
+    $scope.ReqNumber = "Not found";
 
     // submit data
     $scope.SubmitData = function ()
@@ -156,7 +164,8 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
         var ApplyAssetObj = {
             RequestNo: $scope.RequestNo,
-            EmployeeCode: $scope.ngddlAllUser,
+            //EmployeeCode: $scope.ngddlAllUser,
+            EmployeeName: $scope.ngddlAllUser,
             RequestDate: $scope.ngtxtRequestDate,
             ReturnDate: $scope.ngtxtReturnDate,
             CurrentDate: $scope.historydate,
@@ -169,6 +178,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         ApplyAssetService.getDemo(ApplyAssetObj).then(function (response) {
             console.log(response);
             if (response.status == 200) {
+                $scope.ReqNumber = response.data.RequestNo;
                 $("#global-loader").hide();
                 $('#modaldemo4').modal('show');
             } else {
@@ -179,7 +189,6 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
     $scope.PerformAction = function ()
     {
-        $("#global-loader").show();
         Pageredirect("/AssetDashboard/Index");
     }
 
@@ -240,6 +249,7 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
         $('#parsley4').remove();
         $('#parsley5').remove();
         $('#parsley6').remove();
+        $('#parsley7').remove();
         $('.validate').removeClass("parsley-error");
     }
 
@@ -268,6 +278,13 @@ ApplyAssetapp.controller('ApplyAssetController', function ($scope, $filter, $htt
 
             if ($scope.ngtxtQty == "" || typeof ($scope.ngtxtQty) === "undefined") {
                 var message = "<ul class='parsley-errors-list filled' id='parsley3'><li class='parsley-required'>" + "This value is required." + "</li></ul>"
+                $('#txtQty').parent().append(message);
+                $('#txtQty').addClass("parsley-error");
+                retval = false;
+            }
+
+            if (isNaN($scope.ngtxtQty) && ($scope.ngtxtQty != "" || $scope.ngtxtQty != "undefined")) {
+                var message = "<ul class='parsley-errors-list filled' id='parsley7'><li class='parsley-required'>" + "Please Enter Numeric Value Only." + "</li></ul>"
                 $('#txtQty').parent().append(message);
                 $('#txtQty').addClass("parsley-error");
                 retval = false;

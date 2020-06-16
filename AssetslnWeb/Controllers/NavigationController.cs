@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,9 +54,9 @@ namespace AssetslnWeb.Controllers
                     }
 
 
-                    ht += "<nav class='bottom-navbar'>";
-                    ht += "<div class='container'>";
-                    ht += "<ul class='nav page-navigation'>";
+                    ht += "<nav class='horizontalMenu clearfix'>";
+                
+                    ht += "<ul class='horizontalMenu-list'>";
                     for (int i = 0; i < Parrentnavigation.Count; i++)
                     {
                         List<NavigationModel> Temp = new List<NavigationModel>();
@@ -72,29 +71,29 @@ namespace AssetslnWeb.Controllers
 
                         if (Temp.Count > 0)
                         {
-                            ht += "<li class='nav-item'>";
-                            ht += "<a href = '#' class='nav-link'>";
-                            ht += "<i class='mdi mdi-file-document-box-outline menu-icon'></i>";
-                            ht += "<span class='menu-title'>" + Parrentnavigation[i].ManuName + "</span>";
-                            ht += " <i class='menu-arrow'></i></a>";
-                            ht += "<div class='submenu'>";
-                            ht += "<ul class='submenu-item'>";
+                            ht += " <li aria-haspopup='true'>";
+                            ht += "<a href='#' class='sub-icon'>";
+                     
+                            ht +=  Parrentnavigation[i].ManuName ;
+                            ht += "<i class='fe fe-chevron-down horizontal-icon'></i></a>";
+
+                            
+                            ht += "<ul class='sub-menu'>";
                             for (int y = 0; y < Temp.Count; y++)
-                            {
-                                ht += "<li class='nav-item'><a class='nav-link' href='" + Temp[y].URL + "'>" + Temp[y].ManuName + "</a></li>";
+                            {  
+                                ht += "<li aria-haspopup='true'><a href='" + Temp[y].URL + "' class='slide-item'> " + Temp[y].ManuName + "</a></li>";
                             }
                             ht += "</ul>";
-                            ht += "</div>";
+                            
                             ht += "</li>";
                         }
                         else
                         {
 
-                            ht += "<li class='nav-item'>";
-                            ht += "<a class='nav-link' href='" + Parrentnavigation[i].URL + "'>";
-                            ht += "<i class='mdi mdi-view-dashboard-outline menu-icon'></i>";
-                            ht += "<span class='menu-title'>" + Parrentnavigation[i].ManuName + "</span>";
-                            ht += "</a ></li >";
+                            ht += "<li aria-haspopup='true'>";
+                            ht += "<a aria-haspopup='true' href='" + Parrentnavigation[i].URL + "'>";
+                            ht += Parrentnavigation[i].ManuName ;
+                            ht += "</a></li>";
 
                         }
 
@@ -102,7 +101,7 @@ namespace AssetslnWeb.Controllers
 
                     }
                     ht += "</ul>";
-                    ht += "</div>";
+                  
                     ht += "</nav>";
 
                     Session["Navigation"] = ht;

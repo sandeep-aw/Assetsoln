@@ -29,19 +29,19 @@
                             <div class="mg-b-50">
                                 @*show asset data*@
                                 @Html.Partial("ViewAssetData")
-                                <div class="row row-sm">
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label for="txtComment"><span class="tx-bold">Comment</span></label>
-                                            <textarea required="" class="form-control" ng-model="ngtxtComment" id="txtComment" placeholder="Enter Comment" rows="3" ng-change="getkeys(ngtxtComment)"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             @*show history data*@
                             @Html.Partial("ViewHistoryData")
 
+                            <div class="row row-sm mg-b-50">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="txtComment"><span class="tx-bold">Comment</span></label>
+                                        <textarea required="" class="form-control" ng-model="ngtxtComment" id="txtComment" placeholder="Enter Comment" rows="3" ng-change="getkeys(ngtxtComment)"></textarea>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row row-sm text-center">
                                 <div class="col-sm-2"></div>
@@ -65,8 +65,8 @@
                         <div class="modal-content tx-size-sm">
                             <div class="modal-body tx-center pd-y-20 pd-x-20">
                                 <i class="icon ion-ios-checkmark-circle-outline tx-100 tx-success lh-1 mg-t-20 d-inline-block"></i>
-                                <h4 class="tx-success tx-semibold mg-b-20">Congratulations!</h4>
-                                <p class="mg-b-20 mg-x-20">Your request have been successfully submitted.</p><button aria-label="Close" class="btn ripple btn-success pd-x-25" data-dismiss="modal" type="button" ng-click="PerformAction()">Continue</button>
+                                <h4 class="tx-success tx-semibold mg-b-20">Success</h4>
+                                <p class="mg-b-20 mg-x-20">Asset Request with Request No: @ViewBag.assetsView.RequestNo is Apporved Successfully.</p><button aria-label="Close" class="btn ripple btn-success pd-x-25" type="button" ng-click="PerformAction()">Continue</button>
                             </div>
                         </div>
                     </div>

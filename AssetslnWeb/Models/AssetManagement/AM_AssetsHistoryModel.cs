@@ -22,5 +22,9 @@ namespace AssetslnWeb.Models.AssetManagement
         public string ActionTakenId { get; set; }
 
         public string StatusId { get; set; }
+
+        public string fname { get; set; }
+
+        public string lname { get; set; }
     }
 }

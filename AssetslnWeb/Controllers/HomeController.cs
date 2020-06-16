@@ -45,12 +45,14 @@ namespace AssetslnWeb.Controllers
                     {
                         spUser = clientContext.Web.CurrentUser;
                         clientContext.Load(spUser, user => user.Id);
+                        clientContext.Load(spUser, user => user.Title);
                         clientContext.ExecuteQuery();
 
-
+                        Session["UserName"] = spUser.Title;
                         Session["UserID"] = spUser.Id;
                         Session["Navigation"] = "";
                         ViewBag.UserName = spUser.Id;
+                        ViewBag.UserTitle = Session["UserName"];
                     }
                 }
             }

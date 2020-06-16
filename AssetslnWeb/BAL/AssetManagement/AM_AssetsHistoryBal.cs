@@ -32,7 +32,9 @@ namespace AssetslnWeb.BAL.AssetManagement
                     ActionTaken = j["ActionTaken"]["EmpCode"] == null ? "" : Convert.ToString(j["ActionTaken"]["EmpCode"]),
                     StatusId = j["Status"]["Id"] == null ? "" : Convert.ToString(j["Status"]["Id"]),
                     Status = j["Status"]["StatusName"] == null ? "" : Convert.ToString(j["Status"]["StatusName"]),
-                    LID = j["LID"]["ID"] == null ? "" : Convert.ToString(j["LID"]["ID"])
+                    LID = j["LID"]["ID"] == null ? "" : Convert.ToString(j["LID"]["ID"]),
+                    fname = j["ActionTaken"]["FirstName"] == null ? "" : Convert.ToString(j["ActionTaken"]["FirstName"]),
+                    lname = j["ActionTaken"]["LastName"] == null ? "" : Convert.ToString(j["ActionTaken"]["LastName"])
                 });
             }
 
@@ -46,7 +48,7 @@ namespace AssetslnWeb.BAL.AssetManagement
             JArray jArray = new JArray();
             RESTOption rESTOption = new RESTOption();
 
-            rESTOption.select = "ID,ActionTaken/Id,ActionTaken/EmpCode,Status/Id,Status/StatusName,LID/ID,Date,Comments";
+            rESTOption.select = "ID,ActionTaken/Id,ActionTaken/EmpCode,ActionTaken/FirstName,ActionTaken/LastName,Status/Id,Status/StatusName,LID/ID,Date,Comments";
             rESTOption.expand = "ActionTaken,Status,LID";
 
             if (filter != null)

@@ -110,7 +110,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
             for (int i = 0; i < EmployeeArr.Count; i++)
             {
-                if(EmployeeArr[i].UserNameId==EmpId)
+                if (EmployeeArr[i].ID.ToString() == EmpId)
                 {
                     ecode = EmployeeArr[i].EmpCode;
                 }
@@ -140,7 +140,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                     {
                         if (masterModel[i].Empcode == EmployeeArr[j].EmpCode)
                         {
-                            masterModel[i].Title = EmployeeArr[j].User_Name;
+                            masterModel[i].Title = EmployeeArr[j].FirstName + " " + EmployeeArr[j].LastName;
                         }
                     }
                 }                
@@ -194,6 +194,9 @@ namespace AssetslnWeb.Controllers.AssetManagement
             // store data in the applydetails array
             List<AM_AssetsApplyDetailsModel> assetsApplyDetailsModels = assetsApplyModel.applyDetailsModel;
 
+            // create asset apply model object
+            AM_AssetsApplyModel applyModel = new AM_AssetsApplyModel();
+
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
@@ -229,10 +232,10 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
                 foreach (AM_BasicInfoModel emparr in EmployeeArr)
                 {
-                    if (emparr.UserNameId == assetsApplyModel.EmployeeCode)
+                    if (emparr.ID.ToString() == assetsApplyModel.EmployeeName)
                     {
                         assetsApplyModel.EmployeeCode = emparr.EmpCode;
-                        assetsApplyModel.EmployeeName = (emparr.ID).ToString();
+                        //assetsApplyModel.EmployeeName = (emparr.ID).ToString();
                     }
                     else if (emparr.UserNameId == UserId)
                     {
@@ -275,6 +278,10 @@ namespace AssetslnWeb.Controllers.AssetManagement
 
                 if (returnID != "0")
                 {
+                    // get request no
+                    
+                    applyModel = assetsApplyBal.GetDataByID(clientContext, Convert.ToInt32(returnID));
+
                     if (assetsApplyDetailsModels != null)
                     {
                         for (int i = 0; i < assetsApplyDetailsModels.Count; i++)
@@ -329,7 +336,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 }
             }
 
-            return Json(returnID, JsonRequestBehavior.AllowGet);
+            return Json(applyModel, JsonRequestBehavior.AllowGet);
             //return View();
         }
 

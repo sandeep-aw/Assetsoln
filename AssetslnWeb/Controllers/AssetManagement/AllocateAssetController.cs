@@ -24,6 +24,9 @@ namespace AssetslnWeb.Controllers.AssetManagement
             List<AM_AssetsHistoryModel> assetsHistoryModel = new List<AM_AssetsHistoryModel>();
             AM_AssetsHistoryBal assetsHistoryBal = new AM_AssetsHistoryBal();
 
+            List<AM_AssetsApplyDetailsModel> assetsApplyDetailsModels = new List<AM_AssetsApplyDetailsModel>();
+            AM_AssetsApplyDetailsBal assetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
+
             //List<AM_AssetCountHistoryModel> assetCountHistoryModel = new List<AM_AssetCountHistoryModel>();
             //AM_AssetCountHistoryBal assetCountHistoryBal = new AM_AssetCountHistoryBal();
 
@@ -36,9 +39,11 @@ namespace AssetslnWeb.Controllers.AssetManagement
             {
                 assetsApplyModel = assetsApplyBal.GetDataByID(clientContext, id);
                 assetsHistoryModel = assetsHistoryBal.GetHistoryById(clientContext, id);
+                assetsApplyDetailsModels = assetsApplyDetailsBal.GetDetailsById(clientContext, id);
 
                 ViewBag.assetsView = assetsApplyModel;
-                ViewBag.assetsHistory = assetsHistoryModel;               
+                ViewBag.assetsHistory = assetsHistoryModel;
+                ViewBag.assetsDetails = assetsApplyDetailsModels;
 
                 //ViewBag.ReqQuantity = Convert.ToInt32(assetsApplyModel.AssetCount);
 
