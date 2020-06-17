@@ -12,6 +12,34 @@ namespace AssetslnWeb.BAL.AssetManagement
 {
     public class AM_AssetsApproverBal
     {
+        public List<AM_AssetsApproverModel> GetAllAssetsApprover(ClientContext clientContext, int id)
+        {
+            List<AM_AssetsApproverModel> assetsApproverModel = new List<AM_AssetsApproverModel>();
+
+            string filter = "LID/ID eq '" + id + "'";
+
+            JArray jArray = RESTGet(clientContext, filter);
+
+            if (jArray.Count > 0)
+            {
+                foreach (JObject j in jArray)
+                {
+                    assetsApproverModel.Add(new AM_AssetsApproverModel
+                    {
+                        ID = Convert.ToInt32(j["ID"]),
+                        LID = j["LID"]["ID"] == null ? "" : Convert.ToString(j["LID"]["ID"]),
+                        ApproverID = j["ApproverID"]["ID"] == null ? "" : Convert.ToString(j["ApproverID"]["ID"]),
+                        ApproverCode = j["ApproverCode"] == null ? "" : Convert.ToString(j["ApproverCode"]),
+                        ApproverRoleInternalName = j["ApproverRoleInternalName"] == null ? "" : Convert.ToString(j["ApproverRoleInternalName"]),
+                        Status = j["Status"] == null ? "" : Convert.ToString(j["Status"])
+                    });
+                }
+            }
+
+            //System.Diagnostics.Debug.WriteLine(assetsModelsBal);
+            return assetsApproverModel;
+        }
+
         public AM_AssetsApproverModel GetAssetsApprover(ClientContext clientContext, int id, string rolename)
         {
             AM_AssetsApproverModel assetsApproverModel = new AM_AssetsApproverModel();

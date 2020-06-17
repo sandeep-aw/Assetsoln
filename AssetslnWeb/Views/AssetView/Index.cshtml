@@ -4,6 +4,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section style{
+
+    <!--Internal  Datetimepicker-slider css -->
+    <link href="~/assets/plugins/amazeui-datetimepicker/css/amazeui.datetimepicker.css" rel="stylesheet" />
+
+    <!-- Internal Select2 css -->
+    <link href="~/assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+
+}
+
 <!-- container opened -->
 <div class="container">
 
@@ -26,12 +36,12 @@
                 <div class="card-body">
 
                     <div class="card-body pt-0">
-                        
-                             @*show asset data*@
-                            @Html.Partial("ViewAssetData")
-                        
 
-                         @*show history data*@
+                        @*show asset data*@
+                        @Html.Partial("ViewAssetData")
+
+
+                        @*show history data*@
                         @Html.Partial("ViewHistoryData")
 
                         <div class="row row-sm text-center">

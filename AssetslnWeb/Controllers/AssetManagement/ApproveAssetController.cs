@@ -28,17 +28,39 @@ namespace AssetslnWeb.Controllers.AssetManagement
             List<AM_AssetsApplyDetailsModel> assetsApplyDetailsModels = new List<AM_AssetsApplyDetailsModel>();
             AM_AssetsApplyDetailsBal assetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
 
+            List<AM_AssetsApproverModel> assetsApproverModels = new List<AM_AssetsApproverModel>();
+            AM_AssetsApproverBal assetsApproverBal = new AM_AssetsApproverBal();
+
+            List<AM_BasicInfoModel> allEmpModel = new List<AM_BasicInfoModel>();
+            List<string> ApproverNames = new List<string>();
+
+            // get all Employee Data
+            allEmpModel = GetAllEmpInfo();
+
             var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
             using (var clientContext = spContext.CreateUserClientContextForSPHost())
             {
                 assetsApplyModel = assetsApplyBal.GetDataByID(clientContext, id);
                 assetsHistoryModel = assetsHistoryBal.GetHistoryById(clientContext, id);
                 assetsApplyDetailsModels = assetsApplyDetailsBal.GetDetailsById(clientContext, id);
+                assetsApproverModels = assetsApproverBal.GetAllAssetsApprover(clientContext, id);
+            }
+
+            for (var i = 0; i < assetsApproverModels.Count; i++)
+            {
+                for (var j = 0; j < allEmpModel.Count; j++)
+                {
+                    if (assetsApproverModels[i].ApproverCode == allEmpModel[j].EmpCode)
+                    {
+                        ApproverNames.Add(allEmpModel[j].FirstName + " " + allEmpModel[j].LastName);
+                    }
+                }
             }
 
             ViewBag.assetsView = assetsApplyModel;
             ViewBag.assetsHistory = assetsHistoryModel;
             ViewBag.assetsDetails = assetsApplyDetailsModels;
+            ViewBag.assetsApprover = ApproverNames;
 
             Session["ApproveData"] = assetsApplyModel;
 
@@ -51,6 +73,22 @@ namespace AssetslnWeb.Controllers.AssetManagement
         {
             TempData.Add("MyTempData", ID);
             return Json(ID, JsonRequestBehavior.AllowGet);
+        }
+
+        // call all employee data
+        [SharePointContextFilter]
+        [ActionName("GetAllEmpInfo")]
+        private List<AM_BasicInfoModel> GetAllEmpInfo()
+        {
+            List<AM_BasicInfoModel> allEmpDataModel = new List<AM_BasicInfoModel>();
+            AM_BasicInfoBal allEmpDataBal = new AM_BasicInfoBal();
+
+            var spContext = SharePointContextProvider.Current.GetSharePointContext(HttpContext);
+            using (var clientContext = spContext.CreateUserClientContextForSPHost())
+            {
+                allEmpDataModel = allEmpDataBal.GetEmpData(clientContext);
+            }
+            return allEmpDataModel;
         }
 
         [SharePointContextFilter]

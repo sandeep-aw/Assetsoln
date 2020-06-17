@@ -233,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\animate.css" />
+    <Content Include="assets\css\custom.css" />
     <Content Include="assets\css\icons.css" />
     <Content Include="assets\css\sidemenu.css" />
     <Content Include="assets\css\skin-modes.css" />
