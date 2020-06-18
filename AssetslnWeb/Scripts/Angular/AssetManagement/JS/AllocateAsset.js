@@ -3,8 +3,8 @@
 AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter, $http, CommonAppUtilityService) {
 
     var d = new Date();
-    console.log(d);
-    $scope.historydate = $filter('date')(d, 'MM/dd/yyyy');
+    var todaydate = $filter('date')(d, 'yyyy-MM-dd');
+    console.log(todaydate);
 
     // validate data and call submit data function
     $(function () {
@@ -16,41 +16,41 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
             $('.bs-callout-warning').toggleClass('hidden', ok);
         })
             .on('form:submit', function () {
-                $scope.AllocateData();
+                if ($scope.assetInfo.length > 0) {
+                    $scope.AllocateData();
+                }
+                else {
+                    alert('Please add asset details');
+                }
                 return false;
             });
     });
 
-    // submit data
-    $scope.AllocateData = function () {
-       // $("#global-loader").show();
-
-        var ApplyAssetObj = {
-            Quantity: $scope.AssignQty,
-            CurrentDate: $scope.historydate
-        }
-
-        console.log(ApplyAssetObj);
-
-        CommonAppUtilityService.CreateItem("/AllocateAsset/AllocateFunc", ApplyAssetObj).then(function (response) {
-            if (response.status == 200) {
-                //$("#global-loader").hide();
-               // $('#modaldemo4').modal('show');
-            } else {
-                alert("Error");
-            }
-        });
-    }
 
     $scope.srno = "0";
 
     // set id on click of add button
     $scope.flag = "new";
 
+ 
+    $scope.PrevAssignQty = 0;
+    $scope.userQty = 0;
+
     $(document).on("click", ".popup", function () {
-        
+        $scope.tempPrevAssignQty = 0;
+        $scope.tempPendingAssignQty = 0;
+
         $scope.srno = $(this).data('id');
         $scope.userQty = $(this).data('qty');
+        $scope.asset = $(this).data('obj');
+        $scope.assetType = $(this).data('item');
+        $scope.tempPrevAssignQty = $(this).data('allotqty');
+
+        if ($scope.tempPrevAssignQty!="") {
+            $("#txtPrevAssignQty").val($scope.tempPrevAssignQty);
+            $scope.PrevAssignQty = $scope.tempPrevAssignQty;
+        }      
+
 
         if ($scope.assetInfo.length > 0) {
             for (var i = 0; i < $scope.assetInfo.length; i++) {
@@ -75,13 +75,16 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
         if ($scope.flag == "new") {
             var item = {
                 SrNo: $scope.srno,
-                AssignQty: $("#txtAssignQty").val(),
+                UserQty: $scope.userQty,
+                asset: $scope.asset,
+                assetType: $scope.assetType,
+                AssetQuantity: $("#txtAssignQty").val(),
                 PrevAssignQty: $("#txtPrevAssignQty").val(),
-                PendingAssignQty: $("#txtPendingAssignQty").val(),
+                PendingQuantity: $("#txtPendingAssignQty").val(),
                 ProdSrNo: $("#txtProdSrNo").val(),
                 ModelNo: $("#txtModelNo").val(),
-                Mon: $("#txtMon").val(),
-                Date: $("#txtwarrantydate").val(),
+                //Mon: $("#txtMon").val(),
+                WarrantyDate: $("#txtwarrantydate").val(),
                 Remark: $("#txtRemark").val()
             }
             $scope.assetInfo.push(item);
@@ -92,15 +95,15 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
             var i = $scope.assetInfo.findIndex(x => x.SrNo === $scope.srno);
 
             $scope.assetInfo[i].SrNo = $scope.srno;
-            $scope.assetInfo[i].AssignQty = $("#txtAssignQty").val();
+            $scope.assetInfo[i].AssetQuantity = $("#txtAssignQty").val();
             $scope.assetInfo[i].PrevAssignQty = $("#txtPrevAssignQty").val();
-            $scope.assetInfo[i].PendingAssignQty = $("#txtPendingAssignQty").val();
+            $scope.assetInfo[i].PendingQuantity = $("#txtPendingAssignQty").val();
             $scope.assetInfo[i].ProdSrNo = $("#txtProdSrNo").val();
             $scope.assetInfo[i].ModelNo = $("#txtModelNo").val();
-            $scope.assetInfo[i].Mon = $("#txtMon").val();
+            //$scope.assetInfo[i].Mon = $("#txtMon").val();
             //Date: $scope.ngtxtDate,
             $scope.assetInfo[i].Remark = $("#txtRemark").val();
-            $scope.assetInfo[i].Date = $("#txtwarrantydate").val();
+            $scope.assetInfo[i].WarrantyDate = $("#txtwarrantydate").val();
             console.log($scope.assetInfo);
             $scope.clrData();
         }
@@ -110,35 +113,34 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
     // clear add data in array
     $scope.clrData = function () {
         $("#txtAssignQty").val("");
-        $("#txtPrevAssignQty").val("");
-        $("#txtPendingAssignQty").val("");
+        $("#txtPrevAssignQty").val(0);
+        $("#txtPendingAssignQty").val(0);
         $("#txtProdSrNo").val("");
         $("#txtModelNo").val("");
-        $("#txtMon").val("");
+        //$("#txtMon").val("");
         $("#txtRemark").val("");
         $("#txtwarrantydate").val("");
     }
 
     $scope.bindData = function (obj) {
-        $scope.SrNo = obj.SrNo;
-        $("#txtAssignQty").val(obj.AssignQty);
-        $("#txtwarrantydate").val(obj.Date);
+        //$scope.SrNo = obj.SrNo;
+        $("#txtAssignQty").val(obj.AssetQuantity);
+        $("#txtwarrantydate").val(obj.WarrantyDate);
         $("#txtPrevAssignQty").val(obj.PrevAssignQty);
-        $("#txtPendingAssignQty").val(obj.PendingAssignQty);
+        $("#txtPendingAssignQty").val(obj.PendingQuantity);
         $("#txtProdSrNo").val(obj.ProdSrNo);
         $("#txtModelNo").val(obj.ModelNo);
-        $("#txtMon").val(obj.Mon);
+        //$("#txtMon").val(obj.Mon);
         $("#txtRemark").val(obj.Remark);
         console.log($scope.assetInfo);
     }
 
-    $scope.ngtxtPrevAssignQty = 0;
-    $scope.ngtxtPendingAssignQty = 0;
-    $scope.userQty = 0;
+    
 
     $scope.getPendingQty = function () {
         $scope.tempqty = $("#txtAssignQty").val();
-        $scope.tempPendingQty = $scope.userQty - $scope.tempqty;
+        $scope.totalqty = $scope.PrevAssignQty + parseInt($scope.tempqty);
+        $scope.tempPendingQty = $scope.userQty - parseInt($scope.totalqty);
         $("#txtPendingAssignQty").val($scope.tempPendingQty);
     }
 
@@ -154,29 +156,52 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
     });
 
     //call function when date is selected
-    $scope.getDays = function () {
-        var diffdays = $scope.days($("#txtwarrantydate").val());
-    }
+    //$("#txtwarrantydate").on("change", function () {
+    //    //alert('date');
+    //    console.log($("#txtwarrantydate").val());
+    //    var tempdate = $("#txtwarrantydate").val();
+    //    //var formatteddate = $filter('date')(tempdate, 'yyyy-MM-dd');
+    //    var formatteddate = moment(tempdate, 'DD-MM-YYYY').format("YYYY-MM-DD");
+        
+    //    var diff = dateDiffInDays(todaydate, formatteddate);
+    //    $("#txtMon").val(diff);
+    //    console.log(diff);
+    //})
 
     // calculate date difference
-    $scope.days = function (date) {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        if (dd < 10) {
-            dd = '0' + dd
+    //function dateDiffInDays(a, b) {
+    //    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+    //    // Discard the time and time-zone information.
+    //    var date2 = new Date(b);
+    //    var date1 = new Date(a);
+    //    const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    //    const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+
+    //    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+    //}
+
+
+    // submit data
+    $scope.AllocateData = function () {
+        // $("#global-loader").show();
+
+        var ApplyAssetObj = {
+            todaydate: todaydate,
+            comments: $scope.ngtxtComment,
+            assetAllotmentHistoryModels: $scope.assetInfo
         }
-        if (mm < 10) {
-            mm = '0' + mm
-        }
-        today = yyyy + '/' + mm + '/' + dd;
-        $scope.today = today;
-        var date2 = new Date(today);
-        var date1 = new Date(date);
-        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        $scope.dayDifference = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        return $scope.dayDifference;
+
+        console.log(ApplyAssetObj);
+
+        CommonAppUtilityService.CreateItem("/AllocateAsset/AllocateFunc", ApplyAssetObj).then(function (response) {
+            if (response.status == 200) {
+                //$("#global-loader").hide();
+                // $('#modaldemo4').modal('show');
+            } else {
+                alert("Error");
+            }
+        });
     }
 
     $scope.PerformAction = function () {

@@ -206,7 +206,7 @@
                                                     <td data-label="Replacement">@item.Replacement</td>
                                                     <td data-label="add">
                                                         @*<a class="btn ripple btn-secondary popup" data-target="#scrollmodal" data-toggle="modal" data-id="@indexview">Add</a>*@
-                                                        <a class="btn ripple btn-secondary popup" data-toggle="modal" data-id="@indexview" data-qty="@item.UserApplyQuantity">Add</a>
+                                                        <a class="btn ripple btn-secondary popup" data-toggle="modal" data-id="@indexview" data-qty="@item.UserApplyQuantity" data-obj="@item.Asset" data-item="@item.AssetType" data-allotqty="@item.UserAllottedQuantity">Add</a>
                                                     </td>
                                                 </tr>
                                                 indexview++;
@@ -218,37 +218,18 @@
                             </div>
 
 
-                            <div class="table-responsive mg-b-20">
-                                <table class="table simpletable table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Requested Quantity</th>
-                                            <th scope="col">Available Stock</th>
-                                            <th scope="col">Assign Quantity</th>
-                                            <th scope="col">Previously Assign Quantity</th>
-                                            <th scope="col">Pending Assign Quantity</th>
-                                            @*<th scope="col">Stock Balance</th>*@
-                                            <th scope="col">Remark</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td data-label="ReqQty"><label for="First_Name">@ViewBag.ReqQuantity</label></td>
-                                            <td data-label="Stock1"><label for="First_Name">@ViewBag.assetsView.AssetTypeStock</label></td>
-                                            <td data-label="AssignQty"><input required="" type="text" class="form-control" style="height:30px;" ng-model="AssignQty" /></td>
-                                            <td data-label="PreAssignQty"><input type="text" class="form-control" style="height:30px;" readonly="readonly" />@ViewBag.prevQty</td>
-                                            <td data-label="PendingAssignQty"><input type="text" class="form-control" style="height:30px;" readonly="readonly" /></td>
-                                            @*<td data-label="stockbal"><input type="text" class="form-control" style="height:30px;" readonly="readonly" /></td>*@
-                                            <td data-label="Remark"><input type="text" class="form-control" style="height:30px;" /></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
                             @*show history data*@
                             @Html.Partial("ViewHistoryData")
 
+
+                            <div class="row row-sm">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="First_Name">Comments</label>
+                                        <textarea required="" class="form-control" ng-model="ngtxtComment" id="txtComment" placeholder="Enter Comment" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row row-sm text-center">
                                 <div class="col-sm-3">
@@ -257,7 +238,7 @@
                                     <button class="btn btn-primary btn-block">Allocate Asset</button>
                                 </div>
                                 <div class="col-lg-3">
-                                    <button class="btn btn-light btn-block">Cancel</button>
+                                    <button type="button" class="btn btn-light btn-block" ng-click="Cancel()">Cancel</button>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +256,7 @@
         <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">Allocate Details</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                    <h6 class="modal-title">Allocate Details</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button" ng-click="Close()"><span aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
 
@@ -321,18 +302,18 @@
                                             <div class="input-group-text">
                                                 <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
                                             </div>
-                                        </div><input required="" class="form-control" id="txtwarrantydate" ng-model="ngtxtwarrantydate" type="text" ng-blur="getDays()">
+                                        </div><input class="form-control" id="txtwarrantydate" ng-model="ngtxtwarrantydate" type="text">
                                     </div>
                                 </div>
                             </div>
                     </div>
 
                     <div class="row row-sm">
-                        <div class="col-lg-6">
+                        @*<div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Education_From_Date">Warranty(In Days)</label><input type="text" class="form-control" id="txtMon" ng-model="ngtxtMon" style="height:30px;" disabled />
                             </div>
-                        </div>
+                        </div>*@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label for="Education_From_Date">Remark</label><input type="text" class="form-control" id="txtRemark" ng-model="ngtxtRemark" style="height:30px;" />

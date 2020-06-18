@@ -25,10 +25,12 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public string AssetTypeId { get; set; }
 
-        public string UserAllottedtQuantity { get; set; }
+        public string UserAllottedQuantity { get; set; }
 
         public string UserReturntQuantity { get; set; }
 
         public string UserBalancetQuantity { get; set; }
+
+        public string AssetTypeStock { get; set; }
     }
 }

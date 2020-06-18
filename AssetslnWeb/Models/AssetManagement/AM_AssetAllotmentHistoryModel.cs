@@ -16,5 +16,30 @@ namespace AssetslnWeb.Models.AssetManagement
         public string AssetQuantity { get; set; }
 
         public string PendingQuantity { get; set; }
+
+        public string ProdSrNo { get; set; }
+
+        public string ModelNo { get; set; }
+
+        public DateTime WarrantyDate { get; set; }
+
+        public string Remark { get; set; }
+
+        public string PrevAssignQty { get; set; }
+
+        public string UserQty { get; set; }
+
+        public string UserApplyQuantity { get; set; }
+
+        public string UserAllottedtQuantity { get; set; }
+
+        public string UserReturnQuantity { get; set; }
+
+        public string UserBalanceQuantity { get; set; }
+
+        public string asset { get; set; }
+
+        public string assetType { get; set; }
+
     }
 }

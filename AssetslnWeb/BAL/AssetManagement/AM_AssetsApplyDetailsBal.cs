@@ -26,13 +26,17 @@ namespace AssetslnWeb.BAL.AssetManagement
                 {
                     ID = Convert.ToInt32(j["ID"]),
                     UserApplyQuantity = j["UserApplyQuantity"] == null ? "" : Convert.ToString(j["UserApplyQuantity"]),
+                    UserAllottedQuantity = j["UserAllottedtQuantity"] == null ? "" : Convert.ToString(j["UserAllottedtQuantity"]),
+                    UserReturntQuantity = j["UserReturnQuantity"] == null ? "" : Convert.ToString(j["UserReturnQuantity"]),
+                    UserBalancetQuantity = j["UserBalanceQuantity"] == null ? "" : Convert.ToString(j["UserBalanceQuantity"]),
                     AssetDetails = j["AssetDetails"] == null ? "" : Convert.ToString(j["AssetDetails"]),
                     ReasonToApply = j["ReasonToApply"] == null ? "" : Convert.ToString(j["ReasonToApply"]),
                     AssetId = j["Asset"]["Id"] == null ? "" : Convert.ToString(j["Asset"]["Id"]),
                     Asset = j["Asset"]["Assets"] == null ? "" : Convert.ToString(j["Asset"]["Assets"]),
                     AssetTypeId = j["AssetType"]["Id"] == null ? "" : Convert.ToString(j["AssetType"]["Id"]),
                     AssetType = j["AssetType"]["AssetType"] == null ? "" : Convert.ToString(j["AssetType"]["AssetType"]),
-                    Replacement = j["Replacement"] == null ? "" : Convert.ToString(j["Replacement"])
+                    Replacement = j["Replacement"] == null ? "" : Convert.ToString(j["Replacement"]),
+                    AssetTypeStock = j["AssetType"]["Stock"] == null ? "" : Convert.ToString(j["AssetType"]["Stock"]),
                 });
             }
 
@@ -44,6 +48,14 @@ namespace AssetslnWeb.BAL.AssetManagement
         {
 
             string response = RESTSave(clientContext, ItemData);
+
+            return response;
+        }
+
+        public string UpdateAssetsDetails(ClientContext clientContext, string ItemData, string ID)
+        {
+
+            string response = RESTUpdate(clientContext, ItemData, ID);
 
             return response;
         }
@@ -75,6 +87,13 @@ namespace AssetslnWeb.BAL.AssetManagement
             RestService restService = new RestService();
 
             return restService.SaveItem(clientContext, "AM_AssetsApplyDetails", ItemData);
+        }
+
+        private string RESTUpdate(ClientContext clientContext, string ItemData, string ID)
+        {
+            RestService restService = new RestService();
+
+            return restService.UpdateItem(clientContext, "AM_AssetsApplyDetails", ItemData, ID);
         }
     }
 }
