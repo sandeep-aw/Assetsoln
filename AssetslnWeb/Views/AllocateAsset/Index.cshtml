@@ -206,7 +206,7 @@
                                                     <td data-label="Replacement">@item.Replacement</td>
                                                     <td data-label="add">
                                                         @*<a class="btn ripple btn-secondary popup" data-target="#scrollmodal" data-toggle="modal" data-id="@indexview">Add</a>*@
-                                                        <a class="btn ripple btn-secondary popup" data-toggle="modal" data-id="@indexview" data-qty="@item.UserApplyQuantity" data-obj="@item.Asset" data-item="@item.AssetType" data-allotqty="@item.UserAllottedQuantity">Add</a>
+                                                        <a class="btn ripple btn-secondary popup" data-toggle="modal" data-id="@indexview" data-qty="@item.UserApplyQuantity" data-obj="@item.AssetId" data-item="@item.AssetTypeId" data-allotqty="@item.UserAllottedQuantity" data-balqty="@item.UserBalancetQuantity">Add</a>
                                                     </td>
                                                 </tr>
                                                 indexview++;
@@ -324,7 +324,7 @@
 
 
                 <div class="modal-footer justify-content-center">
-                    <button class="btn ripple btn-primary" type="button" data-dismiss="modal" ng-click="SaveData()">Save changes</button>
+                    <button class="btn ripple btn-primary" id="saveasset" type="button" ng-click="SaveData()">Save changes</button>
                     <button class="btn ripple btn-secondary" data-dismiss="modal" type="button" ng-click="Close()">Close</button>
                 </div>
             </div>

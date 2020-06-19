@@ -35,10 +35,14 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
  
     $scope.PrevAssignQty = 0;
     $scope.userQty = 0;
+    
 
     $(document).on("click", ".popup", function () {
         $scope.tempPrevAssignQty = 0;
         $scope.tempPendingAssignQty = 0;
+
+        $("#txtPrevAssignQty").val(0);
+        $("#txtPendingAssignQty").val(0);
 
         $scope.srno = $(this).data('id');
         $scope.userQty = $(this).data('qty');
@@ -46,11 +50,16 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
         $scope.assetType = $(this).data('item');
         $scope.tempPrevAssignQty = $(this).data('allotqty');
 
-        if ($scope.tempPrevAssignQty!="") {
+        if ($scope.tempPrevAssignQty != "") {
             $("#txtPrevAssignQty").val($scope.tempPrevAssignQty);
             $scope.PrevAssignQty = $scope.tempPrevAssignQty;
-        }      
+        }
 
+        $scope.tempPendingAssignQty = $(this).data('balqty');
+
+        if ($scope.tempPendingAssignQty != "") {
+            $("#txtPendingAssignQty").val($scope.tempPendingAssignQty);
+        } 
 
         if ($scope.assetInfo.length > 0) {
             for (var i = 0; i < $scope.assetInfo.length; i++) {
@@ -71,43 +80,48 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
     // savedata function of popup
     $scope.assetInfo = [];
 
+    
     $scope.SaveData = function () {
-        if ($scope.flag == "new") {
-            var item = {
-                SrNo: $scope.srno,
-                UserQty: $scope.userQty,
-                asset: $scope.asset,
-                assetType: $scope.assetType,
-                AssetQuantity: $("#txtAssignQty").val(),
-                PrevAssignQty: $("#txtPrevAssignQty").val(),
-                PendingQuantity: $("#txtPendingAssignQty").val(),
-                ProdSrNo: $("#txtProdSrNo").val(),
-                ModelNo: $("#txtModelNo").val(),
-                //Mon: $("#txtMon").val(),
-                WarrantyDate: $("#txtwarrantydate").val(),
-                Remark: $("#txtRemark").val()
+        console.log('step1');
+        var isValid = Validation();
+        if (isValid) {
+            console.log('step2');
+            $('#scrollmodal').modal('hide');
+            if ($scope.flag == "new") {
+                var item = {
+                    SrNo: $scope.srno,
+                    UserQty: $scope.userQty,
+                    asset: $scope.asset,
+                    assetType: $scope.assetType,
+                    AssetQuantity: $("#txtAssignQty").val(),
+                    PrevAssignQty: $("#txtPrevAssignQty").val(),
+                    PendingQuantity: $("#txtPendingAssignQty").val(),
+                    ProdSrNo: $("#txtProdSrNo").val(),
+                    ModelNo: $("#txtModelNo").val(),
+                    Mon: $("#txtMon").val(),
+                    WarrantyDate: $("#txtwarrantydate").val(),
+                    Remark: $("#txtRemark").val()
+                }
+                $scope.assetInfo.push(item);
+                $scope.clrData();
+                console.log($scope.assetInfo);
             }
-            $scope.assetInfo.push(item);
-            $scope.clrData();
-            console.log($scope.assetInfo);
-        }
-        else {
-            var i = $scope.assetInfo.findIndex(x => x.SrNo === $scope.srno);
+            else {
+                var i = $scope.assetInfo.findIndex(x => x.SrNo === $scope.srno);
 
-            $scope.assetInfo[i].SrNo = $scope.srno;
-            $scope.assetInfo[i].AssetQuantity = $("#txtAssignQty").val();
-            $scope.assetInfo[i].PrevAssignQty = $("#txtPrevAssignQty").val();
-            $scope.assetInfo[i].PendingQuantity = $("#txtPendingAssignQty").val();
-            $scope.assetInfo[i].ProdSrNo = $("#txtProdSrNo").val();
-            $scope.assetInfo[i].ModelNo = $("#txtModelNo").val();
-            //$scope.assetInfo[i].Mon = $("#txtMon").val();
-            //Date: $scope.ngtxtDate,
-            $scope.assetInfo[i].Remark = $("#txtRemark").val();
-            $scope.assetInfo[i].WarrantyDate = $("#txtwarrantydate").val();
-            console.log($scope.assetInfo);
-            $scope.clrData();
+                $scope.assetInfo[i].SrNo = $scope.srno;
+                $scope.assetInfo[i].AssetQuantity = $("#txtAssignQty").val();
+                $scope.assetInfo[i].PrevAssignQty = $("#txtPrevAssignQty").val();
+                $scope.assetInfo[i].PendingQuantity = $("#txtPendingAssignQty").val();
+                $scope.assetInfo[i].ProdSrNo = $("#txtProdSrNo").val();
+                $scope.assetInfo[i].ModelNo = $("#txtModelNo").val();
+                $scope.assetInfo[i].Mon = $("#txtMon").val();
+                $scope.assetInfo[i].Remark = $("#txtRemark").val();
+                $scope.assetInfo[i].WarrantyDate = $("#txtwarrantydate").val();
+                console.log($scope.assetInfo);
+                $scope.clrData();
+            }
         }
-        
     }
 
     // clear add data in array
@@ -135,16 +149,40 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
         console.log($scope.assetInfo);
     }
 
-    
+    $scope.chkerrflag = true;
 
     $scope.getPendingQty = function () {
         $scope.tempqty = $("#txtAssignQty").val();
-        $scope.totalqty = $scope.PrevAssignQty + parseInt($scope.tempqty);
-        $scope.tempPendingQty = $scope.userQty - parseInt($scope.totalqty);
-        $("#txtPendingAssignQty").val($scope.tempPendingQty);
+        if ($scope.tempqty != "") {           
+            $scope.totalqty = $scope.PrevAssignQty + parseInt($scope.tempqty);
+
+            if ($scope.totalqty > $scope.userQty) {
+                var message = "<ul class='parsley-errors-list filled' id='parsley1'><li class='parsley-required'>" + "Please enter correct assign quantity." + "</li></ul>"
+                $('#txtAssignQty').parent().append(message);
+                $('#txtAssignQty').addClass("parsley-error");
+                $scope.chkerrflag = false;
+            }
+            else {
+                $scope.tempPendingQty = $scope.userQty - parseInt($scope.totalqty);
+                $("#txtPendingAssignQty").val($scope.tempPendingQty);
+                alert('Pending Assign quantity is ' + $scope.tempPendingQty);
+                $('#parsley1').remove();
+                $('#txtAssignQty').removeClass("parsley-error");
+                $('#txtAssignQty').addClass("parsley-success");
+                $scope.chkerrflag = true;
+            }
+        }
+        else {
+            $('#txtAssignQty').addClass("parsley-error");
+            $('#txtAssignQty').removeClass("parsley-success");
+            var message = "<ul class='parsley-errors-list filled' id='parsley1'><li class='parsley-required'>" + "This value is required." + "</li></ul>"
+            $('#txtAssignQty').parent().append(message);
+            $('#txtAssignQty').addClass("parsley-error");
+        }
     }
 
     $scope.Close = function () {
+        clearErrorClass();
         $scope.clrData();
     }
 
@@ -202,6 +240,41 @@ AllocateAssetapp.controller('AllocateAssetController', function ($scope, $filter
                 alert("Error");
             }
         });
+    }
+
+    function clearErrorClass() {
+        $('#parsley1').remove();
+        $('.validate').removeClass("parsley-error");
+    }
+
+    //validation
+    function Validation() {
+
+        if ($scope.chkerrflag == true) {
+            clearErrorClass();
+        }
+
+        var retval = true;
+
+        try {
+            var assignqty = $("#txtAssignQty").val();
+
+            retval = $scope.chkerrflag;
+
+            if (assignqty == "" || typeof (assignqty) === "undefined") {
+                var message = "<ul class='parsley-errors-list filled' id='parsley1'><li class='parsley-required'>" + "This value is required." + "</li></ul>"
+                $('#txtAssignQty').parent().append(message);
+                $('#txtAssignQty').addClass("parsley-error");
+                retval = false;
+            }
+
+            return retval;
+        }
+
+        catch (err) {
+            console.log(err.message);
+            retval = false;
+        }
     }
 
     $scope.PerformAction = function () {

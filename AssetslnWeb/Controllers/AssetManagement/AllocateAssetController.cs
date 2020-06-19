@@ -81,7 +81,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 {
                     for (var j = 0; j < _AssetsApplyDetailsModel.Count; j++)
                     {
-                        if (assetAllotmentHistoryModels[i].asset == _AssetsApplyDetailsModel[j].Asset && assetAllotmentHistoryModels[i].assetType == _AssetsApplyDetailsModel[j].AssetType)
+                        if (assetAllotmentHistoryModels[i].asset == _AssetsApplyDetailsModel[j].AssetId && assetAllotmentHistoryModels[i].assetType == _AssetsApplyDetailsModel[j].AssetTypeId)
                         { 
                             // create to update stock in AssetType list
                             AM_AssetsTypeModel assetsTypeModel = new AM_AssetsTypeModel();
@@ -112,10 +112,10 @@ namespace AssetslnWeb.Controllers.AssetManagement
                             }
 
                             // check count is match or not
-                            if (userallotqty != Convert.ToInt32(_AssetsApplyDetailsModel[j].UserAllottedQuantity))
-                            {
-                                changeFlow = false;
-                            }
+                            //if (userallotqty != Convert.ToInt32(_AssetsApplyDetailsModel[j].UserAllottedQuantity))
+                            //{
+                            //    changeFlow = false;
+                            //}
 
 
                             // save assetsapply data
@@ -147,6 +147,20 @@ namespace AssetslnWeb.Controllers.AssetManagement
                     }
                 }
 
+
+                //check that all requested quantity is allocated or not
+                List<AM_AssetsApplyDetailsModel> aM_AssetsApplyDetailsModels = new List<AM_AssetsApplyDetailsModel>();
+                AM_AssetsApplyDetailsBal m_AssetsApplyDetailsBal = new AM_AssetsApplyDetailsBal();
+
+                aM_AssetsApplyDetailsModels = m_AssetsApplyDetailsBal.GetDetailsById(clientContext, _AssetsApplyModel.ID);
+
+                for (int i = 0; i < aM_AssetsApplyDetailsModels.Count; i++)
+                {
+                    if (aM_AssetsApplyDetailsModels[i].UserApplyQuantity != aM_AssetsApplyDetailsModels[i].UserAllottedQuantity)
+                    {
+                        changeFlow = false;
+                    }
+                }
 
                 //// call workflow data
                 //List<AM_WorkFlowModel> workFlowModelPrevious = new List<AM_WorkFlowModel>();
