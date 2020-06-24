@@ -9,17 +9,17 @@ using System.Web;
 
 namespace AssetslnWeb.BAL
 {
-    public class Emp_DepartmentBal
+    public class AM_DepartmentBal
     {
-        public Emp_DepartmentModel GetDepartmentHead(ClientContext clientContext, string department)
+        public AM_DepartmentModel GetDepartmentHead(ClientContext clientContext, string department)
         {
-            Emp_DepartmentModel departmentModel = new Emp_DepartmentModel();
+            AM_DepartmentModel departmentModel = new AM_DepartmentModel();
 
             string filter = "DepartmentName eq '" + department + "'";
 
             JArray jArray = RESTGet(clientContext, filter);
 
-            departmentModel = new Emp_DepartmentModel
+            departmentModel = new AM_DepartmentModel
             {
                 ID = Convert.ToInt32(jArray[0]["ID"]),
                 DepartmentName = jArray[0]["DepartmentName"] == null ? "" : Convert.ToString(jArray[0]["DepartmentName"]),

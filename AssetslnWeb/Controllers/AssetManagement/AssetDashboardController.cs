@@ -11,6 +11,7 @@ namespace AssetslnWeb.Controllers.AssetManagement
 {
     public class AssetDashboardController : Controller
     {
+        AM_AssetMainModel assetMainModel = new AM_AssetMainModel();
 
         // GET: AssetDashboard
         public ActionResult Index()
@@ -38,13 +39,17 @@ namespace AssetslnWeb.Controllers.AssetManagement
                 assetsApplyModels = assetsApplyBals.GetDataByEmpcode(clientContext,EmpModel[0].EmpCode);
 
                 MyRequestModels = MyRequestBal.GetMyRequest(clientContext, EmpModel[0].EmpCode);
-
-                ViewBag.assetsDataArr = assetsApplyModels.OrderByDescending(i => i.ID);
-
-                ViewBag.assetsMyRequest = MyRequestModels.OrderByDescending(i => i.ID);
             }
 
-            return View();
+            assetMainModel.PendingRequest = assetsApplyModels.OrderByDescending(i => i.ID);
+            assetMainModel.MyRequest = MyRequestModels.OrderByDescending(i => i.ID);
+
+            return View(assetMainModel);
+        }
+
+        public ActionResult ApplyAssetView()
+        {
+            return PartialView("AM_ApplyAssetView");
         }
     }
 }

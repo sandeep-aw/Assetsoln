@@ -1,4 +1,6 @@
-﻿button.btn-approve:hover, button.btn-approve:focus {
+﻿/*breadcrumb css start*/
+
+button.btn-approve:hover, button.btn-approve:focus {
     background: #286090 !important;
     color: #fff !important;
 }
@@ -12,11 +14,11 @@
     border: 1px solid !important;
 }
 
-    .btn-approve, .btn-approve:hover, .btn-primary.badge i {
-        border-color: #286090 !important;
-        color: #286090 !important;
-        /* border: 1px solid!important; */
-    }
+.btn-approve, .btn-approve:hover, .btn-primary.badge i {
+    border-color: #286090 !important;
+    color: #286090 !important;
+    /* border: 1px solid!important; */
+}
 
 .btnCustom:hover {
     background: #fff;
@@ -68,27 +70,27 @@ input[type=button]:hover, input[type=reset]:hover, input[type=submit]:hover, but
     margin: 0;
 }
 
-    .breadcrumb li:first-child a {
-        padding-left: 10px;
-    }
+.breadcrumb li:first-child a {
+    padding-left: 10px;
+}
 
-    .breadcrumb li a {
-        color: #000;
-        text-decoration: none;
-        padding: 10px 0 10px 40px;
-        background: #d9edf7;
-        background: #d9edf7;
-        position: relative;
-        display: block;
-        float: left;
-    }
+.breadcrumb li a {
+    color: #000;
+    text-decoration: none;
+    padding: 10px 0 10px 40px;
+    background: #d9edf7;
+    background: #d9edf7;
+    position: relative;
+    display: block;
+    float: left;
+}
 
-    .breadcrumb > li {
-        display: inline-block;
-        *display: inline;
-        text-shadow: 0 1px 0 #fff;
-        *zoom: 1;
-    }
+.breadcrumb > li {
+    display: inline-block;
+    *display: inline;
+    text-shadow: 0 1px 0 #fff;
+    *zoom: 1;
+}
 
 li {
     line-height: 20px;
@@ -129,3 +131,43 @@ li {
     left: 100%;
     z-index: 2;
 }
+
+/*breadcrumb css end*/
+
+/*popup css start*/
+
+.modal.left .modal-dialog {
+    position: fixed;
+    right: 0;
+    margin: auto;
+    width: auto;
+    max-width: none;
+    height: 100%;
+    -webkit-transform: translate3d(0%, 0, 0);
+    -ms-transform: translate3d(0%, 0, 0);
+    -o-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+
+.modal.left .modal-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.modal.right .modal-body {
+    padding: 15px 15px 80px;
+}
+
+.modal.right.fade .modal-dialog {
+    left: -320px;
+    -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -moz-transition: opacity 0.3s linear, left 0.3s ease-out;
+    -o-transition: opacity 0.3s linear, left 0.3s ease-out;
+    transition: opacity 0.3s linear, left 0.3s ease-out;
+}
+
+.modal.right.fade.show .modal-dialog {
+    right: 0;
+}
+
+/*popup css end*/

@@ -184,23 +184,18 @@
     <Compile Include="BAL\AssetManagement\AM_AssetAllotmentHistoryBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApplyDetailsBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApproverBal.cs" />
-    <Compile Include="BAL\Emp_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsApplyBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsHistoryBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_AssetsTypeBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_BasicInfoBal.cs" />
     <Compile Include="BAL\AssetManagement\AM_WorkFlowBal.cs" />
-    <Compile Include="BAL\Emp_DepartmentBal.cs" />
+    <Compile Include="BAL\AssetManagement\AM_DepartmentBal.cs" />
     <Compile Include="BAL\GEN_ApproverMasterBal.cs" />
     <Compile Include="BAL\GEN_ApproverRoleListBal.cs" />
     <Compile Include="BAL\NavigationBal.cs" />
     <Compile Include="BAL\UsersGroup.cs" />
-    <Compile Include="Controllers\AssetManagement\AllocateAssetController.cs" />
-    <Compile Include="Controllers\AssetManagement\ApplyAssetController.cs" />
-    <Compile Include="Controllers\AssetManagement\ApproveAssetController.cs" />
     <Compile Include="Controllers\AssetManagement\AssetDashboardController.cs" />
-    <Compile Include="Controllers\AssetManagement\AssetViewController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="DAL\AuthenticateUser.cs" />
@@ -212,8 +207,8 @@
     </Compile>
     <Compile Include="Models\AssetManagement\AM_AssetAllotmentHistoryModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetAllotmentMainModel.cs" />
+    <Compile Include="Models\AssetManagement\AM_AssetMainModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApplyDetailsModel.cs" />
-    <Compile Include="Models\Emp_BasicInfoModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApplyModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsApproverModel.cs" />
     <Compile Include="Models\AssetManagement\AM_AssetsHistoryModel.cs" />
@@ -222,7 +217,7 @@
     <Compile Include="Models\AssetManagement\AM_StatusMasterModel.cs" />
     <Compile Include="Models\AssetManagement\AM_WorkFlowModel.cs" />
     <Compile Include="Models\AssetManagement\AM_BasicInfoModel.cs" />
-    <Compile Include="Models\Emp_DepartmentModel.cs" />
+    <Compile Include="Models\AssetManagement\AM_DepartmentModel.cs" />
     <Compile Include="Models\GEN_ApproverMasterModel.cs" />
     <Compile Include="Models\GEN_ApproverRoleListModel.cs" />
     <Compile Include="Models\GEN_ApproverRoleNameModel.cs" />
@@ -8180,14 +8175,11 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\Angular\AssetManagement\JS\AllocateAsset.js" />
-    <Content Include="Scripts\Angular\AssetManagement\JS\ApproveAsset.js" />
     <Content Include="Scripts\Angular\AssetManagement\JS\AssetDashboard.js" />
     <Content Include="Scripts\Angular\AssetManagement\Services\ApplyAssetService.js" />
     <Content Include="Scripts\Angular\DAL\CommonJs.js" />
     <Content Include="Scripts\Angular\DAL\DAL.js" />
     <Content Include="Scripts\Angular\DAL\Navigation.js" />
-    <Content Include="Scripts\Angular\AssetManagement\JS\ApplyAsset.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CSS\mdi\font\bower.json" />
@@ -9212,13 +9204,9 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\ApplyAsset\Index.cshtml" />
     <Content Include="Views\AssetDashboard\Index.cshtml" />
-    <Content Include="Views\AssetView\Index.cshtml" />
-    <Content Include="Views\Shared\ViewAssetData.cshtml" />
-    <Content Include="Views\Shared\ViewHistoryData.cshtml" />
-    <Content Include="Views\ApproveAsset\Index.cshtml" />
-    <Content Include="Views\AllocateAsset\Index.cshtml" />
+    <Content Include="Views\AssetDashboard\AM_DashboardView.cshtml" />
+    <Content Include="Views\AssetDashboard\AM_ApplyAssetView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

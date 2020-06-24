@@ -1,0 +1,108 @@
+﻿@model AssetslnWeb.Models.AssetManagement.AM_AssetMainModel
+
+
+<!-- Pending Dashboard Code start-->
+
+<div class="card mg-b-20">
+    <div class="card-header pb-0">
+        <div class="d-flex justify-content-between">
+            <h4 class="card-title mg-b-0">My Pending Request</h4>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row-sm text-center">
+            <div class="col-sm-6 col-md-2 mg-b-20 float-right">
+                <button type="button" class="btn btn-primary addbtn1 float-right" ng-click="ApplyAsset()"><i class="fa fa-plus AddPlus"></i> Apply For Asset</button>
+                @*@Ajax.ActionLink("Apply For Asset", "ApplyAssetView", "AssetDashboard", new AjaxOptions { UpdateTargetId = "ApplyAssetData" }, new { @class = "btn btn-primary addbtn1 float-right" })*@
+            </div>
+        </div>
+
+
+        <div class="table-responsive">
+            <table id="pendingrequest" class="table key-buttons text-md-nowrap">
+                <thead>
+                    <tr>
+                        <th class="wd-10p border-bottom-0">Sr. No.</th>
+                        <th class="wd-20p border-bottom-0">Request No</th>
+                        <th class="wd-20p border-bottom-0">Employee Name</th>
+                        <th class="wd-15p border-bottom-0">Status</th>
+                        <th class="wd-15p border-bottom-0">Request Date</th>
+                        <th class="wd-15p bottom-0">Return Date</th>
+                        <th class="wd-15p border-bottom-0">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int index = 1;}
+                    @foreach (var j in Model.PendingRequest)
+                    {
+                        <tr>
+                            <td>@index</td>
+                            <td>@j.RequestNo</td>
+                            <td>@j.fname @j.lname</td>
+                            <td><span class="badge badge-dark">@j.Status</span></td>
+                            <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
+                            <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
+                            <td>
+                                <button class="btn btn-icon-list" onclick="AssetApproval('')" style="padding:0px;">
+                                <i class="si si-pencil text-primary mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="Edit"></i></button>
+                            </td>
+                        </tr>
+                        index++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Dashboard Code End-->
+<!-- My Request Dashboard Code start-->
+<div class="card mg-b-20">
+    <div class="card-header pb-0">
+        <div class="d-flex justify-content-between">
+            <h4 class="card-title mg-b-0">My Request</h4>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+
+        <div class="table-responsive">
+            <table id="myrequest" class="table key-buttons text-md-nowrap">
+                <thead>
+                    <tr>
+                        <th class="wd-10p border-bottom-0">Sr. No.</th>
+                        <th class="wd-20p border-bottom-0">Request No</th>
+                        <th class="wd-20p border-bottom-0">Employee Name</th>
+                        <th class="wd-15p border-bottom-0">Status</th>
+                        <th class="wd-15p border-bottom-0">Request Date</th>
+                        <th class="wd-15p border-bottom-0">Return Date</th>
+                        <th class="wd-15p border-bottom-0">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int indexview = 1;}
+                    @foreach (var j in Model.MyRequest)
+                    {
+                        <tr>
+                            <td>@indexview</td>
+                            <td>@j.RequestNo</td>
+                            <td>@j.fname @j.lname</td>
+                            <td><span class="badge badge-dark">@j.Status</span></td>
+                            <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
+                            <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
+                            <td>
+                                <button class="btn btn-icon-list" onclick="ViewAsset('')" style="padding:0px;">
+                                <i class="si si-eye text-success mr-2" data-toggle="tooltip" title="" data-placement="top" data-original-title="View"></i></button>
+                            </td>
+                        </tr>
+                        indexview++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- My Request Dashboard Code End-->

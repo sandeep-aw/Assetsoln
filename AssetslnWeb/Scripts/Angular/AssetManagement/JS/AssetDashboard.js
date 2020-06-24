@@ -1,15 +1,21 @@
 ﻿var AssetDashboardapp = angular.module('AssetDashboardapp', ['CommonAppUtility'])
 
 AssetDashboardapp.controller('AssetDashboardController', function ($scope, $filter, $http, CommonAppUtilityService) {
-    // $scope.demo = "sandi";
 
+    // set current date
     var d = new Date();
-    console.log(d);
-    $scope.historydate = $filter('date')(d, 'MM/dd/yyyy');
+    $scope.currentdate = $filter('date')(d, 'dd-MM-yyyy');
+    console.log($scope.currentdate);
 
     // call apply asset page
-    $scope.addAsset = function () {
-        Pageredirect("/ApplyAsset/Index");
+    $scope.ApplyAsset = function () {
+        var data = { 'ID': 1, }
+
+        CommonAppUtilityService.CreateItem("/AssetDashboard/ApplyAssetView", data).then(function (response) {
+            $('#ModalPopUp').modal('show');
+            $(".modal-title").html('Apply For Asset');
+            $(".modal-body").html(response.data);
+        });
     }
 
     // call view page
@@ -44,6 +50,11 @@ AssetDashboardapp.controller('AssetDashboardController', function ($scope, $filt
         else if (internalstatus == "pendingallocated") {
             CommonAppUtilityService.CreateItem("/AllocateAsset/getAssetId", data).then(function (response) {
                 Pageredirect("/AllocateAsset/Index");
+            });
+        }
+        else if (internalstatus == "assetsallocated") {
+            CommonAppUtilityService.CreateItem("/ReturnAsset/getAssetId", data).then(function (response) {
+                Pageredirect("/ReturnAsset/Index");
             });
         }
     }

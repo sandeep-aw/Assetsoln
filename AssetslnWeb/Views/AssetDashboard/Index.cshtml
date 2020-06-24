@@ -1,8 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model AssetslnWeb.Models.AssetManagement.AM_AssetMainModel
 
 @section style{
 
@@ -18,6 +14,7 @@
     <link href="../assets/plugins/datatable/css/responsive.bootstrap4.min.css" rel="stylesheet" />
     <link href="../assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
+
 }
 
 <!-- container opened -->
@@ -34,126 +31,7 @@
     <!-- row -->
     <div class="row" ng-app="AssetDashboardapp" ng-controller="AssetDashboardController">
         <div class="col-xl-12 col-lg-12">
-
-            <!-- Pending Dashboard Code start-->
-
-            <div class="card mg-b-20">
-                <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">My Pending Request</h4>
-                    </div>
-                </div>
-
-                <div class="card-body">
-                    <!--div class="row-sm">
-                        <div class="col-sm-6 col-md-3 mg-t-10 float-right">
-                            <button class="btn btn-dark btn-block">Add</button>
-                        </div>
-                    </div-->
-
-                    <div class="row-sm text-center">
-                        <div class="col-sm-6 col-md-2 mg-b-20 float-right">
-                            <button class="btn btn-info btn-block" ng-click="addAsset()">Apply For Asset</button>
-                        </div>
-                    </div>
-
-
-                    <div class="table-responsive">
-                        <table id="pendingrequest" class="table key-buttons text-md-nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="border-bottom-0">Sr. No.</th>
-                                    <th class="border-bottom-0">Request No</th>
-                                    <th class="border-bottom-0">Employee Name</th>
-                                    <th class="border-bottom-0">Status</th>
-                                    <th class="border-bottom-0">Request Date</th>
-                                    <th class="border-bottom-0">Return Date</th>
-                                    <th class="border-bottom-0">Comments</th>
-                                    <th class="border-bottom-0">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{int index = 1;}
-                                @foreach (var j in ViewBag.assetsDataArr)
-                                {
-                                <tr>
-                                    <td>@index</td>
-                                    <td>@j.RequestNo</td>
-                                    <td>@j.fname @j.lname</td>
-                                    <td><span class="badge badge-dark">@j.Status</span></td>
-                                    <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
-                                    <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
-                                    <td>@j.Comments</td>
-                                    <td>
-                                        <div class="btn-icon-list">
-                                            <button class="btn btn-primary btn-icon" ng-click="getEditData(@j.ID,'@j.InternalStatus')"><i class="far fa-edit"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                    index++;
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pending Dashboard Code End-->
-            <!-- My Request Dashboard Code start-->
-            <div class="card mg-b-20">
-                <div class="card-header pb-0">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">My Request</h4>
-                    </div>
-                </div>
-
-                <div class="card-body">
-
-
-                    <div class="table-responsive">
-                        <table id="myrequest" class="table key-buttons text-md-nowrap">
-                            <thead>
-                                <tr>
-                                    <th class="border-bottom-0">Sr. No.</th>
-                                    <th class="border-bottom-0">Request No</th>
-                                    <th class="border-bottom-0">Employee Name</th>
-                                    <th class="border-bottom-0">Status</th>
-                                    <th class="border-bottom-0">Request Date</th>
-                                    <th class="border-bottom-0">Return Date</th>
-                                    <th class="border-bottom-0">Comments</th>
-                                    <th class="border-bottom-0">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{int indexview = 1;}
-                                @foreach (var j in ViewBag.assetsMyRequest)
-                                {
-                                <tr>
-                                    <td>@indexview</td>
-                                    <td>@j.RequestNo</td>
-                                    <td>@j.fname @j.lname</td>
-                                    <td><span class="badge badge-dark">@j.Status</span></td>
-                                    <td>@(j.RequestDate.ToString("dd/MM/yyyy"))</td>
-                                    <td>@(j.ReturnDate.ToString("dd/MM/yyyy"))</td>
-                                    <td>@j.Comments</td>
-                                    <td>
-                                        <div class="btn-icon-list">
-                                            <button class="btn btn-info  btn-icon" ng-click="getViewData(@j.ID)"><i class="far fa-eye"></i></button>
-                                            @*<button class="btn btn-info  btn-icon" onclick="getViewData(@j.ID)"><i class="far fa-eye"></i></button>*@
-                                        </div>
-                                    </td>
-                                </tr>
-                                    indexview++;
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- My Request Dashboard Code End-->
-
-
-
+            @Html.Partial("AM_DashboardView", Model)
         </div>
     </div>
     <input type="hidden" id="txtid" name="txtname" />
@@ -161,6 +39,33 @@
 </div>
 <!-- Container closed -->
 
+
+<!-- modal pop up -->
+<!-- Full Height Modal Right -->
+<div class="modal left fade" id="ModalPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"
+     aria-hidden="true">
+
+    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <!--	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>  -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Height Modal Right -->
+<!-- end modal pop up -->
 
 @section scripts{
 

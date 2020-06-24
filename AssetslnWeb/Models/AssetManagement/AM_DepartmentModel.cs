@@ -5,7 +5,7 @@ using System.Web;
 
 namespace AssetslnWeb.Models
 {
-    public class Emp_DepartmentModel
+    public class AM_DepartmentModel
     {
         public int ID { get; set; }
 

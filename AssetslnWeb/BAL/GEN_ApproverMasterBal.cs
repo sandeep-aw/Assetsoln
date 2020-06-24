@@ -86,8 +86,8 @@ namespace AssetslnWeb.BAL
                 {
                     if(basicInfoManager.Department!=null)
                     {
-                        Emp_DepartmentModel departmentModel = new Emp_DepartmentModel();
-                        Emp_DepartmentBal departmentBal = new Emp_DepartmentBal();
+                        AM_DepartmentModel departmentModel = new AM_DepartmentModel();
+                        AM_DepartmentBal departmentBal = new AM_DepartmentBal();
                         departmentModel = departmentBal.GetDepartmentHead(clientContext,basicInfoManager.Department);
 
                         approverRoleNameModel.Add(new GEN_ApproverRoleNameModel
