@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace AssetslnWeb.Models.EmployeeManagement
+namespace AssetslnWeb.Models.AssetManagement
 {
     public class AM_BasicInfoModel
     {

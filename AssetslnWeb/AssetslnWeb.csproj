@@ -9207,6 +9207,7 @@
     <Content Include="Views\AssetDashboard\Index.cshtml" />
     <Content Include="Views\AssetDashboard\AM_DashboardView.cshtml" />
     <Content Include="Views\AssetDashboard\AM_ApplyAssetView.cshtml" />
+    <Content Include="Views\AssetDashboard\AM_AssetView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,133 @@
+﻿@model AssetslnWeb.Models.AssetManagement.AM_AssetMainModel
+
+    <form role="form">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title w-100" id="myModalLabel">View Asset Request</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row row-sm mg-b-30">
+                        <div class="col-sm-12 text-right">
+                            <label for="First_Name"><span class="tx-bold">Status :</span> <span class="tx-white bg-primary p-1">@(Model.assetsApplyModel == null ? "" : Model.assetsApplyModel.Status)</span></label>
+                        </div>
+                    </div>
+
+                    <div class="row mg-b-30">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <h5 class="card-title mb-3">Approver</h5><div class="row-fluid" id="approval-diagram" style="margin-bottom: 20px">
+                                    <ul class="breadcrumb"><li><a href="#"> You</a>
+                                        @if (Model.ApproverNames != null)
+                                        {
+                                            foreach (var item in Model.ApproverNames)
+                                            {
+                                            <li><a href="#">@item</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mg-b-30">
+                        <div class="row row-sm mg-b-10">
+                            <div class="col-lg-12"><h5 class="card-title mb-3">Assets Details</h5></div>
+                            <div class="col-lg-3"><span class="tx-bold"><label for="First_Name">Request No</label></span></div>
+                            <div class="col-lg-3"><label for="First_Name">@(Model.assetsApplyModel == null ? "" : Model.assetsApplyModel.RequestNo)</label></div>
+                            <div class="col-lg-3"><span class="tx-bold"><label for="First_Name">Employee Name</label></span></div>
+                            <div class="col-lg-3"><label for="First_Name">@(Model.assetsApplyModel == null ? "" : Model.assetsApplyModel.fname+" "+Model.assetsApplyModel.lname)</label></div>
+                        </div>
+
+                        <div class="row row-sm mg-b-10">
+                            <div class="col-lg-3"><span class="tx-bold"><label for="First_Name">Request Date</label></span></div>
+                            <div class="col-lg-3">                        
+                                @if (Model.assetsApplyModel != null)
+                                {
+                                    <label for="First_Name">@Model.assetsApplyModel.RequestDate.ToString("dd/MM/yyyy")</label>       
+                                }
+                            </div>
+                            <div class="col-lg-3"><span class="tx-bold"><label for="First_Name">Return Date</label></span></div>
+                            <div class="col-lg-3">
+                                @if (Model.assetsApplyModel != null)
+                                {
+                                    <label for="First_Name">@Model.assetsApplyModel.ReturnDate.ToString("dd/MM/yyyy")</label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-sm mg-b-30">
+                        <div class="col-lg-6"></div>
+                        <div class="table-responsive text-center">
+                            <table class="table table-bordered mg-b-0 text-md-nowrap bordertable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Sr. No.</th>
+                                        <th scope="col">Asset</th>
+                                        <th scope="col">Asset Type</th>
+                                        <th scope="col">Req Qty</th>
+                                        <th scope="col">Reason To Apply</th>
+                                        <th scope="col">Asset Details</th>
+                                        <th scope="col">Replacement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int indexview = 1;}
+
+                                    @if (Model.assetsApplyDetailsModels != null)
+                                    {
+                                        foreach (var item in Model.assetsApplyDetailsModels)
+                                        {
+                                            <tr>
+                                                <td scope="row" data-label="ID">@indexview</td>
+                                                <td data-label="Asset">@item.Asset</td>
+                                                <td data-label="AssetType">@item.AssetType</td>
+                                                <td data-label="Qty">@item.UserApplyQuantity</td>
+                                                <td data-label="Reason">@item.ReasonToApply</td>
+                                                <td data-label="Details">@item.AssetDetails</td>
+                                                <td data-label="Replacement">@item.Replacement</td>
+                                            </tr>
+                                            indexview++;
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mg-b-20"><h4 class="card-title mg-b-0">History</h4></div>
+                    <div class="table-responsive table-bordered text-center mg-b-30">
+                        <table class="table table-striped mg-b-0 text-md-nowrap">
+                            <thead><tr><th>Serial No</th><th>Action by</th><th>Status</th><th>Date</th><th>Comments</th></tr></thead>
+                            <tbody>
+                                @{int indexhistoryview = 1;}
+
+                                @if (Model.assetsHistoryModels != null)
+                                {
+                                    foreach (var obj in Model.assetsHistoryModels)
+                                    {
+                                        <tr>
+                                            <th scope="row">@indexhistoryview</th>
+                                            <td>@obj.fname @obj.lname</td>
+                                            <td>@obj.Status</td>
+                                            <td>@(obj.CurrentDate.ToString("dd/MM/yyyy"))</td>
+                                            <td>@obj.Comments</td>
+                                        </tr>
+                                        indexhistoryview++;
+                                    }
+                                }
+                                </tbody>
+                        </table>
+                    </div><!-- bd -->
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                </div>
+            </div>
+        </div>
+    </form>

@@ -2,7 +2,6 @@
 using AssetslnWeb.DAL;
 using AssetslnWeb.Models;
 using AssetslnWeb.Models.AssetManagement;
-using AssetslnWeb.Models.EmployeeManagement;
 using Microsoft.SharePoint.Client;
 using Newtonsoft.Json.Linq;
 using System;

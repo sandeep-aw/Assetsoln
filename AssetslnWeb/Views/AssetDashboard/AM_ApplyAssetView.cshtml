@@ -1,1 +1,165 @@
-﻿<h1>hi</h1>
+﻿@model AssetslnWeb.Models.AssetManagement.AM_AssetMainModel
+
+<form role="form" id="ApplyAssetForm">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title w-100" id="myModalLabel">Apply For Asset</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row row-sm mg-b-30" id="showApprover">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <h5 class="card-title mb-3">Approver</h5>
+                            <div class="row-fluid" id="approval-diagram" style="margin-bottom: 20px">
+                                <ul class="breadcrumb" id="approverData">
+                                    <li><a href="#">You</a></li>
+                                </ul>
+                                <!--<li><a href="#"><i class="fa fa-check"></i> Completed</a></li>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row row-sm">
+                    <div class="col-lg-12"><h5 class="card-title mb-3">Create a new request for Asset</h5></div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="First_Name">Employee Name</label>
+                            <div id="slWrapper" class="parsley-select">
+                                <select required="" class="form-control" name="EmployeeName" ng-model="ngddlAllUser" id="EmpSelect" onchange="getApproverInfo()" data-parsley-class-handler="#slWrapper" data-parsley-errors-container="#slErrorContainer">
+                                    <option value=""> </option>
+                                    @if (Model.BasicInfoModels.Count() > 0)
+                                    {
+                                        foreach (var obj in Model.BasicInfoModels)
+                                        {
+                                            <option value="@obj.ID">
+                                                @obj.FirstName @obj.LastName
+                                            </option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div id="slErrorContainer"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Request Date</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    </div>
+                                </div><input class="form-control" ng-model="ngtxtRequestDate" id="requestdate" type="text" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Return Date</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <script src="~/assets/js/form-elements.js"></script>
+                                        <i class="typcn typcn-calendar-outline tx-24 lh--9 op-6"></i>
+                                    </div>
+                                </div><input required="" class="form-control" ng-model="ngtxtReturnDate" id="returndate" autocomplete="off" type="text" data-parsley-class-handler="#slReturnDate" data-parsley-errors-container="#slReturnDateError">
+                            </div>
+                            <div id="slReturnDateError"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div></div>
+                <div class="row row-sm">
+                    <div class="col-lg-6"><h5 class="card-title mb-3">Add Assets</h5></div><div class="col-lg-6"></div>
+
+                    <div class="table-responsive mg-b-30 text-center">
+                        <table class="table table-bordered mg-b-0 text-md-nowrap bordertable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Asset</th>
+                                    <th scope="col">Asset Type</th>
+                                    <th scope="col">Req Qty</th>
+                                    <th scope="col">Reason To Apply</th>
+                                    <th scope="col">Asset Details</th>
+                                    <th scope="col">Replacement</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select class="form-control validate" ng-model="ngddlAsset" id="ddlAsset" onchange="getAsset()">
+                                            <option value=""></option>
+                                            @if (Model.assetsModels.Count() > 0)
+                                            {
+                                                foreach (var j in Model.assetsModels)
+                                                {
+                                                    <option value="@j.ID">
+                                                        @j.Assets
+                                                    </option>
+                                                }
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select class="form-control validate" ng-model="ngddlAssetType" id="ddlAssetType" ng-options="a.ID as a.AssetType for a in AssetType track by a.ID">
+                                            <option value=""> </option>
+                                        </select>
+                                    </td>
+                                    <td class="wd-10p"><input type="text" class="form-control validate" ng-model="ngtxtQty" id="txtQty" autocomplete="off" placeholder="Enter Req Qty"></td>
+                                    <td><textarea class="form-control validate" ng-model="ngtxtReason" id="txtReason" placeholder="Enter Reason To Apply" rows="3"></textarea></td>
+                                    <td><textarea class="form-control validate" ng-model="ngtxtDesc" id="txtDesc" placeholder="Enter Asset Details" rows="3"></textarea></td>
+                                    <td>
+                                        <select class="form-control validate" ng-model="ngddlReplacement" id="ddlReplacement">
+                                            <option value=""> </option>
+                                            <option value="Yes">Yes</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </td>
+                                    <th scope="col">
+                                        <button class="btn btn-info btn-block" type="button" ng-click="AddAssets()">Add</button>
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="i in AssetsArr track by $index">
+                                    <td scope="row" data-label="Asset">{{i.Asset}}</td>
+                                    <td data-label="AssetType">{{i.AssetType}}</td>
+                                    <td data-label="Qty">{{i.UserApplyQuantity}}</td>
+                                    <td data-label="Reason">{{i.ReasonToApply}}</td>
+                                    <td data-label="Details">{{i.AssetDetails}}</td>
+                                    <td data-label="Replacement">{{i.Replacement}}</td>
+                                    <td scope="col"><button class="btn btn-info btn-block" type="button" ng-click="RemoveAssets($index)">Delete</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="row row-sm mg-b-20">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="First_Name">Comments</label>
+                            <textarea required="" class="form-control" ng-model="ngtxtComment" id="txtComment" placeholder="Enter Comment" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -15,10 +15,13 @@
     <link href="../assets/plugins/datatable/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="../assets/plugins/datatable/css/responsive.dataTables.min.css" rel="stylesheet">
 
+    <!--Internal   Notify -->
+    <link href="../assets/plugins/notify/css/notifIt.css" rel="stylesheet" />
+
 }
 
 <!-- container opened -->
-<div class="container">
+<div class="container" ng-app="AssetDashboardapp" ng-controller="AssetDashboardController">
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
@@ -29,43 +32,35 @@
     </div>
     <!-- breadcrumb -->
     <!-- row -->
-    <div class="row" ng-app="AssetDashboardapp" ng-controller="AssetDashboardController">
-        <div class="col-xl-12 col-lg-12">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12" id="AssetDashboardModel">
             @Html.Partial("AM_DashboardView", Model)
         </div>
     </div>
-    <input type="hidden" id="txtid" name="txtname" />
     <!-- row closed -->
+    <!-- apply asset modal pop up -->
+    <!-- Full Height Modal Right -->
+    <div class="modal left fade" id="ModalPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"
+         aria-hidden="true">
+        @Html.Partial("AM_ApplyAssetView", Model)
+    </div>
+    <!-- Full Height Modal Right -->
+    <!-- end apply asset modal pop up -->
+
+
+    <!-- asset view modal pop up -->
+    <!-- Full Height Modal Right -->
+    <div class="modal left fade" id="ModalViewPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"
+         aria-hidden="true">
+        @Html.Partial("AM_AssetView", Model)
+    </div>
+    <!-- Full Height Modal Right -->
+    <!-- end apply view modal pop up -->
+
+
 </div>
 <!-- Container closed -->
 
-
-<!-- modal pop up -->
-<!-- Full Height Modal Right -->
-<div class="modal left fade" id="ModalPopUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static"
-     aria-hidden="true">
-
-    <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title w-100" id="myModalLabel"></h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-            </div>
-            <div class="modal-footer justify-content-center">
-                <!--	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>  -->
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Full Height Modal Right -->
-<!-- end modal pop up -->
 
 @section scripts{
 
@@ -73,9 +68,15 @@
     <script src="~/assets/plugins/select2/js/select2.min.js"></script>
     <script src="~/assets/js/select2.js"></script>
 
+    <!--Internal  Parsley.min js -->
+    <script src="../assets/plugins/parsleyjs/parsley.min.js"></script>
+
     <!--Internal  jquery-simple-datetimepicker js -->
     <script src="~/assets/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js"></script>
     <script src="~/assets/js/datePicker.js"></script>
+
+    <!--Internal  Notify js -->
+    <script src="../assets/plugins/notify/js/notifIt.js"></script>
 
     <!-- Internal Data tables -->
     <script src="../assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
@@ -100,7 +101,6 @@
 
     <script src="~/Scripts/Angular/AssetManagement/JS/AssetDashboard.js"></script>
 
-    <!-- initialize tables  -->
     <script>
         $('#pendingrequest').DataTable({
             responsive: true,
@@ -119,15 +119,6 @@
                 lengthMenu: '_MENU_',
             }
         });
-
-        /*function getViewData(id) {
-
-            document.cookie = "AssetID=" + id;
-
-            Pageredirect("/AssetDashboard/getId");
-
-        }*/
-
     </script>
 }
 

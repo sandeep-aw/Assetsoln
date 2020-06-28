@@ -11,5 +11,16 @@ namespace AssetslnWeb.Models.AssetManagement
 
         public IEnumerable<AM_AssetsApplyModel> MyRequest { get; set; }
 
+        public IEnumerable<AM_BasicInfoModel> BasicInfoModels { get; set; }
+
+        public IEnumerable<AM_AssetsModel> assetsModels { get; set; }
+
+        public AM_AssetsApplyModel assetsApplyModel { get; set; }
+
+        public IEnumerable<AM_AssetsApplyDetailsModel> assetsApplyDetailsModels { get; set; }
+
+        public IEnumerable<AM_AssetsHistoryModel> assetsHistoryModels { get; set; }
+
+        public IEnumerable<string> ApproverNames;
     }
 }
